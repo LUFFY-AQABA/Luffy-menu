@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>LUFFY • لوفي | البوابة التنفيذية الحاضنة للمنظومة</title>
+  
+  <!-- خطوط النخبة العالمية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Readex+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-ar: 'Readex Pro', system-ui, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+      --bg-cream: #fffdfa;
+      --surface-glass: rgba(255, 255, 255, 0.96);
+      --border-glass: rgba(254, 215, 170, 0.45);
+
+      --text-espresso: #1a110d;
+      --text-muted: #71625b;
+
+      --brand-red: #ff2a5f;
+      --brand-gold: #f59e0b;
+      --emerald: #10b981;
+      --blue-accent: #2563eb;
+      --purple-accent: #7c3aed;
+
+      --shadow-luxury: 0 16px 36px -8px rgba(180, 100, 120, 0.12);
+      --shadow-dock: 0 -8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      width: 100vw; height: 100vh; height: 100dvh;
+      overflow: hidden; background: #0f172a;
+      font-family: var(--font-ar); color: var(--text-espresso);
+    }
+
+    .portal-shell {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      background: radial-gradient(circle at 10% 10%, #fff0f5 0%, #fcf9f5 45%, #fef5eb 100%);
+      position: relative;
+    }
+
+    .svg-icon {
+      width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; flex-shrink: 0;
+    }
+
+    .tabular-nums { font-variant-numeric: tabular-nums; font-family: var(--font-en); }
+
+    /* Executive Top Bar */
+    .portal-header {
+      flex-shrink: 0;
+      background: var(--surface-glass);
+      backdrop-filter: blur(25px);
+      border-bottom: 1.5px solid var(--border-glass);
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .brand-cluster { display: flex; align-items: center; gap: 8px; }
+    .straw-hat-badge { width: 34px; height: 34px; position: relative; display: flex; align-items: center; justify-content: center; }
+    .hat-glow { position: absolute; width: 140%; height: 140%; border-radius: 50%; background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%); filter: blur(6px); }
+    .straw-hat-svg { width: 100%; height: 100%; position: relative; z-index: 2; }
+    .portal-title { font-size: 15px; font-weight: 900; }
+    .name-en { font-family: var(--font-en); background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .header-tools { display: flex; align-items: center; gap: 6px; }
+
+    .tool-btn {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      color: var(--text-muted);
+      border-radius: 9999px;
+      padding: 5px 11px;
+      font-family: var(--font-ar);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .tool-btn:hover { border-color: var(--brand-red); color: var(--brand-red); }
+    .tool-btn:active { transform: scale(0.95); }
+
+    .clock-pill {
+      background: #fdfaf7;
+      border: 1px solid #fed7aa;
+      color: #92400e;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 900;
+      direction: ltr;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Desktop Navigation Tabs */
+    .desktop-nav-tabs {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      background: #f1f5f9;
+      padding: 3px;
+      border-radius: 9999px;
+    }
+    @media (min-width: 820px) {
+      .desktop-nav-tabs { display: flex; }
+    }
+
+    .tab-pill-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: var(--font-ar);
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .tab-pill-btn.active {
+      background: #ffffff;
+      color: var(--brand-red);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* Main Viewport Stage */
+    .viewport-stage {
+      flex: 1 1 auto;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .master-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      transition: opacity 0.25s ease;
+    }
+    .master-iframe.loading { opacity: 0.2; }
+
+    .iframe-loader-spinner {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px; height: 40px;
+      border: 3px solid #fed7aa;
+      border-top-color: var(--brand-red);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+      z-index: 10;
+    }
+    @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    /* Mobile Bottom Navigation Dock */
+    .mobile-bottom-dock {
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1.5px solid var(--border-glass);
+      padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 8px));
+      z-index: 100;
+      box-shadow: var(--shadow-dock);
+    }
+    @media (min-width: 820px) {
+      .mobile-bottom-dock { display: none; }
+    }
+
+    .dock-tab-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 8px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      flex: 1;
+      max-width: 75px;
+    }
+    .dock-tab-btn.active {
+      color: var(--brand-red);
+      background: #fff0f3;
+    }
+    .dock-tab-btn .svg-icon { width: 17px; height: 17px; }
+    .dock-tab-label { font-size: 9.5px; font-weight: 800; white-space: nowrap; }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100%; height: 100dvh;
+      background: rgba(10, 8, 9, 0.65); backdrop-filter: blur(8px); z-index: 10000;
+      display: flex; align-items: center; justify-content: center; padding: 14px;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .modal-card {
+      background: #ffffff; border-radius: 24px; padding: 20px 18px; width: 100%; max-width: 440px;
+      text-align: right; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1.5px solid #fed7aa;
+    }
+
+    .link-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      color: var(--text-espresso);
+      font-size: 11.5px;
+      font-weight: 800;
+      transition: all 0.2s ease;
+    }
+    .link-list-item:hover {
+      background: #fff0f3;
+      border-color: var(--brand-red);
+      color: var(--brand-red);
+    }
+
+    /* Auth Passcode Gate */
+    #auth-gate {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100%; height: 100dvh;
+      background: radial-gradient(circle at center, #1f1412 0%, #0d0807 100%);
+      z-index: 20000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 16px; color: #ffffff;
+    }
+    #auth-gate.unlocked { display: none; }
+    .auth-panel {
+      background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(254, 215, 170, 0.3);
+      border-radius: 24px; padding: 24px 18px; width: 100%; max-width: 360px; text-align: center;
+    }
+
+    #toast-box { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 99999; pointer-events: none; }
+    .admin-toast {
+      background: rgba(26, 17, 13, 0.96); color: #ffffff; border: 1.5px solid #fed7aa;
+      border-radius: 16px; padding: 8px 16px; font-size: 11.5px; font-weight: 800; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toast-box"></div>
+
+  <!-- 🔒 بوابة القفل الأمني التنفيذي -->
+  <div id="auth-gate">
+    <div class="auth-panel">
+      <div class="straw-hat-badge" style="margin: 0 auto 8px;">
+        <div class="hat-glow"></div>
+        <svg class="straw-hat-svg" viewBox="0 0 100 100" fill="none">
+          <ellipse cx="50" cy="70" rx="46" ry="13" fill="#EAB308"/>
+          <path d="M24 67C24 38 31 24 50 24C69 24 76 38 76 67Z" fill="#FACC15"/>
+          <path d="M23.5 64.5C34 68.5 66 68.5 76.5 64.5C75.5 57.5 74.5 53 74.5 53C63 57.5 37 57.5 25.5 53Z" fill="#FF2A5F"/>
+        </svg>
+      </div>
+
+      <div style="font-size:16px; font-weight:900;">لوحة القيادة التنفيذية</div>
+      <div style="font-size:11px; color:#fed7aa; margin:3px 0 14px;">الوصول المصرح لمنظومة لوفي السحابية • العقبة 🇯🇴</div>
+
+      <input type="password" id="gate-pass-input" placeholder="أدخل كلمة المرور التنفيذية..." style="width:100%; background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.25); color:#fff; text-align:center; padding:10px; border-radius:12px; margin-bottom:10px; outline:none;" onkeypress="if(event.key==='Enter') verifyGatePass()">
+      <button style="width:100%; background:linear-gradient(135deg, var(--brand-red), #ff5e7e); color:#fff; border:none; padding:11px; border-radius:12px; font-weight:900; font-family:var(--font-ar); cursor:pointer;" onclick="verifyGatePass()">تحقق ودخول ⚡</button>
+    </div>
+  </div>
+
+  <div class="portal-shell">
+    <!-- Top Header -->
+    <header class="portal-header">
+      <div class="brand-cluster">
+        <div class="straw-hat-badge">
+          <div class="hat-glow"></div>
+          <svg class="straw-hat-svg" viewBox="0 0 100 100" fill="none">
+            <ellipse cx="50" cy="70" rx="46" ry="13" fill="#EAB308"/>
+            <path d="M24 67C24 38 31 24 50 24C69 24 76 38 76 67Z" fill="#FACC15"/>
+            <path d="M23.5 64.5C34 68.5 66 68.5 76.5 64.5C75.5 57.5 74.5 53 74.5 53C63 57.5 37 57.5 25.5 53Z" fill="#FF2A5F"/>
+          </svg>
+        </div>
+        <div class="portal-title"><span class="name-en">LUFFY</span> • <span>البوابة التنفيذية الحاضنة</span></div>
+      </div>
+
+      <!-- Desktop Tabs -->
+      <nav class="desktop-nav-tabs">
+        <button class="tab-pill-btn active" onclick="switchWorkspace('orders', this)">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          <span>رادار الطلبات</span>
+        </button>
+
+        <button class="tab-pill-btn" onclick="switchWorkspace('edit_flavors', this)">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          <span>تعديل النكهات</span>
+        </button>
+
+        <button class="tab-pill-btn" onclick="switchWorkspace('add_flavor', this)">
+          <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>إضافة صنف</span>
+        </button>
+
+        <button class="tab-pill-btn" onclick="switchWorkspace('hours', this)">
+          <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>ساعات الدوام</span>
+        </button>
+
+        <button class="tab-pill-btn" onclick="switchWorkspace('live_menu', this)">
+          <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+          <span>المنيو الحي</span>
+        </button>
+      </nav>
+
+      <!-- Tools Cluster -->
+      <div class="header-tools">
+        <div class="clock-pill">
+          <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="portal-live-clock" class="tabular-nums">12:00:00 ص</span>
+        </div>
+
+        <button class="tool-btn" onclick="reloadActiveViewport()" title="تحديث الإطار النشط">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+        </button>
+
+        <button class="tool-btn" onclick="openExternalActive()" title="فتح في نافذة مستقلة">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </button>
+
+        <button class="tool-btn" onclick="openVaultLinksModal()" title="روابط السحابة الموزعة">
+          <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          <span>الروابط ☁️</span>
+        </button>
+
+        <button class="tool-btn" style="color:var(--brand-red);" onclick="lockPortalGate()" title="قفل الجلسة">
+          <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Viewport Stage -->
+    <main class="viewport-stage">
+      <div class="iframe-loader-spinner" id="frame-spinner"></div>
+      <iframe class="master-iframe" id="master-viewport-frame" src="ops_orders.html" onload="onFrameLoaded()"></iframe>
+    </main>
+
+    <!-- Mobile Bottom Navigation Dock -->
+    <nav class="mobile-bottom-dock">
+      <button class="dock-tab-btn active" id="dock-btn-orders" onclick="switchWorkspace('orders', this)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        <span class="dock-tab-label">الطلبات</span>
+      </button>
+
+      <button class="dock-tab-btn" id="dock-btn-edit_flavors" onclick="switchWorkspace('edit_flavors', this)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+        <span class="dock-tab-label">النكهات</span>
+      </button>
+
+      <button class="dock-tab-btn" id="dock-btn-add_flavor" onclick="switchWorkspace('add_flavor', this)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span class="dock-tab-label">إضافة صنف</span>
+      </button>
+
+      <button class="dock-tab-btn" id="dock-btn-hours" onclick="switchWorkspace('hours', this)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span class="dock-tab-label">الدوام</span>
+      </button>
+
+      <button class="dock-tab-btn" id="dock-btn-live_menu" onclick="switchWorkspace('live_menu', this)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+        <span class="dock-tab-label">المنيو الحي</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ☁️ نافذة روابط السحابة الموزعة السريعة -->
+  <div class="modal-backdrop" id="vault-links-modal" onclick="closeVaultLinksModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1.5px solid #f1f0ee; margin-bottom:10px;">
+        <strong style="font-size:14px;">خارطة روابط المنظومة وقواعد البيانات</strong>
+        <button style="border:none; background:#f1f5f9; width:26px; height:26px; border-radius:50%; cursor:pointer;" onclick="closeVaultLinksModal()">✕</button>
+      </div>
+
+      <a href="https://luffy-menu.pages.dev" target="_blank" class="link-list-item">
+        <span>🌐 منيو الزبائن الرقمي المباشر (Cloudflare Pages)</span>
+        <span>↗</span>
+      </a>
+
+      <a href="https://drive.google.com/drive/folders/1w8G1JrlbD97FTqeqKHUaGILzDfPhcymw" target="_blank" class="link-list-item">
+        <span>📁 مجلد Google Drive الرئيسي (LUFFY_SYSTEM_VAULT_2026)</span>
+        <span>↗</span>
+      </a>
+
+      <a href="https://docs.google.com/spreadsheets/d/1ogQfZNeIgJrYz8QTXcyFx0u5LSnHT9sCoeG01nXzjPg/edit" target="_blank" class="link-list-item">
+        <span>🍦 شيت الكتالوج والأسعار (Live_Flavors)</span>
+        <span>↗</span>
+      </a>
+
+      <a href="https://docs.google.com/spreadsheets/d/1Y-qTEUB2fDS62ts-3MSkqjPYF7DXiZnPNXpBZpffwZc/edit" target="_blank" class="link-list-item">
+        <span>📋 شيت الطلبات اللحظية (Live_Orders)</span>
+        <span>↗</span>
+      </a>
+
+      <a href="https://docs.google.com/spreadsheets/d/1FLCZimVlzS0cCdWi9RtfXAfYzI2vcceZMc85k0fpkRA/edit" target="_blank" class="link-list-item">
+        <span>📜 شيت الأرشيف والرقابة وسجلات الـ Diff</span>
+        <span>↗</span>
+      </a>
+
+      <a href="https://docs.google.com/spreadsheets/d/1CjreQe9su86Fr_IP37PLnHzrsLoDLZlnWwFJUJZNq_I/edit" target="_blank" class="link-list-item">
+        <span>⏰ شيت إعدادات المتجر وساعات الدوام (Store_Hours)</span>
+        <span>↗</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const MASTER_PASSPHRASE = "LUFFY#2026$Aqaba_Master!Vault@99";
+
+    // مسارات صفحات النظام المستقلة
+    const WORKSPACE_ROUTES = {
+      orders: "ops_orders.html",
+      edit_flavors: "ops_flavors_edit.html",
+      add_flavor: "f_41mk_add.html",
+      hours: "ops_hours.html",
+      live_menu: "https://luffy-menu.pages.dev"
+    };
+
+    let activeKey = "orders";
+
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const t = document.createElement('div');
+      t.className = 'admin-toast';
+      t.textContent = msg;
+      box.appendChild(t);
+      setTimeout(() => t.remove(), 3200);
+    }
+
+    /* 🔒 التحقق الأمني من الجلسة */
+    function verifyGatePass() {
+      const val = document.getElementById('gate-pass-input').value.trim();
+      if (val === MASTER_PASSPHRASE) {
+        sessionStorage.setItem('luffy_portal_auth', 'AUTHORIZED');
+        document.getElementById('auth-gate').classList.add('unlocked');
+        showToast("تم فتح الجلسة التنفيذية بنجاح ✓");
+      } else {
+        alert("كلمة المرور التنفيذية غير صحيحة!");
+      }
+    }
+
+    function checkAuthSession() {
+      if (sessionStorage.getItem('luffy_portal_auth') === 'AUTHORIZED') {
+        document.getElementById('auth-gate').classList.add('unlocked');
+      }
+    }
+
+    function lockPortalGate() {
+      sessionStorage.removeItem('luffy_portal_auth');
+      document.getElementById('gate-pass-input').value = "";
+      document.getElementById('auth-gate').classList.remove('unlocked');
+    }
+
+    /* 🔄 التبديل الانسيابي بين مساحات العمل */
+    function switchWorkspace(key, btnEl) {
+      if (!WORKSPACE_ROUTES[key]) return;
+      activeKey = key;
+
+      // تحديث أزرار سطح المكتب
+      document.querySelectorAll('.tab-pill-btn').forEach(b => b.classList.remove('active'));
+      // تحديث أزرار الدوك المحمول
+      document.querySelectorAll('.dock-tab-btn').forEach(b => b.classList.remove('active'));
+
+      if (btnEl) btnEl.classList.add('active');
+
+      const mobileBtn = document.getElementById(`dock-btn-${key}`);
+      if (mobileBtn) mobileBtn.classList.add('active');
+
+      const frame = document.getElementById('master-viewport-frame');
+      const spinner = document.getElementById('frame-spinner');
+
+      frame.classList.add('loading');
+      spinner.style.display = 'block';
+
+      frame.src = WORKSPACE_ROUTES[key];
+    }
+
+    function onFrameLoaded() {
+      const frame = document.getElementById('master-viewport-frame');
+      const spinner = document.getElementById('frame-spinner');
+      frame.classList.remove('loading');
+      spinner.style.display = 'none';
+    }
+
+    function reloadActiveViewport() {
+      const frame = document.getElementById('master-viewport-frame');
+      const spinner = document.getElementById('frame-spinner');
+      frame.classList.add('loading');
+      spinner.style.display = 'block';
+      frame.src = frame.src;
+      showToast("تم تحديث الشاشة النشطة ⚡");
+    }
+
+    function openExternalActive() {
+      if (WORKSPACE_ROUTES[activeKey]) {
+        window.open(WORKSPACE_ROUTES[activeKey], '_blank');
+      }
+    }
+
+    function openVaultLinksModal() {
+      document.getElementById('vault-links-modal').classList.add('open');
+    }
+    function closeVaultLinksModal() {
+      document.getElementById('vault-links-modal').classList.remove('open');
+    }
+
+    /* ⏰ ساعة العقبة اللحظية */
+    function updateLiveClock() {
+      const now = new Date();
+      let h = now.getHours();
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const ampm = h >= 12 ? 'م' : 'ص';
+      h = h % 12 || 12;
+      document.getElementById('portal-live-clock').textContent = `${h}:${m}:${s} ${ampm}`;
+    }
+
+    checkAuthSession();
+    setInterval(updateLiveClock, 1000);
+    updateLiveClock();
+  </script>
+</body>
+</html>

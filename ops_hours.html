@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>LUFFY • لوفي | مركز إدارة ساعات الدوام والتقويم</title>
+  
+  <!-- خطوط النخبة العالمية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Readex+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-ar: 'Readex Pro', system-ui, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+      --bg-radial: radial-gradient(circle at 10% 10%, #fff0f5 0%, #fcf9f5 45%, #fef5eb 100%);
+      --surface-glass: rgba(255, 255, 255, 0.96);
+      --border-glass: rgba(254, 215, 170, 0.45);
+
+      --text-espresso: #1a110d;
+      --text-muted: #71625b;
+
+      --brand-red: #ff2a5f;
+      --brand-gold: #f59e0b;
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --amber: #d97706;
+      --blue-accent: #2563eb;
+
+      --shadow-luxury: 0 20px 50px -10px rgba(180, 100, 120, 0.1);
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      --shadow-btn-glow: 0 8px 20px -4px rgba(255, 42, 95, 0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: var(--font-ar);
+      background: var(--bg-radial);
+      color: var(--text-espresso);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: clamp(8px, 1.5vh, 16px) clamp(6px, 1.5vw, 12px) 90px;
+      overflow-x: hidden;
+    }
+
+    .master-wrapper {
+      width: 100%;
+      max-width: 880px;
+      background: var(--surface-glass);
+      backdrop-filter: blur(25px);
+      border: 1.5px solid #ffffff;
+      border-radius: 28px;
+      padding: clamp(14px, 2vh, 20px) clamp(12px, 2vw, 18px);
+      box-shadow: var(--shadow-luxury);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .svg-icon {
+      width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; flex-shrink: 0;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+      font-family: var(--font-en);
+      letter-spacing: 0.5px;
+    }
+
+    /* Top Bar */
+    .top-header-cluster {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid #f1f0ee;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .brand-cluster { display: flex; align-items: center; gap: 8px; }
+    .straw-hat-badge { width: 38px; height: 38px; position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .hat-glow { position: absolute; width: 140%; height: 140%; border-radius: 50%; background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%); filter: blur(8px); }
+    .straw-hat-svg { width: 100%; height: 100%; position: relative; z-index: 2; }
+    .brand-title { font-size: clamp(14px, 1.8vw, 16.5px); font-weight: 900; }
+    .name-en { font-family: var(--font-en); background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* Actions in Header */
+    .header-actions { display: flex; align-items: center; gap: 6px; }
+
+    .btn-header-action {
+      border-radius: 9999px;
+      padding: 7px 14px;
+      font-family: var(--font-ar);
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: var(--shadow-card);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-header-action:active { transform: scale(0.95); }
+
+    .btn-save-master {
+      background: linear-gradient(135deg, var(--emerald) 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+    .btn-refresh-clean {
+      background: #ffffff;
+      color: var(--text-espresso);
+      border: 1.5px solid #fed7aa;
+    }
+
+    /* ⏱️ محاكي حالة المتجر المباشر (Live Simulator Card) */
+    .simulator-stage-card {
+      background: linear-gradient(135deg, #fffdfa 0%, #fdf6f0 100%);
+      border: 1.5px dashed var(--brand-gold);
+      border-radius: 20px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .sim-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 800;
+      width: fit-content;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .sim-badge-pill.open { border-color: #a7f3d0; background: #f0fdf4; color: #065f46; }
+    .sim-badge-pill.closing-soon, .sim-badge-pill.opening-soon { border-color: #fde68a; background: #fffbeb; color: #92400e; animation: pulseGlow 2s infinite; }
+    .sim-badge-pill.closed { border-color: #fecdd3; background: #fff1f2; color: #9f1239; }
+
+    @keyframes pulseGlow { 0% { opacity: 0.85; } 50% { opacity: 1; } 100% { opacity: 0.85; } }
+
+    .sim-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .open .sim-dot { background: var(--emerald); box-shadow: 0 0 6px var(--emerald); }
+    .closing-soon .sim-dot, .opening-soon .sim-dot { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+    .closed .sim-dot { background: var(--brand-red); box-shadow: 0 0 6px var(--brand-red); }
+
+    /* Quick Presets Bar */
+    .presets-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1.5px solid var(--border-glass);
+      border-radius: 14px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .presets-bar::-webkit-scrollbar { display: none; }
+    .preset-pill {
+      white-space: nowrap;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .preset-pill:hover, .preset-pill:active {
+      background: #fff0f3;
+      border-color: var(--brand-red);
+      color: var(--brand-red);
+    }
+
+    /* Days Cards Grid */
+    .days-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .day-card {
+      background: #ffffff;
+      border: 1.5px solid #f1f0ee;
+      border-radius: 18px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow-card);
+      transition: all 0.2s ease;
+      flex-wrap: wrap;
+    }
+    .day-card.is-today {
+      border-color: var(--brand-gold);
+      background: #fffdf8;
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.12);
+    }
+    .day-card.is-off {
+      opacity: 0.65;
+      background: #fafafa;
+    }
+
+    .day-identity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 120px;
+    }
+    .day-title { font-size: 14px; font-weight: 900; color: var(--text-espresso); }
+    .today-tag {
+      font-size: 9px; font-weight: 900; background: var(--brand-gold); color: #fff;
+      padding: 2px 7px; border-radius: 6px;
+    }
+
+    .time-inputs-cluster {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .time-field-box {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .time-field-box span { font-size: 9.5px; font-weight: 800; color: var(--text-muted); }
+    .time-input {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-family: var(--font-en);
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--text-espresso);
+      outline: none;
+      width: 110px;
+      text-align: center;
+    }
+    .time-input:focus { border-color: var(--brand-red); background: #ffffff; }
+
+    .overnight-badge {
+      font-size: 10px;
+      font-weight: 800;
+      color: #6b21a8;
+      background: #f3e8ff;
+      border: 1px solid #e9d5ff;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .toggle-switch-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toggle-btn {
+      border: none;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-family: var(--font-ar);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .toggle-btn.active {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+    .toggle-btn.off {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    #toast-box { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 99999; pointer-events: none; }
+    .admin-toast {
+      background: rgba(26, 17, 13, 0.96); color: #ffffff; border: 1.5px solid #fed7aa;
+      border-radius: 16px; padding: 8px 16px; font-size: 11.5px; font-weight: 800; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toast-box"></div>
+
+  <div class="master-wrapper">
+    <!-- Top Header -->
+    <div class="top-header-cluster">
+      <div class="brand-cluster">
+        <div class="straw-hat-badge">
+          <div class="hat-glow"></div>
+          <svg class="straw-hat-svg" viewBox="0 0 100 100" fill="none">
+            <ellipse cx="50" cy="70" rx="46" ry="13" fill="#EAB308"/>
+            <path d="M24 67C24 38 31 24 50 24C69 24 76 38 76 67Z" fill="#FACC15"/>
+            <path d="M23.5 64.5C34 68.5 66 68.5 76.5 64.5C75.5 57.5 74.5 53 74.5 53C63 57.5 37 57.5 25.5 53Z" fill="#FF2A5F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title"><span class="name-en">LUFFY</span> • <span>مركز إدارة ساعات الدوام والتقويم</span></div>
+          <div style="font-size:10px; color:var(--text-muted); font-weight:800;">التحكم بأوقات العمل الأسبوعية • الورديات الممتدة فجراً • العقبة 🇯🇴</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-header-action btn-refresh-clean" onclick="fetchLiveSchedule(true)">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+          <span>تحديث ⚡</span>
+        </button>
+
+        <button class="btn-header-action btn-save-master" onclick="saveLiveScheduleToCloud()">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          <span>حفظ واعتماد الساعات في السحابة ⚡</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ⏱️ محاكي حالة المتجر المباشر أمام المدير -->
+    <div class="simulator-stage-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <span style="font-size:11px; font-weight:900; color:var(--brand-gold);">👁️ محاكي ما يظهر للزبون الآن في منيو luffy-menu.pages.dev:</span>
+        <span style="font-size:10.5px; color:var(--text-muted);">تحديث تلقائي بالثانية</span>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+        <div class="sim-badge-pill open" id="sim-badge-root">
+          <div class="sim-dot"></div>
+          <span id="sim-badge-title">جاري الفحص...</span>
+        </div>
+
+        <div style="text-align:left;">
+          <span style="font-size:10px; color:var(--text-muted); font-weight:800; display:block;">العد التنازلي المباشر للحدث القادم:</span>
+          <span class="tabular-nums" style="font-size:22px; font-weight:900; color:var(--brand-red);" id="sim-countdown-digits">00:00:00</span>
+        </div>
+      </div>
+
+      <div style="font-size:11px; font-weight:700; color:var(--text-muted);" id="sim-detail-text">
+        نستقبلكم اليوم حتى الساعة 02:00 فجراً (اليوم التالي).
+      </div>
+    </div>
+
+    <!-- شريط القوالب السريعة -->
+    <div class="presets-bar">
+      <span style="font-size:10.5px; font-weight:900; color:var(--text-espresso); white-space:nowrap;">⚡ قوالب سريعة:</span>
+      <button class="preset-pill" onclick="applySummerSchedulePreset()">🏖️ تطبيق جدول صيف العقبة المعتمد (14:00 إلى 02:00 فجراً)</button>
+      <button class="preset-pill" onclick="applyWeekendOvernightPreset()">🌙 تمديد سهرة عطلة الأسبوع (الخميس والجمعة حتى 03:30 فجراً)</button>
+      <button class="preset-pill" onclick="applyAllDaysOpen()">✨ تفعيل كافة الأيام (بدون عطل)</button>
+    </div>
+
+    <!-- قائمة أيام الأسبوع السبعة -->
+    <div class="days-grid" id="days-cards-container">
+      جاري تحميل جدول الأيام...
+    </div>
+  </div>
+
+  <script>
+    // الرابط السحابي لنواة Google Apps Script المعتمدة
+    const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbw2zN2iZ2uK9xRYsOuz7_Tvz-_kJGwXteMFP3-X2c-Guj-uljMSJMWjNacvKn__GJrIIA/exec";
+    const MASTER_PASSPHRASE = "LUFFY#2026$Aqaba_Master!Vault@99";
+
+    const DEFAULT_SCHEDULE = [
+      { dayIndex: 0, dayName: "الأحد", open: "14:00", close: "02:00", active: true },
+      { dayIndex: 1, dayName: "الاثنين", open: "14:00", close: "02:00", active: true },
+      { dayIndex: 2, dayName: "الثلاثاء", open: "14:00", close: "02:00", active: true },
+      { dayIndex: 3, dayName: "الأربعاء", open: "14:00", close: "02:00", active: true },
+      { dayIndex: 4, dayName: "الخميس", open: "14:00", close: "03:30", active: true },
+      { dayIndex: 5, dayName: "الجمعة", open: "14:00", close: "03:30", active: true },
+      { dayIndex: 6, dayName: "السبت", open: "14:00", close: "02:00", active: true }
+    ];
+
+    let currentSchedule = JSON.parse(localStorage.getItem('luffy_weekly_hours_ops') || JSON.stringify(DEFAULT_SCHEDULE));
+
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const t = document.createElement('div');
+      t.className = 'admin-toast';
+      t.textContent = msg;
+      box.appendChild(t);
+      setTimeout(() => t.remove(), 3200);
+    }
+
+    function isOvernightShift(openStr, closeStr) {
+      if (!openStr || !closeStr) return false;
+      const o = openStr.split(':').map(Number);
+      const c = closeStr.split(':').map(Number);
+      const openMin = o[0] * 60 + o[1];
+      const closeMin = c[0] * 60 + c[1];
+      return closeMin <= openMin;
+    }
+
+    /* 1. جلب جدول الدوام من السحابة */
+    function fetchLiveSchedule(forceRefresh = false) {
+      renderDaysCards();
+      updateSimulatorTicker();
+
+      const cb = "onHoursOpsLoaded_" + Date.now();
+      window[cb] = function(res) {
+        if (res && res.data && res.data.length > 0) {
+          res.data.forEach((row, idx) => {
+            const dayIdx = Number(row.Day_Index !== undefined ? row.Day_Index : idx);
+            if (currentSchedule[dayIdx]) {
+              currentSchedule[dayIdx].open = String(row.Open_Time || "14:00");
+              currentSchedule[dayIdx].close = String(row.Close_Time || "02:00");
+              currentSchedule[dayIdx].active = String(row.Is_Active).toUpperCase() === "TRUE";
+            }
+          });
+          localStorage.setItem('luffy_weekly_hours_ops', JSON.stringify(currentSchedule));
+          renderDaysCards();
+          updateSimulatorTicker();
+          if (forceRefresh) showToast("تم تحديث ساعات الدوام من شيت Store_Hours بنجاح ⚡");
+        }
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_store_hours&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    /* 2. رسم بطاقات الأيام السبعة */
+    function renderDaysCards() {
+      const container = document.getElementById('days-cards-container');
+      const todayIdx = new Date().getDay();
+
+      container.innerHTML = currentSchedule.map((d, i) => {
+        const isToday = (d.dayIndex === todayIdx);
+        const overnight = isOvernightShift(d.open, d.close);
+
+        return `
+          <div class="day-card ${isToday ? 'is-today' : ''} ${!d.active ? 'is-off' : ''}">
+            <div class="day-identity">
+              <span class="day-title">${d.dayName}</span>
+              ${isToday ? `<span class="today-tag">اليوم الحاضر</span>` : ''}
+            </div>
+
+            <div class="time-inputs-cluster">
+              <div class="time-field-box">
+                <span>وقت الافتتاح:</span>
+                <input type="time" class="time-input" value="${d.open}" onchange="updateDayTime(${i}, 'open', this.value)">
+              </div>
+
+              <div class="time-field-box">
+                <span>وقت الإغلاق:</span>
+                <input type="time" class="time-input" value="${d.close}" onchange="updateDayTime(${i}, 'close', this.value)">
+              </div>
+
+              ${overnight && d.active ? `
+                <span class="overnight-badge">
+                  <span>🌙 فجر الغد</span>
+                </span>
+              ` : ''}
+            </div>
+
+            <div class="toggle-switch-wrap">
+              <button class="toggle-btn ${d.active ? 'active' : 'off'}" onclick="toggleDayActive(${i})">
+                ${d.active ? 'يعمل ✓' : 'عطلة رسمية ✕'}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateDayTime(idx, field, val) {
+      currentSchedule[idx][field] = val;
+      localStorage.setItem('luffy_weekly_hours_ops', JSON.stringify(currentSchedule));
+      renderDaysCards();
+      updateSimulatorTicker();
+    }
+
+    function toggleDayActive(idx) {
+      currentSchedule[idx].active = !currentSchedule[idx].active;
+      localStorage.setItem('luffy_weekly_hours_ops', JSON.stringify(currentSchedule));
+      renderDaysCards();
+      updateSimulatorTicker();
+      showToast(`تم تعديل حالة يوم (${currentSchedule[idx].dayName}) إلى: ${currentSchedule[idx].active ? 'يعمل' : 'عطلة'}`);
+    }
+
+    /* 3. القوالب السريعة المعتمدة للعقبة */
+    function applySummerSchedulePreset() {
+      currentSchedule.forEach(d => {
+        d.open = "14:00";
+        d.close = (d.dayIndex === 4 || d.dayIndex === 5) ? "03:30" : "02:00";
+        d.active = true;
+      });
+      localStorage.setItem('luffy_weekly_hours_ops', JSON.stringify(currentSchedule));
+      renderDaysCards();
+      updateSimulatorTicker();
+      showToast("🏖️ تم تطبيق جدول صيف العقبة على كافة الأيام بنجاح");
+    }
+
+    function applyWeekendOvernightPreset() {
+      currentSchedule[4].close = "03:30"; // الخميس
+      currentSchedule[5].close = "03:30"; // الجمعة
+      localStorage.setItem('luffy_weekly_hours_ops', JSON.stringify(currentSchedule));
+      renderDaysCards();
+      updateSimulatorTicker();
+      showToast("🌙 تم تمديد سهرة الخميس والجمعة حتى 03:30 فجراً");
+    }
+
+    function applyAllDaysOpen() {
+      currentSchedule.forEach(d => d.active = true);
+      localStorage.setItem('luffy_weekly_hours_ops', JSON.stringify(currentSchedule));
+      renderDaysCards();
+      updateSimulatorTicker();
+      showToast("✨ تم تفعيل كافة أيام الأسبوع بنجاح");
+    }
+
+    /* 4. محاكي العداد التنازلي وحالة المتجر الحية */
+    function updateSimulatorTicker() {
+      const now = new Date();
+      const currentDay = now.getDay();
+      const prevDay = (currentDay + 6) % 7;
+      const nextDay = (currentDay + 1) % 7;
+      const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+      const nowMin = Math.floor(nowSec / 60);
+
+      const parseMin = s => {
+        const p = s.split(':').map(Number);
+        return p[0] * 60 + p[1];
+      };
+
+      const prevS = currentSchedule[prevDay];
+      const todayS = currentSchedule[currentDay];
+      const nextS = currentSchedule[nextDay];
+
+      const prevCloseMin = parseMin(prevS.close);
+      const prevOpenMin = parseMin(prevS.open);
+      const prevIsOvernight = prevCloseMin <= prevOpenMin;
+
+      const todayCloseMin = parseMin(todayS.close);
+      const todayOpenMin = parseMin(todayS.open);
+      const todayIsOvernight = todayCloseMin <= todayOpenMin;
+
+      const nextOpenMin = parseMin(nextS.open);
+
+      let isStoreOpen = false;
+      let targetSec = 0;
+      let detailText = "";
+
+      // 1. فحص وردية الأمس فجراً
+      if (prevS.active && prevIsOvernight && nowMin < prevCloseMin) {
+        isStoreOpen = true;
+        targetSec = prevCloseMin * 60;
+        detailText = `نستقبلكم الآن ضمن وردية فجر اليوم حتى الساعة ${prevS.close}.`;
+      } 
+      // 2. وردية اليوم
+      else if (todayS.active) {
+        const closeEffMin = todayIsOvernight ? todayCloseMin + 1440 : todayCloseMin;
+        if (nowMin >= todayOpenMin && nowMin < closeEffMin) {
+          isStoreOpen = true;
+          targetSec = closeEffMin * 60;
+          detailText = `نستقبلكم الآن بكل حب حتى الساعة ${todayS.close}${todayIsOvernight ? ' فجر الغد' : ''}.`;
+        } else if (nowMin < todayOpenMin) {
+          isStoreOpen = false;
+          targetSec = todayOpenMin * 60;
+          detailText = `المتجر مغلق حالياً، ونفتح أبوابنا اليوم عند الساعة ${todayS.open}.`;
+        } else {
+          isStoreOpen = false;
+          targetSec = (nextOpenMin + 1440) * 60;
+          detailText = `انتهت ساعات العمل اليوم، ونلتقيكم غداً عند الساعة ${nextS.open}.`;
+        }
+      } else {
+        isStoreOpen = false;
+        targetSec = (nextOpenMin + 1440) * 60;
+        detailText = `اليوم عطلة رسمية، ونستقبلكم غداً بإذن الله عند الساعة ${nextS.open}.`;
+      }
+
+      let diffSec = targetSec - nowSec;
+      if (diffSec < 0) diffSec += 86400;
+
+      const hrs = Math.floor(diffSec / 3600);
+      const mins = Math.floor((diffSec % 3600) / 60);
+      const secs = diffSec % 60;
+      const countdownFormatted = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+      document.getElementById('sim-countdown-digits').textContent = countdownFormatted;
+      document.getElementById('sim-detail-text').textContent = detailText;
+
+      const pill = document.getElementById('sim-badge-root');
+      const title = document.getElementById('sim-badge-title');
+
+      if (isStoreOpen) {
+        const remMin = Math.floor(diffSec / 60);
+        if (remMin <= 60) {
+          pill.className = "sim-badge-pill closing-soon";
+          title.textContent = `يغلق قريباً (خلال ${remMin} دقيقة)`;
+        } else {
+          pill.className = "sim-badge-pill open";
+          title.textContent = "مفتوح ويستقبل الطلبات الآن ✨";
+        }
+      } else {
+        const remMin = Math.floor(diffSec / 60);
+        if (remMin <= 60) {
+          pill.className = "sim-badge-pill opening-soon";
+          title.textContent = `يفتح قريباً (خلال ${remMin} دقيقة)`;
+        } else {
+          pill.className = "sim-badge-pill closed";
+          title.textContent = "مغلق حالياً ✕";
+        }
+      }
+    }
+
+    /* 5. حفظ الجدول في Google Apps Script وشيت Store_Hours */
+    function saveLiveScheduleToCloud() {
+      showToast("جاري حفظ واعتماد ساعات الدوام في السحابة...");
+
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?auth_pass=${encodeURIComponent(MASTER_PASSPHRASE)}&action=save_store_hours&data=${encodeURIComponent(JSON.stringify(currentSchedule))}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+
+      setTimeout(() => {
+        showToast("🎉 تم حفظ الساعات في شيت Store_Hours وانعكست فوراً على منيو الزبائن!");
+      }, 700);
+    }
+
+    fetchLiveSchedule();
+    setInterval(updateSimulatorTicker, 1000);
+  </script>
+</body>
+</html>

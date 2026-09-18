@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>LUFFY • لوفي | رادار إدارة الطلبات والميدان المتقدم</title>
+  
+  <!-- مكتبة توليد رموز QR للتذاكر الحرارية -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- خطوط النخبة العالمية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Readex+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-ar: 'Readex Pro', system-ui, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+      --bg-radial: radial-gradient(circle at 10% 10%, #fff0f5 0%, #fcf9f5 45%, #fef5eb 100%);
+      --surface-glass: rgba(255, 255, 255, 0.96);
+      --border-glass: rgba(254, 215, 170, 0.45);
+
+      --text-espresso: #1a110d;
+      --text-muted: #71625b;
+
+      --brand-red: #ff2a5f;
+      --brand-gold: #f59e0b;
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --blue-accent: #2563eb;
+      --purple-accent: #7c3aed;
+
+      --shadow-luxury: 0 20px 50px -10px rgba(180, 100, 120, 0.1);
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      --shadow-btn-glow: 0 8px 20px -4px rgba(255, 42, 95, 0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: var(--font-ar);
+      background: var(--bg-radial);
+      color: var(--text-espresso);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: clamp(8px, 1.5vh, 16px) clamp(6px, 1.5vw, 12px) 90px;
+      overflow-x: hidden;
+    }
+
+    .master-wrapper {
+      width: 100%;
+      max-width: 920px;
+      background: var(--surface-glass);
+      backdrop-filter: blur(25px);
+      border: 1.5px solid #ffffff;
+      border-radius: 28px;
+      padding: clamp(12px, 2vh, 18px) clamp(10px, 2vw, 16px);
+      box-shadow: var(--shadow-luxury);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .svg-icon {
+      width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; flex-shrink: 0;
+    }
+
+    /* Top Bar */
+    .top-header-cluster {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid #f1f0ee;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-cluster { display: flex; align-items: center; gap: 8px; min-width: max-content; }
+    .straw-hat-badge { width: 38px; height: 38px; position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .hat-glow { position: absolute; width: 140%; height: 140%; border-radius: 50%; background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%); filter: blur(8px); }
+    .straw-hat-svg { width: 100%; height: 100%; position: relative; z-index: 2; }
+    .brand-title { font-size: clamp(14px, 1.8vw, 16.5px); font-weight: 900; }
+    .name-en { font-family: var(--font-en); background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .header-actions-cluster {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-luxury-header {
+      border: none;
+      border-radius: 9999px;
+      padding: clamp(6px, 1vh, 8px) clamp(10px, 1.4vw, 15px);
+      font-family: var(--font-ar);
+      font-size: clamp(11px, 1.1vw, 12px);
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-card);
+      white-space: nowrap;
+    }
+    .btn-luxury-header:active { transform: scale(0.94); }
+
+    .btn-header-order {
+      background: linear-gradient(135deg, var(--brand-red) 0%, #ff5e7e 100%);
+      color: #ffffff;
+      box-shadow: var(--shadow-btn-glow);
+    }
+    .btn-header-refresh {
+      background: #ffffff;
+      color: var(--text-espresso);
+      border: 1.5px solid #fed7aa;
+    }
+    .btn-header-refresh.refreshing .svg-icon {
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* KPIs Row */
+    .kpi-radar-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+    @media (min-width: 650px) { .kpi-radar-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1.5px solid #f1f0ee;
+      border-radius: 16px;
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      box-shadow: var(--shadow-card);
+    }
+    .kpi-title { font-size: 10.5px; font-weight: 800; color: var(--text-muted); }
+    .kpi-digits { font-family: var(--font-en); font-size: 19px; font-weight: 900; color: var(--text-espresso); }
+
+    /* Driver Coordination Strip */
+    .driver-coordination-bar {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 1.5px solid #a7f3d0;
+      border-radius: 14px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #065f46;
+    }
+
+    /* Smart Routing Banner */
+    .smart-route-banner {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 9px 12px;
+      margin-bottom: 12px;
+      font-size: 11px;
+      color: #1e40af;
+      line-height: 1.45;
+      display: none;
+    }
+
+    /* Controls */
+    .control-toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .search-input-wrap input {
+      width: 100%; background: #ffffff; border: 1.5px solid var(--border-glass);
+      border-radius: 14px; padding: 10px 14px; font-family: var(--font-ar); font-size: 12px; outline: none;
+    }
+    .filter-track {
+      display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+    }
+    .filter-track::-webkit-scrollbar { display: none; }
+    .filter-pill {
+      white-space: nowrap; background: #ffffff; border: 1.5px solid #e2e8f0; color: var(--text-muted);
+      padding: 6px 12px; border-radius: 9999px; font-family: var(--font-ar); font-size: 11px; font-weight: 800; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-pill.active { background: var(--brand-red); color: #fff; border-color: var(--brand-red); box-shadow: 0 4px 12px rgba(255, 42, 95, 0.25); }
+
+    /* Orders Flow Cards */
+    .orders-stream { display: flex; flex-direction: column; gap: 10px; }
+    .order-card-box {
+      background: #ffffff; border: 1.5px solid #f1f0ee; border-radius: 20px;
+      padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 8px;
+      box-shadow: var(--shadow-card); transition: transform 0.2s ease;
+      position: relative;
+    }
+    .order-card-box.status-unconfirmed { background: #fffdf8; border-color: #fde68a; }
+    .order-card-box.status-confirmed { background: #f0fdf4; border-color: #a7f3d0; }
+    .order-card-box.status-preparing { background: #eff6ff; border-color: #bfdbfe; }
+    .order-card-box.status-dispatched { background: #faf5ff; border-color: #e9d5ff; }
+    .order-card-box.status-delivered { background: #f8fafc; border-color: #e2e8f0; opacity: 0.85; }
+
+    .route-sequence-badge {
+      position: absolute; top: -8px; left: 14px; background: var(--brand-gold);
+      color: #ffffff; font-family: var(--font-en); font-size: 9.5px; font-weight: 900;
+      padding: 2px 8px; border-radius: 9999px; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+    }
+
+    .status-pill {
+      font-size: 10.5px; font-weight: 900; padding: 3px 9px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .status-unconfirmed-pill { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; animation: pulseAlert 2s infinite; }
+    .status-confirmed-pill { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .status-preparing-pill { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .status-dispatched-pill { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+    .status-delivered-pill { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+
+    @keyframes pulseAlert { 0% { opacity: 0.85; } 50% { opacity: 1; } 100% { opacity: 0.85; } }
+
+    .timestamps-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 4px;
+      background: #fdfaf7; border: 1px solid #fed7aa; border-radius: 10px; padding: 6px 10px;
+      font-size: 10px; font-weight: 700; color: #92400e;
+    }
+
+    .stopwatch-box {
+      background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 10px;
+      padding: 6px 12px; font-size: 11px; font-weight: 900; color: #92400e;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .stopwatch-digits { font-family: var(--font-en); font-size: 14px; color: var(--brand-red); font-weight: 900; letter-spacing: 0.5px; }
+
+    /* Action Buttons */
+    .btn-act {
+      border: 1px solid #e2e8f0; background: #f8fafc; padding: 7px 11px; border-radius: 10px;
+      font-family: var(--font-ar); font-size: 11px; font-weight: 800; cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .btn-act:active { transform: scale(0.97); }
+    .btn-confirm-action { background: linear-gradient(135deg, var(--emerald) 0%, #059669 100%); color: #fff; border: none; }
+    .btn-prep-action { background: linear-gradient(135deg, var(--blue-accent) 0%, #1d4ed8 100%); color: #fff; border: none; }
+    .btn-dispatch-action { background: linear-gradient(135deg, var(--purple-accent) 0%, #6d28d9 100%); color: #fff; border: none; }
+    .btn-done-action { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+    .btn-cancel-action { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .btn-override-action { background: #1e1b4b; color: #fed7aa; border: 1px solid #6366f1; }
+
+    /* POS Live Menu Drawer */
+    .drawer-backdrop {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100%; height: 100dvh;
+      background: rgba(10, 8, 9, 0.65); backdrop-filter: blur(8px); z-index: 10000;
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .drawer-surface {
+      background: #ffffff; width: 100%; max-width: 860px; border-radius: 28px 28px 0 0;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.18); border-top: 2.5px solid #fed7aa;
+      transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 92vh; display: flex; flex-direction: column; overflow: hidden;
+    }
+    .drawer-backdrop.open .drawer-surface { transform: translateY(0); }
+
+    .drawer-header-bar {
+      flex-shrink: 0; display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 18px; border-bottom: 1px solid #f1f5f9; background: #ffffff;
+    }
+    .drawer-close-btn {
+      width: 32px; height: 32px; border-radius: 50%; background: #f1f5f9;
+      border: 1px solid #e2e8f0; font-size: 14px; font-weight: 800; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .pos-scroll-body { flex: 1 1 auto; overflow-y: auto; padding: 14px 16px 20px; }
+    .pos-flavors-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 9px; margin-top: 10px;
+    }
+
+    .pos-flavor-card {
+      background: #ffffff; border: 1.5px solid #f1f0ee; border-radius: 16px;
+      padding: 10px 8px; display: flex; flex-direction: column; align-items: center;
+      text-align: center; box-shadow: var(--shadow-card); position: relative; transition: all 0.2s ease;
+    }
+    .pos-flavor-card.has-qty { border-color: var(--brand-red); background: #fff0f3; }
+    .pos-thumb-img { width: 62px; height: 62px; object-fit: contain; margin-bottom: 4px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+    .pos-flavor-title { font-size: 12px; font-weight: 900; line-height: 1.2; color: var(--text-espresso); }
+    .pos-flavor-price { font-family: var(--font-en), var(--font-ar); font-size: 12px; font-weight: 900; color: var(--brand-red); margin: 3px 0 6px; }
+
+    .pos-counter-cluster {
+      display: inline-flex; align-items: center; gap: 8px; background: #ffffff;
+      border: 1.5px solid #fed7aa; padding: 3px 8px; border-radius: 10px;
+    }
+    .pos-qty-btn {
+      width: 24px; height: 24px; border-radius: 50%; border: none; background: #fdfaf7;
+      color: var(--text-espresso); font-weight: 900; font-size: 14px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pos-qty-val { font-family: var(--font-en); font-size: 13px; font-weight: 900; min-width: 18px; }
+
+    .pos-sticky-footer {
+      flex-shrink: 0; padding: 12px 18px calc(14px + env(safe-area-inset-bottom, 16px));
+      background: #ffffff; border-top: 1.5px solid #f1f5f9; display: flex; flex-direction: column; gap: 8px;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100%; height: 100dvh;
+      background: rgba(10, 8, 9, 0.68); backdrop-filter: blur(8px); z-index: 10000;
+      display: flex; align-items: center; justify-content: center; padding: 14px;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .modal-card {
+      background: #ffffff; border-radius: 24px; padding: 20px 18px; width: 100%; max-width: 490px;
+      max-height: 90vh; overflow-y: auto; text-align: right; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1.5px solid #fed7aa;
+    }
+
+    input, select, textarea {
+      width: 100%; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px;
+      padding: 9px 12px; font-family: var(--font-ar); font-size: 12px; outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--brand-red); background: #ffffff; }
+
+    /* Thermal Slip */
+    .printable-thermal-wrapper {
+      background: #ffffff; border: 1.5px dashed #000000; border-radius: 12px; padding: 14px 10px;
+      margin: 10px auto; width: 100%; max-width: 290px; font-family: 'Readex Pro', monospace, sans-serif;
+      font-size: 11px; line-height: 1.45; color: #000000; text-align: center;
+    }
+    .gps-hero-box-thermal { border: 2px dashed #000000; border-radius: 10px; padding: 8px 6px; margin: 8px 0; background: #fff; }
+
+    #toast-box { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 99999; pointer-events: none; }
+    .admin-toast {
+      background: rgba(26, 17, 13, 0.96); color: #ffffff; border: 1.5px solid #fed7aa;
+      border-radius: 16px; padding: 8px 16px; font-size: 11.5px; font-weight: 800; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    #thermal-print-hidden-frame { display: none; }
+  </style>
+</head>
+<body>
+
+  <div id="toast-box"></div>
+  <iframe id="thermal-print-hidden-frame"></iframe>
+
+  <div class="master-wrapper">
+    <!-- Top Header -->
+    <div class="top-header-cluster">
+      <div class="brand-cluster">
+        <div class="straw-hat-badge">
+          <div class="hat-glow"></div>
+          <svg class="straw-hat-svg" viewBox="0 0 100 100" fill="none">
+            <ellipse cx="50" cy="70" rx="46" ry="13" fill="#EAB308"/>
+            <path d="M24 67C24 38 31 24 50 24C69 24 76 38 76 67Z" fill="#FACC15"/>
+            <path d="M23.5 64.5C34 68.5 66 68.5 76.5 64.5C75.5 57.5 74.5 53 74.5 53C63 57.5 37 57.5 25.5 53Z" fill="#FF2A5F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title"><span class="name-en">LUFFY</span> • <span>رادار إدارة الطلبات وتتبع السائق</span></div>
+          <div style="font-size:10px; color:var(--text-muted); font-weight:800;">إدارة الحالات الميدانية • متابعة الكابتن • الطباعة الحرارية • العقبة 🇯🇴</div>
+        </div>
+      </div>
+
+      <div class="header-actions-cluster">
+        <button class="btn-luxury-header btn-header-order" onclick="openDirectMenuModal()">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span>+ إضافة طلب مباشر</span>
+        </button>
+
+        <button class="btn-luxury-header btn-header-refresh" id="btn-master-refresh" onclick="triggerSmartRefresh()">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+          <span>تحديث ⚡</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- KPIs Row -->
+    <div class="kpi-radar-grid">
+      <div class="kpi-card">
+        <span class="kpi-title">بانتظار التأكيد</span>
+        <span class="kpi-digits" style="color:var(--brand-gold);" id="kpi-unconfirmed-count">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">تحت التحضير بالمطبخ</span>
+        <span class="kpi-digits" style="color:var(--blue-accent);" id="kpi-prep-count">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">في الطريق مع الكابتن</span>
+        <span class="kpi-digits" style="color:var(--purple-accent);" id="kpi-transit-count">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">تم التسليم اليوم</span>
+        <span class="kpi-digits" style="color:var(--emerald-dark);" id="kpi-delivered-count">0</span>
+      </div>
+    </div>
+
+    <!-- كابتن التوصيل الوحيد المعتمد -->
+    <div class="driver-coordination-bar">
+      <div style="display:flex; align-items:center; gap:6px;">
+        <span style="font-size:14px;">🛵</span>
+        <span>كابتن السعادة المعتمد بالوردية: <strong id="assigned-driver-name">كابتن السعادة (محمد)</strong></span>
+      </div>
+      <span style="background:#ffffff; color:#065f46; padding:2px 8px; border-radius:9999px; font-size:10px;">متاح وجاهز للتوصيل ✓</span>
+    </div>
+
+    <!-- شريط مقترح تسلسل خط السير الذكي في العقبة -->
+    <div class="smart-route-banner" id="smart-route-box">
+      <strong>💡 مقترح خط السير الأسرع لتوصيل طلبات هذه الساعة:</strong>
+      <div id="smart-route-sequence-txt" style="margin-top:2px;">جاري حساب أقصر تسلسل جغرافي...</div>
+    </div>
+
+    <!-- Controls -->
+    <div class="control-toolbar">
+      <div class="search-input-wrap">
+        <input type="text" placeholder="ابحث برقم الطلب #LFY...، اسم العميل، رقم الهاتف..." oninput="handleSearch(this.value)">
+      </div>
+
+      <div class="filter-track">
+        <button class="filter-pill active" onclick="applyStageFilter('ALL', this)">الكل (<b id="cnt-all">0</b>)</button>
+        <button class="filter-pill" onclick="applyStageFilter('UNCONFIRMED', this)">بانتظار التأكيد (<b id="cnt-unconf">0</b>)</button>
+        <button class="filter-pill" onclick="applyStageFilter('CONFIRMED', this)">مؤكد (<b id="cnt-conf">0</b>)</button>
+        <button class="filter-pill" onclick="applyStageFilter('PREPARING', this)">تحت التحضير (<b id="cnt-prep">0</b>)</button>
+        <button class="filter-pill" onclick="applyStageFilter('DISPATCHED', this)">مع السائق (<b id="cnt-disp">0</b>)</button>
+        <button class="filter-pill" onclick="applyStageFilter('DELIVERED', this)">تم التسليم (<b id="cnt-deliv">0</b>)</button>
+      </div>
+    </div>
+
+    <!-- Orders Feed -->
+    <div class="orders-stream" id="orders-stream-container">جاري جلب الطلبات من السحابة...</div>
+  </div>
+
+  <!-- 🍦 استوديو الكاشير والمنيو الرقمي التفاعلي للطلب المباشر -->
+  <div class="drawer-backdrop" id="direct-menu-modal" onclick="closeDirectMenuModal()">
+    <div class="drawer-surface" onclick="event.stopPropagation()">
+      <div class="drawer-header-bar">
+        <div>
+          <div style="font-size:15.5px; font-weight:900;">تسجيل طلب مباشر عبر المنيو الرقمي الحي</div>
+          <span style="font-size:11px; color:var(--text-muted);">حدد النكهات والكميات لاحتساب الإجمالي بدقة بالـ (د.أ)</span>
+        </div>
+        <button class="drawer-close-btn" onclick="closeDirectMenuModal()">✕</button>
+      </div>
+
+      <div class="pos-scroll-body">
+        <!-- بيانات العميل والتوصيل -->
+        <div style="background:#fdfaf7; border:1.5px solid #fed7aa; border-radius:16px; padding:12px; margin-bottom:12px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+            <div>
+              <label style="font-size:11px; font-weight:800; display:block; margin-bottom:2px;">اسم العميل الكريم *</label>
+              <input type="text" id="pos_cust_name" placeholder="مثال: أحمد الحنيطي" required>
+            </div>
+            <div>
+              <label style="font-size:11px; font-weight:800; display:block; margin-bottom:2px;">رقم الهاتف الأردني *</label>
+              <input type="tel" id="pos_phone" placeholder="07XXXXXXXX" dir="ltr" required>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div>
+              <label style="font-size:11px; font-weight:800; display:block; margin-bottom:2px;">طريقة الاستلام *</label>
+              <select id="pos_type" onchange="togglePosDeliveryAddress(this.value)">
+                <option value="DELIVERY">🛵 توصيل لموقع العميل</option>
+                <option value="PICKUP">🛍️ استلام من المحل</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:11px; font-weight:800; display:block; margin-bottom:2px;">موعد التسليم:</label>
+              <input type="text" id="pos_time_slot" value="فوري (خلال 20 دقيقة)">
+            </div>
+          </div>
+
+          <div id="pos_address_wrapper" style="margin-top:8px;">
+            <label style="font-size:11px; font-weight:800; display:block; margin-bottom:2px;">العنوان في العقبة أو أقرب معلم:</label>
+            <input type="text" id="pos_address" placeholder="العقبة - بجانب ساحة الثورة / فندق...">
+          </div>
+        </div>
+
+        <strong style="font-size:12.5px; color:var(--text-espresso); display:block; margin-bottom:4px;">اختر الأصناف والكميات من القائمة:</strong>
+        <div class="pos-flavors-grid" id="pos-flavors-container">جاري تحميل أصناف المنيو...</div>
+      </div>
+
+      <div class="pos-sticky-footer">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span style="font-size:11.5px; color:var(--text-muted); font-weight:800;">السلة المباشرة:</span>
+            <span id="pos-basket-summary" style="font-size:12px; font-weight:900; color:var(--text-espresso); display:block;">لم يتم اختيار أصناف بعد</span>
+          </div>
+          <div style="text-align:left;">
+            <span style="font-size:10px; color:var(--text-muted); font-weight:800; display:block;">المجموع الإجمالي:</span>
+            <span style="font-family:var(--font-en), var(--font-ar); font-size:17px; font-weight:900; color:var(--brand-red);" id="pos-grand-total">0.00 د.أ</span>
+          </div>
+        </div>
+
+        <button class="btn-luxury-header btn-header-order" style="width:100%; padding:13px; font-size:13px;" onclick="commitPosDirectOrder()">
+          <span>تأكيد واعتماد الطلب في الرادار والشيت ⚡</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🖨️ نافذة التذكرة الحرارية والطباعة الفورية -->
+  <div class="modal-backdrop" id="thermal-slip-modal" onclick="closeSlipModal()">
+    <div class="modal-card" style="max-width:380px;" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid #f1f0ee;">
+        <strong style="font-size:13.5px;">معاينة التذكرة الحرارية 80mm</strong>
+        <button style="border:none; background:#f1f5f9; width:26px; height:26px; border-radius:50%; cursor:pointer;" onclick="closeSlipModal()">✕</button>
+      </div>
+
+      <div id="printable-thermal-slip-content" class="printable-thermal-wrapper">
+        <div style="font-size:16px; font-weight:900; letter-spacing:1px;">LUFFY</div>
+        <div style="font-size:11px; font-weight:800;">لوفي - كابتن السعادة</div>
+        <div style="font-size:9.5px; color:#475569;">العقبة - بوظة طبيعية 100% 🇯🇴</div>
+        <div style="border-top:1px dashed #000; margin:6px 0;"></div>
+        
+        <div style="font-size:17px; font-weight:900;" id="slip-order-id">#LFY-0000</div>
+        <div style="font-size:11px; font-weight:800; margin:2px 0;" id="slip-order-type">[ طلب توصيل خارجي 🛵 ]</div>
+        <div style="font-size:10.5px; font-weight:700;" id="slip-time-slot">موعد التسليم: فوري</div>
+        
+        <!-- كود استلام الكابتن -->
+        <div style="font-size:9.5px; font-weight:800; margin-top:6px;">[ كود تسليم الطلب لكابتن الأسطول ]</div>
+        <div id="slip-pickup-qr-box" style="display:flex; justify-content:center; margin:4px auto; width:95px; height:95px;"></div>
+
+        <div style="border-top:1px dashed #000; margin:6px 0;"></div>
+        <div style="text-align:right; font-size:11px; font-weight:800;" id="slip-customer-name">العميل: ...</div>
+        <div style="text-align:right; font-size:10.5px;" id="slip-address-info">العنوان: ...</div>
+        <div style="border-top:1px dashed #000; margin:6px 0;"></div>
+        
+        <div style="text-align:right; font-weight:900; font-size:11.5px; margin-bottom:3px;">الأصناف والأسعار:</div>
+        <div style="text-align:right; font-size:11px; line-height:1.4;" id="slip-items-summary">...</div>
+
+        <!-- كود الملاحة GPS -->
+        <div class="gps-hero-box-thermal" id="slip-gps-hero-box" style="display:none;">
+          <span style="font-size:11.5px; font-weight:900; display:block;">★ موقع التوصيل Google Maps ★</span>
+          <div id="slip-gps-qr-box" style="display:flex; justify-content:center; margin:4px auto; width:115px; height:115px;"></div>
+        </div>
+        
+        <div style="border-top:1px dashed #000; margin:6px 0;"></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:900;">
+          <span>المجموع الكلي:</span>
+          <span id="slip-total-amount">0.00 د.أ</span>
+        </div>
+        <div style="border-top:1px dashed #000; margin:6px 0;"></div>
+        <div style="font-size:9.5px;">صُنعت لكم بحب بمكونات طبيعية 100% 🇯🇴</div>
+      </div>
+
+      <div style="display:flex; gap:6px; margin-top:8px;">
+        <button style="flex:1; border:none; background:#f1f5f9; padding:9px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="closeSlipModal()">إغلاق</button>
+        <button class="btn-act btn-confirm-action" style="flex:2; padding:9px;" onclick="triggerThermalPrint()">
+          <span>طباعة التذكرة 🖨️</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 👑 نافذة التعديل الإداري الشامل (Diff Engine) -->
+  <div class="modal-backdrop" id="mutation-override-modal" onclick="closeMutationModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div style="font-size:14.5px; font-weight:900; color:var(--brand-gold); margin-bottom:4px;">👑 التدخل والتعديل الإداري الشامل (Diff Engine)</div>
+      <p style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">تعديل أي بيان وتوثيق الفروقات في السجل التراكمي الدائم:</p>
+
+      <input type="hidden" id="mut_order_id">
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+        <div>
+          <label style="font-size:10.5px; font-weight:800;">اسم العميل:</label>
+          <input type="text" id="mut_cust_name" required>
+        </div>
+        <div>
+          <label style="font-size:10.5px; font-weight:800;">رقم الهاتف الأردني:</label>
+          <input type="tel" id="mut_phone" dir="ltr" required>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+        <div>
+          <label style="font-size:10.5px; font-weight:800;">حالة الطلب:</label>
+          <select id="mut_status">
+            <option value="UNCONFIRMED">⏳ بانتظار التأكيد (UNCONFIRMED)</option>
+            <option value="CONFIRMED">🟢 مؤكد (CONFIRMED)</option>
+            <option value="PREPARING">⚡ تحت التحضير بالمطبخ (PREPARING)</option>
+            <option value="DISPATCHED">🛵 في الطريق مع الكابتن (DISPATCHED)</option>
+            <option value="DELIVERED">✅ تم التسليم بنجاح (DELIVERED)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:10.5px; font-weight:800;">موعد التسليم:</label>
+          <input type="text" id="mut_time_slot">
+        </div>
+      </div>
+
+      <div style="margin-bottom:8px;">
+        <label style="font-size:10.5px; font-weight:800;">تفاصيل الأصناف والأسعار:</label>
+        <textarea id="mut_items_summary" rows="2"></textarea>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:8px; margin-bottom:8px;">
+        <div>
+          <label style="font-size:10.5px; font-weight:800;">العنوان بالعقبة والمعلم الأقرب:</label>
+          <input type="text" id="mut_address">
+        </div>
+        <div>
+          <label style="font-size:10.5px; font-weight:800;">المجموع الكلي (د.أ):</label>
+          <input type="text" id="mut_total_price" dir="ltr">
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="font-size:10.5px; font-weight:800; color:var(--brand-red);">سبب التدخل الإداري (إلزامي للتوثيق) *</label>
+        <input type="text" id="mut_reason" placeholder="مثال: اتصال العميل لتعديل النكهات أو العنوان..." required>
+      </div>
+
+      <div style="display:flex; gap:6px;">
+        <button type="button" class="btn-act" style="flex:1;" onclick="closeMutationModal()">إلغاء</button>
+        <button type="button" class="btn-act btn-confirm-action" style="flex:2; padding:10px;" onclick="commitOrderMutationDiff()">اعتماد التعديل وتوثيق الـ Diff ⚡</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbw2zN2iZ2uK9xRYsOuz7_Tvz-_kJGwXteMFP3-X2c-Guj-uljMSJMWjNacvKn__GJrIIA/exec";
+    const MASTER_PASSPHRASE = "LUFFY#2026$Aqaba_Master!Vault@99";
+
+    // موقع متجر لوفي المعتمد في العقبة لحساب خط السير
+    const STORE_AQABA_COORDS = { lat: 29.5265, lng: 35.0020 };
+
+    let rawOrdersList = [];
+    let liveFlavorsCatalog = [];
+    let posSelectedBasket = {};
+    let currentFilterStage = "ALL";
+    let searchQuery = "";
+    let activeStopwatches = {};
+
+    function showToast(msg) {
+      const c = document.getElementById('toast-box');
+      const t = document.createElement('div');
+      t.className = 'admin-toast';
+      t.textContent = msg;
+      c.appendChild(t);
+      setTimeout(() => t.remove(), 3200);
+    }
+
+    function calculateDistanceKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+      return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+    }
+
+    function sanitizeTextForThermal(str) {
+      if (!str) return "";
+      let clean = String(str).replace(/([\u2700-\u27BF]|[\E000-\xF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
+      const holyNames = ["محمد", "أحمد", "احمد", "محمود", "مصطفى", "إبراهيم", "ابراهيم", "يوسف", "موسى", "عيسى", "الله"];
+      holyNames.forEach(n => {
+        clean = clean.replace(new RegExp(`\\b${n}\\b`, 'gi'), m => m === "الله" ? "...." : m.charAt(0) + ".".repeat(Math.max(1, m.length - 1)));
+      });
+      return clean.trim();
+    }
+
+    /* 1. جلب بيانات الطلبات والكتالوج */
+    function fetchLiveOrdersData() {
+      rawOrdersList = JSON.parse(localStorage.getItem('luffy_unconfirmed_orders') || "[]");
+      updateKpisAndBadges();
+      calculateSmartRouteSequence();
+      renderOrdersStream();
+
+      const cb = "onOrdersHubLoaded_" + Date.now();
+      window[cb] = function(res) {
+        if (res && res.data) {
+          rawOrdersList = res.data;
+          localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+          updateKpisAndBadges();
+          calculateSmartRouteSequence();
+          renderOrdersStream();
+        }
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_live_orders&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    function fetchMenuCatalogForPos() {
+      const cached = localStorage.getItem('luffy_live_catalog');
+      if (cached) {
+        liveFlavorsCatalog = JSON.parse(cached);
+        renderPosFlavorsGrid();
+      }
+
+      const cb = "onCatalogPosLoaded_" + Date.now();
+      window[cb] = function(res) {
+        if (res && res.catalog) {
+          liveFlavorsCatalog = res.catalog;
+          localStorage.setItem('luffy_live_catalog', JSON.stringify(liveFlavorsCatalog));
+          renderPosFlavorsGrid();
+        }
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_full_menu_catalog&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    function triggerSmartRefresh() {
+      const btn = document.getElementById('btn-master-refresh');
+      btn.classList.add('refreshing');
+      fetchLiveOrdersData();
+      fetchMenuCatalogForPos();
+      setTimeout(() => {
+        btn.classList.remove('refreshing');
+        showToast("تم تحديث الرادار والمنيو بنجاح ⚡");
+      }, 700);
+    }
+
+    function updateKpisAndBadges() {
+      const unconf = rawOrdersList.filter(o => (o.status || o.Status) === 'UNCONFIRMED' || (o.status || o.Status) === 'PENDING').length;
+      const conf = rawOrdersList.filter(o => (o.status || o.Status) === 'CONFIRMED').length;
+      const prep = rawOrdersList.filter(o => (o.status || o.Status) === 'PREPARING').length;
+      const disp = rawOrdersList.filter(o => (o.status || o.Status) === 'DISPATCHED' || (o.status || o.Status) === 'IN_TRANSIT').length;
+      const deliv = rawOrdersList.filter(o => (o.status || o.Status) === 'DELIVERED').length;
+
+      document.getElementById('kpi-unconfirmed-count').textContent = unconf;
+      document.getElementById('kpi-prep-count').textContent = prep;
+      document.getElementById('kpi-transit-count').textContent = disp;
+      document.getElementById('kpi-delivered-count').textContent = deliv;
+
+      document.getElementById('cnt-all').textContent = rawOrdersList.length;
+      document.getElementById('cnt-unconf').textContent = unconf;
+      document.getElementById('cnt-conf').textContent = conf;
+      document.getElementById('cnt-prep').textContent = prep;
+      document.getElementById('cnt-disp').textContent = disp;
+      document.getElementById('cnt-deliv').textContent = deliv;
+    }
+
+    /* 🗺️ خوارزمية تسلسل المسار الجغرافي الذكي للسائق في العقبة */
+    function calculateSmartRouteSequence() {
+      const activeDeliveries = rawOrdersList.filter(o => {
+        const s = (o.status || o.Status || '').toUpperCase();
+        const isDeliv = (o.order_type || o.Order_Type) === 'DELIVERY';
+        return isDeliv && (s === 'CONFIRMED' || s === 'PREPARING' || s === 'DISPATCHED');
+      });
+
+      const banner = document.getElementById('smart-route-box');
+      const textEl = document.getElementById('smart-route-sequence-txt');
+
+      if (activeDeliveries.length < 2) {
+        banner.style.display = 'none';
+        return;
+      }
+
+      // فرز الطلبات من الأقرب للأبعد عن محل لوفي
+      activeDeliveries.sort((a, b) => {
+        let distA = 999, distB = 999;
+        if (a.gps_url && a.gps_url.includes('q=')) {
+          const p = a.gps_url.split('q=')[1].split(',');
+          distA = calculateDistanceKm(STORE_AQABA_COORDS.lat, STORE_AQABA_COORDS.lng, parseFloat(p[0]), parseFloat(p[1]));
+        }
+        if (b.gps_url && b.gps_url.includes('q=')) {
+          const p = b.gps_url.split('q=')[1].split(',');
+          distB = calculateDistanceKm(STORE_AQABA_COORDS.lat, STORE_AQABA_COORDS.lng, parseFloat(p[0]), parseFloat(p[1]));
+        }
+        return distA - distB;
+      });
+
+      banner.style.display = 'block';
+      textEl.innerHTML = activeDeliveries.map((o, idx) => `
+        <span style="display:inline-block; margin-left:6px;">
+          <b>${idx + 1}.</b> #${o.order_id || o.id || o.Order_ID} (${o.customer_name || o.Customer_Name}) ${idx < activeDeliveries.length - 1 ? '⬅️' : ''}
+        </span>
+      `).join('');
+    }
+
+    function applyStageFilter(stage, btnEl) {
+      currentFilterStage = stage;
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+      renderOrdersStream();
+    }
+
+    function handleSearch(q) {
+      searchQuery = q.trim().toLowerCase();
+      renderOrdersStream();
+    }
+
+    /* 2. رسم بطاقات الطلبات مع مسار الحالات الكامل والمؤقتات */
+    function renderOrdersStream() {
+      const container = document.getElementById('orders-stream-container');
+      container.innerHTML = "";
+
+      const filtered = rawOrdersList.filter(o => {
+        const status = (o.status || o.Status || 'UNCONFIRMED').toUpperCase();
+        let matchStage = true;
+        if (currentFilterStage === 'UNCONFIRMED') matchStage = (status === 'UNCONFIRMED' || status === 'PENDING');
+        else if (currentFilterStage === 'CONFIRMED') matchStage = (status === 'CONFIRMED');
+        else if (currentFilterStage === 'PREPARING') matchStage = (status === 'PREPARING');
+        else if (currentFilterStage === 'DISPATCHED') matchStage = (status === 'DISPATCHED' || status === 'IN_TRANSIT');
+        else if (currentFilterStage === 'DELIVERED') matchStage = (status === 'DELIVERED');
+
+        const id = (o.order_id || o.id || o.Order_ID || '').toLowerCase();
+        const cust = (o.customer_name || o.Customer_Name || '').toLowerCase();
+        const phone = (o.phone_number || o.phone || o.Phone_Number || '');
+        const matchSearch = !searchQuery || id.includes(searchQuery) || cust.includes(searchQuery) || phone.includes(searchQuery);
+
+        return matchStage && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-muted); font-size:12px;">لا توجد طلبات في هذا القسم حالياً ✨</div>`;
+        return;
+      }
+
+      filtered.forEach(order => {
+        const id = order.order_id || order.id || order.Order_ID;
+        const status = (order.status || order.Status || 'UNCONFIRMED').toUpperCase();
+        const isDelivery = (order.order_type || order.Order_Type) === 'DELIVERY';
+
+        const isUnconf = (status === 'UNCONFIRMED' || status === 'PENDING');
+        const isConf = (status === 'CONFIRMED');
+        const isPrep = (status === 'PREPARING');
+        const isDisp = (status === 'DISPATCHED' || status === 'IN_TRANSIT');
+        const isDeliv = (status === 'DELIVERED');
+
+        let cardClass = isUnconf ? 'status-unconfirmed' : (isConf ? 'status-confirmed' : (isPrep ? 'status-preparing' : (isDisp ? 'status-dispatched' : 'status-delivered')));
+        let badgeHtml = '';
+        if (isUnconf) badgeHtml = `<span class="status-pill status-unconfirmed-pill">⏳ بانتظار التأكيد</span>`;
+        else if (isConf) badgeHtml = `<span class="status-pill status-confirmed-pill">🟢 مؤكد</span>`;
+        else if (isPrep) badgeHtml = `<span class="status-pill status-preparing-pill">⚡ تحت التحضير</span>`;
+        else if (isDisp) badgeHtml = `<span class="status-pill status-dispatched-pill">🛵 مع السائق</span>`;
+        else if (isDeliv) badgeHtml = `<span class="status-pill status-delivered-pill">✅ تم التسليم</span>`;
+
+        let actionButtons = '';
+        if (isUnconf) {
+          actionButtons = `
+            <button class="btn-act btn-confirm-action" style="flex:2;" onclick="setOrderStatus('${id}', 'CONFIRMED')">تأكيد الطلب 🟢</button>
+            <button class="btn-act btn-cancel-action" style="flex:1;" onclick="cancelOrderAction('${id}')">إلغاء 🚫</button>
+          `;
+        } else if (isConf) {
+          actionButtons = `
+            <button class="btn-act btn-prep-action" style="flex:2;" onclick="setOrderStatus('${id}', 'PREPARING')">بدء التحضير بالمطبخ ⚡</button>
+            <button class="btn-act btn-dispatch-action" style="flex:2;" onclick="setOrderStatus('${id}', 'DISPATCHED')">جاهز للتوصيل مع السائق 🛵</button>
+          `;
+        } else if (isPrep) {
+          actionButtons = `
+            <button class="btn-act btn-dispatch-action" style="flex:2;" onclick="setOrderStatus('${id}', 'DISPATCHED')">جاهز - إسناد للسائق 🛵</button>
+          `;
+        } else if (isDisp) {
+          actionButtons = `
+            <button class="btn-act btn-done-action" style="width:100%;" onclick="setOrderStatus('${id}', 'DELIVERED')">تم تسليم الزبون بنجاح واستلام المبلغ ✓</button>
+          `;
+        }
+
+        const card = document.createElement('div');
+        card.className = `order-card-box ${cardClass}`;
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-family:var(--font-en); font-weight:900; color:var(--brand-red); font-size:14px;">#${id}</span>
+              <span style="font-size:10px; font-weight:800; background:${isDelivery ? '#eff6ff' : '#fef3c7'}; color:${isDelivery ? '#1e40af' : '#92400e'}; padding:2px 7px; border-radius:6px;">
+                ${isDelivery ? 'توصيل خارجي 🛵' : 'استلام من المحل 🛍️'}
+              </span>
+              ${badgeHtml}
+            </div>
+            <span style="font-family:var(--font-en), var(--font-ar); font-size:14.5px; font-weight:900; color:var(--brand-red);">
+              ${order.total_amount || order.total_price || '2.50 د.أ'}
+            </span>
+          </div>
+
+          <!-- توثيق تسلسل المواعيد الزمنية -->
+          <div class="timestamps-grid">
+            <span>وصول: <b>${order.created_at || 'اليوم'}</b></span>
+            <span>الموعد المطلوب: <b>${order.time_slot || order.Time_Slot || 'فوري'}</b></span>
+            ${order.confirmed_at ? `<span>تأكيد: <b>${order.confirmed_at}</b></span>` : ''}
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; font-weight:800;">
+            <span>👤 العميل: ${order.customer_name || order.Customer_Name}</span>
+            <span>📞 ${order.phone_number || order.phone || order.Phone_Number}</span>
+          </div>
+
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:8px 10px; font-size:11.5px; font-weight:700; line-height:1.45;">
+            ${order.items_summary || order.Items_Summary}
+          </div>
+
+          ${(order.address_details || order.address) ? `<div style="font-size:11px; color:var(--text-muted);">العنوان: ${order.address_details || order.address}</div>` : ''}
+
+          <!-- مؤقت التحضير المباشر بالثواني والدقائق -->
+          ${isPrep ? `
+            <div class="stopwatch-box">
+              <span>⏱️ عداد التحضير الحي بالمطبخ:</span>
+              <span class="stopwatch-digits" id="timer-${id}">00:00</span>
+            </div>
+          ` : ''}
+
+          <div style="display:flex; gap:5px; margin-top:2px; flex-wrap:wrap;">
+            <a href="tel:${order.phone_number || order.phone}" class="btn-act" style="background:#f1f5f9;">📞 اتصال</a>
+            <a href="https://api.whatsapp.com/send?phone=${order.phone_number || order.phone}" target="_blank" class="btn-act" style="background:#f0fdf4; color:#166534; border:1px solid #bbf7d0;">💬 واتساب</a>
+            ${order.gps_url ? `<a href="${order.gps_url}" target="_blank" class="btn-act" style="background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe;">📍 ملاحة GPS</a>` : ''}
+            <button class="btn-act" onclick='openSlipModal(${JSON.stringify(order)})'>🖨️ تذكرة حرارية</button>
+            <button class="btn-act btn-override-action" onclick='openMutationModal(${JSON.stringify(order)})'>👑 تعديل شامل (Diff)</button>
+          </div>
+
+          ${actionButtons ? `<div style="display:flex; gap:6px; margin-top:4px;">${actionButtons}</div>` : ''}
+        `;
+
+        container.appendChild(card);
+
+        if (isPrep) startPrepTimer(id, order.prep_started_at);
+      });
+    }
+
+    function startPrepTimer(id, startTime) {
+      if (activeStopwatches[id]) clearInterval(activeStopwatches[id]);
+      const startMs = startTime ? new Date(startTime).getTime() : Date.now();
+
+      activeStopwatches[id] = setInterval(() => {
+        const diffSec = Math.floor((Date.now() - startMs) / 1000);
+        const mins = String(Math.floor(diffSec / 60)).padStart(2, '0');
+        const secs = String(diffSec % 60).padStart(2, '0');
+        const el = document.getElementById(`timer-${id}`);
+        if (el) el.textContent = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    function setOrderStatus(id, newStatus) {
+      const order = rawOrdersList.find(o => (o.order_id || o.id || o.Order_ID) === id);
+      if (order) {
+        order.status = newStatus;
+        order.Status = newStatus;
+        const nowFormatted = new Date().toLocaleTimeString('ar-JO', { hour: '2-digit', minute: '2-digit' });
+
+        if (newStatus === 'CONFIRMED') order.confirmed_at = nowFormatted;
+        if (newStatus === 'PREPARING') order.prep_started_at = new Date().toISOString();
+        if (newStatus === 'DISPATCHED') order.dispatched_at = nowFormatted;
+        if (newStatus === 'DELIVERED') order.delivered_at = nowFormatted;
+
+        localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+        updateKpisAndBadges();
+        calculateSmartRouteSequence();
+        renderOrdersStream();
+        showToast(`تم تحديث الطلب #${id} إلى: ${newStatus} ✓`);
+
+        if (newStatus === 'PREPARING' || newStatus === 'DISPATCHED') {
+          generateThermalSlip(order, false);
+        }
+
+        const s = document.createElement("script");
+        s.src = `${APPS_SCRIPT_EXEC_URL}?action=update_order_status&data=${encodeURIComponent(JSON.stringify({ order_id: id, new_status: newStatus }))}&_ts=${Date.now()}`;
+        document.body.appendChild(s);
+      }
+    }
+
+    function cancelOrderAction(id) {
+      if (!confirm(`هل ترغب فعلاً بإلغاء الطلب #${id}؟`)) return;
+      rawOrdersList = rawOrdersList.filter(o => (o.order_id || o.id || o.Order_ID) !== id);
+      localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+      updateKpisAndBadges();
+      calculateSmartRouteSequence();
+      renderOrdersStream();
+      showToast(`تم إلغاء الطلب #${id}`);
+    }
+
+    /* 3. استوديو المنيو الرقمي المباشر والكاشير */
+    function openDirectMenuModal() {
+      posSelectedBasket = {};
+      document.getElementById('pos_cust_name').value = '';
+      document.getElementById('pos_phone').value = '';
+      document.getElementById('pos_address').value = '';
+      document.getElementById('pos_type').value = 'DELIVERY';
+      document.getElementById('pos_address_wrapper').style.display = 'block';
+      updatePosBasketDisplay();
+
+      renderPosFlavorsGrid();
+      document.getElementById('direct-menu-modal').classList.add('open');
+    }
+
+    function closeDirectMenuModal() {
+      document.getElementById('direct-menu-modal').classList.remove('open');
+    }
+
+    function togglePosDeliveryAddress(type) {
+      document.getElementById('pos_address_wrapper').style.display = type === 'DELIVERY' ? 'block' : 'none';
+    }
+
+    function renderPosFlavorsGrid() {
+      const container = document.getElementById('pos-flavors-container');
+      if (!liveFlavorsCatalog || liveFlavorsCatalog.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted); grid-column:1/-1;">جاري جلب أصناف المنيو...</div>`;
+        return;
+      }
+
+      container.innerHTML = liveFlavorsCatalog.map((flv, idx) => {
+        const id = flv.ID || `FLV-${idx}`;
+        const nameAR = flv.Flavor_Name_AR || flv['اسم النكهة (عربي)'] || 'نكهة لوفي';
+        const price = parseFloat(flv.Price || flv['السعر'] || 2.50);
+        const img = flv['Image_URL Show'] || flv.Image_URL_Show || 'https://images.unsplash.com/photo-1560008511-11c63416e52d?w=200';
+        const currentQty = posSelectedBasket[id] ? posSelectedBasket[id].qty : 0;
+
+        return `
+          <div class="pos-flavor-card ${currentQty > 0 ? 'has-qty' : ''}" id="pos-card-${id}">
+            <img class="pos-thumb-img" src="${img}" alt="">
+            <div class="pos-flavor-title">${nameAR}</div>
+            <div class="pos-flavor-price">${price.toFixed(2)} د.أ</div>
+
+            <div class="pos-counter-cluster">
+              <button class="pos-qty-btn" onclick="modifyPosItemQty('${id}', '${nameAR}', ${price}, -1)">−</button>
+              <span class="pos-qty-val" id="pos-qty-${id}">${currentQty}</span>
+              <button class="pos-qty-btn" onclick="modifyPosItemQty('${id}', '${nameAR}', ${price}, 1)">+</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function modifyPosItemQty(id, name, price, delta) {
+      if (!posSelectedBasket[id]) {
+        posSelectedBasket[id] = { id, name, price, qty: 0 };
+      }
+
+      posSelectedBasket[id].qty = Math.max(0, posSelectedBasket[id].qty + delta);
+      if (posSelectedBasket[id].qty === 0) {
+        delete posSelectedBasket[id];
+      }
+
+      const qtyEl = document.getElementById(`pos-qty-${id}`);
+      const cardEl = document.getElementById(`pos-card-${id}`);
+      const count = posSelectedBasket[id] ? posSelectedBasket[id].qty : 0;
+      if (qtyEl) qtyEl.textContent = count;
+      if (cardEl) cardEl.classList.toggle('has-qty', count > 0);
+
+      updatePosBasketDisplay();
+    }
+
+    function updatePosBasketDisplay() {
+      const summaryEl = document.getElementById('pos-basket-summary');
+      const totalEl = document.getElementById('pos-grand-total');
+
+      const items = Object.values(posSelectedBasket);
+      if (items.length === 0) {
+        summaryEl.textContent = "لم يتم اختيار أصناف بعد";
+        totalEl.textContent = "0.00 د.أ";
+        return;
+      }
+
+      const totalQty = items.reduce((s, i) => s + i.qty, 0);
+      const grandTotal = items.reduce((s, i) => s + (i.qty * i.price), 0);
+
+      summaryEl.textContent = items.map(i => `${i.name} (x${i.qty})`).join(' ، ');
+      totalEl.textContent = `${grandTotal.toFixed(2)} د.أ (${totalQty} علبة)`;
+    }
+
+    function commitPosDirectOrder() {
+      const name = document.getElementById('pos_cust_name').value.trim();
+      const phone = document.getElementById('pos_phone').value.trim();
+      const type = document.getElementById('pos_type').value;
+      const timeSlot = document.getElementById('pos_time_slot').value.trim();
+      const address = document.getElementById('pos_address').value.trim();
+
+      const items = Object.values(posSelectedBasket);
+
+      if (!name) { alert("⚠️ يرجى إدخال اسم العميل"); return; }
+      if (!phone || phone.length < 9) { alert("⚠️ يرجى إدخال رقم هاتف أردني صحيح"); return; }
+      if (items.length === 0) { alert("⚠️ يرجى اختيار صنف واحد على الأقل من القائمة"); return; }
+
+      const totalQty = items.reduce((s, i) => s + i.qty, 0);
+      const grandTotal = items.reduce((s, i) => s + (i.qty * i.price), 0);
+      const itemsSummary = items.map(i => `${i.name} × ${i.qty} (${(i.price * i.qty).toFixed(2)} د.أ)`).join(' ، ');
+      const nowFormatted = new Date().toLocaleTimeString('ar-JO', { hour: '2-digit', minute: '2-digit' });
+
+      const newOrder = {
+        order_id: `LFY-${Date.now().toString().slice(-4)}`,
+        customer_name: name,
+        phone_number: phone,
+        order_type: type,
+        status: "CONFIRMED", // يبدأ مؤكداً ومعتمداً
+        time_slot: timeSlot || "فوري",
+        items_summary: itemsSummary,
+        total_amount: `${grandTotal.toFixed(2)} د.أ`,
+        address_details: type === 'DELIVERY' ? address : 'استلام مباشر من المتجر',
+        created_at: nowFormatted,
+        confirmed_at: nowFormatted
+      };
+
+      rawOrdersList.unshift(newOrder);
+      localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+      updateKpisAndBadges();
+      calculateSmartRouteSequence();
+      renderOrdersStream();
+      closeDirectMenuModal();
+      showToast(`🎉 تم إدراج الطلب #${newOrder.order_id} عبر المنيو بنجاح!`);
+
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=create_order&data=${encodeURIComponent(JSON.stringify(newOrder))}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    /* 4. التذاكر الحرارية والطباعة */
+    function openSlipModal(order) {
+      generateThermalSlip(order, false);
+      document.getElementById('thermal-slip-modal').classList.add('open');
+    }
+    function closeSlipModal() { document.getElementById('thermal-slip-modal').classList.remove('open'); }
+
+    function generateThermalSlip(order, autoPrint = false) {
+      const id = order.order_id || order.id || order.Order_ID;
+      const safeCust = sanitizeTextForThermal(order.customer_name || order.Customer_Name);
+      const isDelivery = (order.order_type || order.Order_Type) === 'DELIVERY';
+
+      document.getElementById('slip-order-id').textContent = `#${id}`;
+      document.getElementById('slip-order-type').textContent = isDelivery ? "[ طلب توصيل خارجي 🛵 ]" : "[ طلب استلام مباشر بالمحل 🛍️ ]";
+      document.getElementById('slip-time-slot').textContent = `موعد التسليم: ${order.time_slot || order.Time_Slot || 'فوري'}`;
+      document.getElementById('slip-customer-name').textContent = `العميل: ${safeCust} (${order.phone_number || order.phone || order.Phone_Number})`;
+      document.getElementById('slip-address-info').textContent = `العنوان: ${order.address_details || order.address || 'العقبة'}`;
+      document.getElementById('slip-items-summary').textContent = sanitizeTextForThermal(order.items_summary || order.Items_Summary);
+      document.getElementById('slip-total-amount').textContent = order.total_amount || order.total_price || "2.50 د.أ";
+
+      const pickupQrBox = document.getElementById('slip-pickup-qr-box');
+      pickupQrBox.innerHTML = "";
+      try {
+        new QRCode(pickupQrBox, { text: String(id), width: 95, height: 95, colorDark: "#000", colorLight: "#fff", correctLevel: QRCode.CorrectLevel.M });
+      } catch(e) { pickupQrBox.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=95x95&data=${encodeURIComponent(id)}" style="width:95px; height:95px;">`; }
+
+      const gpsBox = document.getElementById('slip-gps-hero-box');
+      const gpsQrBox = document.getElementById('slip-gps-qr-box');
+      gpsQrBox.innerHTML = "";
+
+      if (isDelivery && order.gps_url && order.gps_url.startsWith('http')) {
+        gpsBox.style.display = "block";
+        try {
+          new QRCode(gpsQrBox, { text: order.gps_url.trim(), width: 115, height: 115, colorDark: "#000", colorLight: "#fff", correctLevel: QRCode.CorrectLevel.M });
+        } catch(e) { gpsQrBox.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=115x115&data=${encodeURIComponent(order.gps_url.trim())}" style="width:115px; height:115px;">`; }
+      } else {
+        gpsBox.style.display = "none";
+      }
+
+      if (autoPrint) setTimeout(triggerThermalPrint, 400);
+    }
+
+    function triggerThermalPrint() {
+      const content = document.getElementById('printable-thermal-slip-content').innerHTML;
+      const iframe = document.getElementById('thermal-print-hidden-frame');
+      const doc = iframe.contentWindow || iframe.contentDocument.document || iframe.contentDocument;
+
+      doc.document.open();
+      doc.document.write(`
+        <!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><style>
+        @page { margin: 0; size: 80mm auto; }
+        body { font-family: 'Readex Pro', monospace, sans-serif; width: 72mm; margin: 0 auto; padding: 4mm 2mm; color: #000; text-align: center; font-size: 11.5px; line-height: 1.45; }
+        .gps-hero-box-thermal { border: 2px dashed #000; border-radius: 8px; padding: 6px 4px; margin: 8px 0; }
+        </style></head><body>${content}</body></html>
+      `);
+      doc.document.close();
+
+      setTimeout(() => {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }, 300);
+    }
+
+    /* 5. محرك التدخل والتعديل الشامل */
+    function openMutationModal(order) {
+      document.getElementById('mut_order_id').value = order.order_id || order.id || order.Order_ID;
+      document.getElementById('mut_cust_name').value = order.customer_name || order.Customer_Name || '';
+      document.getElementById('mut_phone').value = order.phone_number || order.phone || order.Phone_Number || '';
+      document.getElementById('mut_status').value = (order.status || order.Status || 'UNCONFIRMED').toUpperCase();
+      document.getElementById('mut_time_slot').value = order.time_slot || order.Time_Slot || 'فوري';
+      document.getElementById('mut_items_summary').value = order.items_summary || order.Items_Summary || '';
+      document.getElementById('mut_address').value = order.address_details || order.address || '';
+      document.getElementById('mut_total_price').value = order.total_amount || order.total_price || '2.50 د.أ';
+      document.getElementById('mut_reason').value = '';
+
+      document.getElementById('mutation-override-modal').classList.add('open');
+    }
+    function closeMutationModal() { document.getElementById('mutation-override-modal').classList.remove('open'); }
+
+    function commitOrderMutationDiff() {
+      const reason = document.getElementById('mut_reason').value.trim();
+      if (!reason) {
+        showToast("⚠️ يرجى تدوين سبب التعديل للرقابة الإدارية");
+        return;
+      }
+
+      const id = document.getElementById('mut_order_id').value;
+      const order = rawOrdersList.find(o => (o.order_id || o.id || o.Order_ID) === id);
+
+      if (order) {
+        order.customer_name = document.getElementById('mut_cust_name').value.trim();
+        order.Customer_Name = order.customer_name;
+        order.phone_number = document.getElementById('mut_phone').value.trim();
+        order.Phone_Number = order.phone_number;
+        order.status = document.getElementById('mut_status').value;
+        order.Status = order.status;
+        order.time_slot = document.getElementById('mut_time_slot').value.trim();
+        order.Time_Slot = order.time_slot;
+        order.items_summary = document.getElementById('mut_items_summary').value.trim();
+        order.Items_Summary = order.items_summary;
+        order.address_details = document.getElementById('mut_address').value.trim();
+        order.address = order.address_details;
+        order.total_amount = document.getElementById('mut_total_price').value.trim();
+        order.total_price = order.total_amount;
+
+        localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+        updateKpisAndBadges();
+        calculateSmartRouteSequence();
+        renderOrdersStream();
+        closeMutationModal();
+        showToast(`تم توثيق التعديل الإداري للطلب #${id} بنجاح ✓`);
+
+        const mutPayload = {
+          order_id: id,
+          customer_name: order.customer_name,
+          phone_number: order.phone_number,
+          status: order.status,
+          time_slot: order.time_slot,
+          items_summary: order.items_summary,
+          total_amount: order.total_amount,
+          address_details: order.address_details,
+          diff_summary: `تعديل إداري للطلب #${id}`,
+          reason: reason
+        };
+
+        const s = document.createElement("script");
+        s.src = `${APPS_SCRIPT_EXEC_URL}?auth_pass=${encodeURIComponent(MASTER_PASSPHRASE)}&action=mutate_order_admin&data=${encodeURIComponent(JSON.stringify(mutPayload))}&_ts=${Date.now()}`;
+        document.body.appendChild(s);
+      }
+    }
+
+    fetchLiveOrdersData();
+    fetchMenuCatalogForPos();
+    setInterval(fetchLiveOrdersData, 8000);
+  </script>
+</body>
+</html>
