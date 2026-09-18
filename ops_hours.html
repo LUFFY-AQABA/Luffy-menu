@@ -122,8 +122,10 @@
       color: var(--text-espresso);
       border: 1.5px solid #fed7aa;
     }
+    .btn-refresh-clean.refreshing .svg-icon { animation: spin 0.8s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    /* ⏱️ محاكي حالة المتجر المباشر (Live Simulator Card) */
+    /* ⏱️ محاكي حالة المتجر المباشر أمام المدير */
     .simulator-stage-card {
       background: linear-gradient(135deg, #fffdfa 0%, #fdf6f0 100%);
       border: 1.5px dashed var(--brand-gold);
@@ -330,7 +332,7 @@
       </div>
 
       <div class="header-actions">
-        <button class="btn-header-action btn-refresh-clean" onclick="fetchLiveSchedule(true)">
+        <button class="btn-header-action btn-refresh-clean" id="btn-refresh" onclick="fetchLiveSchedule(true)">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
           <span>تحديث ⚡</span>
         </button>
@@ -346,7 +348,7 @@
     <div class="simulator-stage-card">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
         <span style="font-size:11px; font-weight:900; color:var(--brand-gold);">👁️ محاكي ما يظهر للزبون الآن في منيو luffy-menu.pages.dev:</span>
-        <span style="font-size:10.5px; color:var(--text-muted);">تحديث تلقائي بالثانية</span>
+        <span style="font-size:10.5px; color:var(--text-muted);">تحديث تلقائي لحظي</span>
       </div>
 
       <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
@@ -362,14 +364,14 @@
       </div>
 
       <div style="font-size:11px; font-weight:700; color:var(--text-muted);" id="sim-detail-text">
-        نستقبلكم اليوم حتى الساعة 02:00 فجراً (اليوم التالي).
+        جاري احتساب ساعات الوردية...
       </div>
     </div>
 
     <!-- شريط القوالب السريعة -->
     <div class="presets-bar">
       <span style="font-size:10.5px; font-weight:900; color:var(--text-espresso); white-space:nowrap;">⚡ قوالب سريعة:</span>
-      <button class="preset-pill" onclick="applySummerSchedulePreset()">🏖️ تطبيق جدول صيف العقبة المعتمد (14:00 إلى 02:00 فجراً)</button>
+      <button class="preset-pill" onclick="applySummerSchedulePreset()">🏖️ تطبيق جدول صيف العقبة المعتمد (14:00 إلى 02:00 فجراً / 03:30 عطلة الأسبوع)</button>
       <button class="preset-pill" onclick="applyWeekendOvernightPreset()">🌙 تمديد سهرة عطلة الأسبوع (الخميس والجمعة حتى 03:30 فجراً)</button>
       <button class="preset-pill" onclick="applyAllDaysOpen()">✨ تفعيل كافة الأيام (بدون عطل)</button>
     </div>
@@ -381,7 +383,6 @@
   </div>
 
   <script>
-    // الرابط السحابي لنواة Google Apps Script المعتمدة
     const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbw2zN2iZ2uK9xRYsOuz7_Tvz-_kJGwXteMFP3-X2c-Guj-uljMSJMWjNacvKn__GJrIIA/exec";
     const MASTER_PASSPHRASE = "LUFFY#2026$Aqaba_Master!Vault@99";
 
@@ -406,13 +407,37 @@
       setTimeout(() => t.remove(), 3200);
     }
 
+    /* 🛡️ استخراج الساعات والدقائق وحمايتها من أخطاء Date الصادرة عن Sheets */
+    function getTimeFromCell(val, defH, defM) {
+      if (!val) return { h: defH, m: defM };
+      if (typeof val === 'string' && val.includes('T')) {
+        const d = new Date(val);
+        if (!isNaN(d.getTime())) return { h: d.getHours(), m: d.getMinutes() };
+      }
+      const m = String(val).match(/(\d{1,2}):(\d{2})/);
+      if (m) {
+        let h = parseInt(m[1], 10);
+        const min = parseInt(m[2], 10);
+        if (/pm|مساء/i.test(val) && h < 12) h += 12;
+        if (/am|صباح/i.test(val) && h === 12) h = 0;
+        return { h: h % 24, m: min % 60 };
+      }
+      return { h: defH, m: defM };
+    }
+
+    function formatTimeFriendly(h, m, isOvernight = false) {
+      h = Number(h); m = Number(m);
+      const h24 = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+      let h12 = h % 12 || 12;
+      const ampm = h >= 12 ? 'مساءً' : 'صباحاً';
+      const overnightSuffix = isOvernight ? ' (فجر الغد)' : '';
+      return `${h24} (${h12}:${String(m).padStart(2, '0')} ${ampm})${overnightSuffix}`;
+    }
+
     function isOvernightShift(openStr, closeStr) {
-      if (!openStr || !closeStr) return false;
-      const o = openStr.split(':').map(Number);
-      const c = closeStr.split(':').map(Number);
-      const openMin = o[0] * 60 + o[1];
-      const closeMin = c[0] * 60 + c[1];
-      return closeMin <= openMin;
+      const o = getTimeFromCell(openStr, 14, 0);
+      const c = getTimeFromCell(closeStr, 2, 0);
+      return (c.h < o.h) || (c.h === o.h && c.m <= o.m);
     }
 
     /* 1. جلب جدول الدوام من السحابة */
@@ -420,21 +445,29 @@
       renderDaysCards();
       updateSimulatorTicker();
 
+      const btn = document.getElementById('btn-refresh');
+      if (forceRefresh) btn.classList.add('refreshing');
+
       const cb = "onHoursOpsLoaded_" + Date.now();
       window[cb] = function(res) {
         if (res && res.data && res.data.length > 0) {
           res.data.forEach((row, idx) => {
             const dayIdx = Number(row.Day_Index !== undefined ? row.Day_Index : idx);
             if (currentSchedule[dayIdx]) {
-              currentSchedule[dayIdx].open = String(row.Open_Time || "14:00");
-              currentSchedule[dayIdx].close = String(row.Close_Time || "02:00");
+              const openT = getTimeFromCell(row.Open_Time, 14, 0);
+              const closeT = getTimeFromCell(row.Close_Time, 2, 0);
+              currentSchedule[dayIdx].open = `${String(openT.h).padStart(2, '0')}:${String(openT.m).padStart(2, '0')}`;
+              currentSchedule[dayIdx].close = `${String(closeT.h).padStart(2, '0')}:${String(closeT.m).padStart(2, '0')}`;
               currentSchedule[dayIdx].active = String(row.Is_Active).toUpperCase() === "TRUE";
             }
           });
           localStorage.setItem('luffy_weekly_hours_ops', JSON.stringify(currentSchedule));
           renderDaysCards();
           updateSimulatorTicker();
-          if (forceRefresh) showToast("تم تحديث ساعات الدوام من شيت Store_Hours بنجاح ⚡");
+          if (forceRefresh) {
+            btn.classList.remove('refreshing');
+            showToast("تم تحديث ساعات الدوام من شيت Store_Hours بنجاح ⚡");
+          }
         }
       };
       const s = document.createElement("script");
@@ -511,7 +544,7 @@
       localStorage.setItem('luffy_weekly_hours_ops', JSON.stringify(currentSchedule));
       renderDaysCards();
       updateSimulatorTicker();
-      showToast("🏖️ تم تطبيق جدول صيف العقبة على كافة الأيام بنجاح");
+      showToast("🏖️ تم تطبيق جدول صيف العقبة المعتمد بنجاح");
     }
 
     function applyWeekendOvernightPreset() {
@@ -531,98 +564,105 @@
       showToast("✨ تم تفعيل كافة أيام الأسبوع بنجاح");
     }
 
-    /* 4. محاكي العداد التنازلي وحالة المتجر الحية */
-    function updateSimulatorTicker() {
+    /* ⏱️ المحرك الزمني البيولوجي المطلق: محاكاة دقيقة مطابقة تماماً للمنيو */
+    function calculateStoreLiveState() {
       const now = new Date();
-      const currentDay = now.getDay();
-      const prevDay = (currentDay + 6) % 7;
-      const nextDay = (currentDay + 1) % 7;
-      const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-      const nowMin = Math.floor(nowSec / 60);
+      const todayIdx = now.getDay();
+      const prevIdx = (todayIdx + 6) % 7;
+      const nextIdx = (todayIdx + 1) % 7;
 
-      const parseMin = s => {
-        const p = s.split(':').map(Number);
-        return p[0] * 60 + p[1];
+      const getShift = (dayIndex, dayOffset) => {
+        const conf = currentSchedule[dayIndex] || DEFAULT_SCHEDULE[dayIndex];
+        const openT = getTimeFromCell(conf.open, 14, 0);
+        const closeT = getTimeFromCell(conf.close, 2, 0);
+        const isActive = conf.active === true || String(conf.active).toUpperCase() === 'TRUE';
+
+        const openDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + dayOffset, openT.h, openT.m, 0, 0);
+        const closeDate = new Date(openDate);
+        const isOvernight = (closeT.h < openT.h) || (closeT.h === openT.h && closeT.m <= openT.m);
+        if (isOvernight) {
+          closeDate.setDate(closeDate.getDate() + 1);
+        }
+        closeDate.setHours(closeT.h, closeT.m, 0, 0);
+
+        return { isActive, openDate, closeDate, openT, closeT, isOvernight, dayName: conf.dayName || '' };
       };
 
-      const prevS = currentSchedule[prevDay];
-      const todayS = currentSchedule[currentDay];
-      const nextS = currentSchedule[nextDay];
+      const prevShift = getShift(prevIdx, -1);
+      const todayShift = getShift(todayIdx, 0);
+      const nextShift = getShift(nextIdx, 1);
 
-      const prevCloseMin = parseMin(prevS.close);
-      const prevOpenMin = parseMin(prevS.open);
-      const prevIsOvernight = prevCloseMin <= prevOpenMin;
+      let isOpen = false;
+      let targetDate = null;
+      let targetType = "";
+      let activeShift = null;
 
-      const todayCloseMin = parseMin(todayS.close);
-      const todayOpenMin = parseMin(todayS.open);
-      const todayIsOvernight = todayCloseMin <= todayOpenMin;
-
-      const nextOpenMin = parseMin(nextS.open);
-
-      let isStoreOpen = false;
-      let targetSec = 0;
-      let detailText = "";
-
-      // 1. فحص وردية الأمس فجراً
-      if (prevS.active && prevIsOvernight && nowMin < prevCloseMin) {
-        isStoreOpen = true;
-        targetSec = prevCloseMin * 60;
-        detailText = `نستقبلكم الآن ضمن وردية فجر اليوم حتى الساعة ${prevS.close}.`;
-      } 
-      // 2. وردية اليوم
-      else if (todayS.active) {
-        const closeEffMin = todayIsOvernight ? todayCloseMin + 1440 : todayCloseMin;
-        if (nowMin >= todayOpenMin && nowMin < closeEffMin) {
-          isStoreOpen = true;
-          targetSec = closeEffMin * 60;
-          detailText = `نستقبلكم الآن بكل حب حتى الساعة ${todayS.close}${todayIsOvernight ? ' فجر الغد' : ''}.`;
-        } else if (nowMin < todayOpenMin) {
-          isStoreOpen = false;
-          targetSec = todayOpenMin * 60;
-          detailText = `المتجر مغلق حالياً، ونفتح أبوابنا اليوم عند الساعة ${todayS.open}.`;
+      // 1. هل نحن حالياً ضمن وردية الأمس فجراً؟
+      if (prevShift.isActive && now >= prevShift.openDate && now < prevShift.closeDate) {
+        isOpen = true;
+        targetDate = prevShift.closeDate;
+        targetType = "CLOSE";
+        activeShift = prevShift;
+      }
+      // 2. هل نحن حالياً ضمن وردية اليوم العادية أو الممتدة؟
+      else if (todayShift.isActive && now >= todayShift.openDate && now < todayShift.closeDate) {
+        isOpen = true;
+        targetDate = todayShift.closeDate;
+        targetType = "CLOSE";
+        activeShift = todayShift;
+      }
+      // 3. خلاف ذلك: المتجر مغلق
+      else {
+        isOpen = false;
+        targetType = "OPEN";
+        if (todayShift.isActive && now < todayShift.openDate) {
+          targetDate = todayShift.openDate;
+          activeShift = todayShift;
         } else {
-          isStoreOpen = false;
-          targetSec = (nextOpenMin + 1440) * 60;
-          detailText = `انتهت ساعات العمل اليوم، ونلتقيكم غداً عند الساعة ${nextS.open}.`;
+          targetDate = nextShift.openDate;
+          activeShift = nextShift;
         }
-      } else {
-        isStoreOpen = false;
-        targetSec = (nextOpenMin + 1440) * 60;
-        detailText = `اليوم عطلة رسمية، ونستقبلكم غداً بإذن الله عند الساعة ${nextS.open}.`;
       }
 
-      let diffSec = targetSec - nowSec;
-      if (diffSec < 0) diffSec += 86400;
+      const diffMs = Math.max(0, targetDate.getTime() - now.getTime());
+      const totalSec = Math.floor(diffMs / 1000);
+      const hrs = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+      const formattedCountdown = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
-      const hrs = Math.floor(diffSec / 3600);
-      const mins = Math.floor((diffSec % 3600) / 60);
-      const secs = diffSec % 60;
-      const countdownFormatted = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      return { isOpen, targetDate, targetType, totalSec, remMin: Math.floor(totalSec / 60), formattedCountdown, activeShift, todayShift, nextShift };
+    }
 
-      document.getElementById('sim-countdown-digits').textContent = countdownFormatted;
-      document.getElementById('sim-detail-text').textContent = detailText;
-
+    function updateSimulatorTicker() {
+      const state = calculateStoreLiveState();
       const pill = document.getElementById('sim-badge-root');
       const title = document.getElementById('sim-badge-title');
+      const digits = document.getElementById('sim-countdown-digits');
+      const detail = document.getElementById('sim-detail-text');
 
-      if (isStoreOpen) {
-        const remMin = Math.floor(diffSec / 60);
-        if (remMin <= 60) {
+      digits.textContent = state.formattedCountdown;
+
+      if (state.isOpen) {
+        const closeFormatted = formatTimeFriendly(state.activeShift.closeT.h, state.activeShift.closeT.m, state.activeShift.isOvernight);
+        if (state.remMin <= 60) {
           pill.className = "sim-badge-pill closing-soon";
-          title.textContent = `يغلق قريباً (خلال ${remMin} دقيقة)`;
+          title.textContent = `يغلق قريباً (خلال ${state.remMin} دقيقة)`;
         } else {
           pill.className = "sim-badge-pill open";
           title.textContent = "مفتوح ويستقبل الطلبات الآن ✨";
         }
+        detail.textContent = `المتجر مفتوح حالياً بكل حب، ونستقبل الزبائن حتى الساعة ${closeFormatted}.`;
       } else {
-        const remMin = Math.floor(diffSec / 60);
-        if (remMin <= 60) {
+        const openFormatted = formatTimeFriendly(state.activeShift.openT.h, state.activeShift.openT.m);
+        if (state.remMin <= 60) {
           pill.className = "sim-badge-pill opening-soon";
-          title.textContent = `يفتح قريباً (خلال ${remMin} دقيقة)`;
+          title.textContent = `يفتح قريباً (خلال ${state.remMin} دقيقة)`;
         } else {
           pill.className = "sim-badge-pill closed";
           title.textContent = "مغلق حالياً ✕";
         }
+        detail.textContent = `المتجر مغلق حالياً، ونفتح أبوابنا بإذن الله عند الساعة ${openFormatted}.`;
       }
     }
 
