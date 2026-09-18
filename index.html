@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -161,6 +162,7 @@
 
     .name-ar { color: var(--text-espresso); }
 
+    /* كبسولة الدوام المتطورة */
     .store-status-pill {
       display: inline-flex;
       align-items: center;
@@ -193,7 +195,7 @@
     .closing-soon .store-dot, .opening-soon .store-dot { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
     .closed .store-dot { background: var(--brand-red); box-shadow: 0 0 6px var(--brand-red); }
 
-    /* 👑 شريط التحكم المتوازن الملكي والتدرج الانسيابي للشفافية */
+    /* شريط التحكم المتوازن الملكي والتدرج الانسيابي للشفافية */
     .unified-control-strip {
       display: flex;
       align-items: center;
@@ -257,7 +259,6 @@
       border: 1.5px solid #ffffff;
     }
 
-    /* الحاضنة ذات التدرج الشفاف الفاخر على الجوانب لمنع أي انقطاع حاد */
     .strip-categories-wrapper {
       flex: 1 1 auto;
       min-width: 0;
@@ -312,7 +313,7 @@
     }
     .chip-filter-btn.active .chip-heart-icon { stroke: #ffffff; fill: #ffffff; }
 
-    /* Flavor Cards مع تعظيم مسرح الصورة */
+    /* Flavor Cards المتداخلة بدون أي صندوق مربع */
     .menu-feed-container {
       padding: 12px 14px;
       display: flex;
@@ -337,7 +338,14 @@
     .mobile-flavor-card:active { transform: scale(0.98); }
     .mobile-flavor-card.card-sold-out { opacity: 0.65; background: #fafafa; }
 
-    /* 🍨 تداخل الصورة الملكي: إلغاء الصندوق المربع وخلفيته تماماً */
+    .card-halo-bg {
+      position: absolute;
+      top: -20%; right: -20%; width: 140%; height: 140%;
+      border-radius: 50%; filter: blur(42px); opacity: 0.17; pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 🍨 مسرح بصري متداخل طافٍ بدون أي صندوق مربع أو خلفية مربعة */
     .card-visual-box {
       width: 104px;
       min-width: 104px;
@@ -346,15 +354,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: transparent !important; /* إلغاء أي خلفية مربعة */
-      border: none !important;            /* إلغاء أي إطار مربع */
+      background: transparent !important;
+      border: none !important;
       border-radius: 0 !important;
       flex-shrink: 0;
       overflow: visible;
       z-index: 3;
     }
 
-    /* البوظة تطفو بحرية وتلقي ظلاً ناعماً على سطح الكرت */
     .card-ice-img {
       width: 100%;
       height: 100%;
@@ -365,11 +372,8 @@
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 2;
     }
-    .mobile-flavor-card:hover .card-ice-img {
-      transform: scale(1.06) rotate(-1deg);
-    }
+    .mobile-flavor-card:hover .card-ice-img { transform: scale(1.06) rotate(-1deg); }
 
-    /* ختم الفاكهة يستقر في الزاوية بتداخل طبيعي */
     .card-fruit-badge {
       position: absolute;
       bottom: -4px;
@@ -382,20 +386,6 @@
       z-index: 4;
     }
 
-    /* هالة التوهج المتدفقة خلف الصورة المتداخلة بنعومة */
-    .card-halo-bg {
-      position: absolute;
-      top: -20%;
-      right: -20%;
-      width: 140%;
-      height: 140%;
-      border-radius: 50%;
-      filter: blur(42px);
-      opacity: 0.17;
-      pointer-events: none;
-      z-index: 1;
-    }
-    
     .card-info-box {
       flex: 1;
       display: flex;
@@ -441,7 +431,6 @@
       min-height: 32px;
     }
 
-    /* 🏷️ شارة السعر الفخمة بالدينار الأردني */
     .card-price-pill {
       font-family: var(--font-en), var(--font-ar);
       font-size: 11.5px;
@@ -456,7 +445,6 @@
       letter-spacing: 0.3px;
     }
 
-    /* 💖 زر القلب بمسار هندسي سليم 100% */
     .pure-heart-btn {
       border: none;
       background: transparent;
@@ -532,7 +520,6 @@
     .drawer-title-en { font-family: var(--font-en); font-size: 12px; font-weight: 800; text-transform: uppercase; margin: 2px 0 6px; }
     .drawer-full-story { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 8px; }
 
-    /* شريط سعر المنتج في نافذة التفاصيل */
     .drawer-price-strip {
       display: flex;
       align-items: center;
@@ -604,7 +591,7 @@
       padding: 6px;
     }
 
-    /* Modal: Sort & Filter Engine مع نجمة SVG نقية وبدون إيموجي */
+    /* Modal: Sort & Filter Engine */
     .sort-choice-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -804,7 +791,6 @@
     .location-validation-badge.error { display: flex; align-items: center; gap: 6px; background: #fff1f2; border: 1px solid #fecdd3; color: #9f1239; }
     .location-validation-badge.prompt { display: flex; align-items: center; gap: 6px; background: #fff7ed; border: 1px solid #fed7aa; color: #c2410c; }
 
-    /* 🟢 لافتة التأكيد المشروطة بإتمام البيانات */
     .checkout-ready-banner {
       display: none;
       background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
@@ -896,22 +882,19 @@
       </div>
     </div>
 
-    <!-- 👑 شريط التحكم المتوازن الملكي مع التلاشي الانسيابي بالتدرج -->
+    <!-- شريط التحكم المتوازن الملكي -->
     <div class="unified-control-strip">
-      <!-- زر البحث المنبثق الفاخر (يمين) -->
       <button class="strip-round-action-btn" id="header-search-btn" onclick="openSearchModal()" title="بحث في النكهات">
         <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <span class="badge-dot-indicator" id="search-active-dot" style="display:none;"></span>
       </button>
 
-      <!-- حاضنة التصنيفات بالتدرج الشفاف الانسيابي -->
       <div class="strip-categories-wrapper">
         <div class="strip-categories-scroll" id="filter-container">
           <button class="chip-filter-btn active" onclick="applyCategoryFilter('ALL', this)"><span>الكل</span></button>
         </div>
       </div>
 
-      <!-- زر الفرز وتصفية الوسوم المتناظر (يسار) -->
       <button class="strip-round-action-btn" id="header-sort-btn" onclick="openSortFilterModal()" title="الفرز والوسوم">
         <svg class="svg-icon" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
         <span class="filter-count-badge" id="active-sort-filter-badge" style="display:none;">0</span>
@@ -934,7 +917,7 @@
     <button class="btn-view-cart-pill">معاينة السلة</button>
   </div>
 
-  <!-- 🔍 نافذة البحث الفاخرة المنبثقة -->
+  <!-- نافذة البحث الفاخرة المنبثقة -->
   <div class="drawer-backdrop" id="search-modal" onclick="closeSearchModal()">
     <div class="drawer-surface" onclick="event.stopPropagation()">
       <div class="drawer-top-action-bar">
@@ -953,7 +936,7 @@
         </div>
 
         <div style="font-size:11px; color:var(--text-muted); line-height:1.4; margin-bottom:8px;">
-          يتم تصفية القائمة فورياً بمجرد كتابة أي حرف، أو اضغط زر الاعتماد أدناه.
+          يتم تصفية القائمة فورياً بمجرد كتابة أي حرف.
         </div>
       </div>
 
@@ -965,7 +948,7 @@
     </div>
   </div>
 
-  <!-- 🎛️ نافذة الفرز وتصفية الوسوم المتكاملة مع نجمة SVG نقية وبدون إيموجي -->
+  <!-- نافذة الفرز وتصفية الوسوم -->
   <div class="drawer-backdrop" id="sort-filter-modal" onclick="closeSortFilterModal()">
     <div class="drawer-surface" onclick="event.stopPropagation()">
       <div class="drawer-top-action-bar">
@@ -981,7 +964,6 @@
           1. ترتيب عرض النكهات والأسعار:
         </div>
         <div class="sort-choice-grid">
-          <!-- النجمة الملكية بصيغة SVG نقية -->
           <div class="sort-choice-pill active" id="sort-opt-DEFAULT" onclick="selectSortOption('DEFAULT')">
             <svg class="svg-icon" style="stroke:var(--brand-gold); fill:var(--brand-gold); width:15px; height:15px;" viewBox="0 0 24 24">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
@@ -1006,7 +988,7 @@
         </div>
 
         <div style="font-size:12px; font-weight:900; margin-top:14px; margin-bottom:6px; color:var(--text-espresso);">
-          2. التصفية حسب الوسوم المتاحة (يمكن اختيار أكثر من وسم):
+          2. التصفية حسب الوسوم المتاحة:
         </div>
         <div class="card-tags-cluster" id="all-tags-selection-cluster" style="gap:6px;"></div>
       </div>
@@ -1076,7 +1058,6 @@
         <div class="drawer-title-en" id="drawer-title-en"></div>
         <p class="drawer-full-story" id="drawer-story-ar"></p>
 
-        <!-- شريط السعر بالدينار الأردني د.أ -->
         <div class="drawer-price-strip">
           <span style="font-size:12px; font-weight:800; color:var(--text-muted);">سعر العلبة الفردية:</span>
           <span class="drawer-price-val" id="drawer-unit-price-display">0.00 د.أ</span>
@@ -1217,7 +1198,7 @@
             </button>
           </div>
 
-          <!-- قسم تثبيت الموقع (بدون إحداثيات مسبقة) -->
+          <!-- قسم تثبيت الموقع -->
           <div id="delivery-location-section" style="display:none;">
             <div class="location-suite-box" id="location-suite-box-container">
               <div class="checkout-label">
@@ -1225,7 +1206,6 @@
                 <span>تحديد موقع التوصيل في العقبة (إلزامي) *</span>
               </div>
 
-              <!-- زر تثبيت الموقع بالـ GPS 🛰️ -->
               <button type="button" class="btn-gps-interactive-pill" onclick="captureLiveGpsLocation()">
                 <svg class="svg-icon" style="stroke:#ffffff;" viewBox="0 0 24 24"><polygon points="12 2 19 21 12 17 5 21 12 2"></polygon></svg>
                 <span id="gps-btn-label">اضغط لتثبيت موقعك الحالي</span>
@@ -1281,11 +1261,10 @@
         </div>
       </div>
 
-      <!-- Footer Action Buttons مع الرسالة الشرطية المربوطة باكتمال البيانات -->
+      <!-- Footer Action Buttons -->
       <div class="drawer-sticky-bottom-actions" id="checkout-drawer-bottom-actions" style="display:none;">
         <div style="display:flex; flex-direction:column; gap:9px;">
           
-          <!-- 🟢 تظهر حصرياً عند اكتمال البيانات بنجاح -->
           <div id="checkout-ready-alert-banner" class="checkout-ready-banner">
             <svg class="svg-icon" style="stroke: #16a34a; width: 18px; height: 18px; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             <div style="font-size: 11px; font-weight: 800; color: #166534; line-height: 1.35;">
@@ -1344,10 +1323,8 @@
   </div>
 
   <script>
-    // 🔗 الربط السحابي السيادي الجديد
     const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbw2zN2iZ2uK9xRYsOuz7_Tvz-_kJGwXteMFP3-X2c-Guj-uljMSJMWjNacvKn__GJrIIA/exec";
     
-    // التوجيه الديناميكي المشترك من السحابة
     let DYNAMIC_CATALOG_ID = localStorage.getItem('luffy_vault_catalog_id') || "1ogQfZNeIgJrYz8QTXcyFx0u5LSnHT9sCoeG01nXzjPg";
     let DYNAMIC_CONFIG_ID = localStorage.getItem('luffy_vault_config_id') || "1CjreQe9su86Fr_IP37PLnHzrsLoDLZlnWwFJUJZNq_I";
 
@@ -1408,7 +1385,6 @@
     let activeDrawerItem = null;
     let selectedQuantity = 1;
 
-    /* استخراج سعر الصنف بدقة وبحث ذكي */
     function getItemPrice(item) {
       const candidates = [
         item.Price, item['السعر'], item['السعر (د.أ)'], item['السعر بالدينار'],
@@ -1420,120 +1396,25 @@
           if (!isNaN(clean) && clean > 0) return clean;
         }
       }
-      return 2.50; // القيمة المعتمدة الافتراضية
+      return 2.50;
     }
 
-    function isPointInPolygon(point, vs) {
-      const x = point[0], y = point[1];
-      let inside = false;
-      for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-        const xi = vs[i][0], yi = vs[i][1];
-        const xj = vs[j][0], yj = vs[j][1];
-        const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-        if (intersect) inside = !inside;
+    /* 🛡️ دالة استخراج أوقات الساعات بأقصى درجات الإحسان وحمايتها من أخطاء Date */
+    function getTimeFromCell(val, defH, defM) {
+      if (!val) return { h: defH, m: defM };
+      if (typeof val === 'string' && val.includes('T')) {
+        const d = new Date(val);
+        if (!isNaN(d.getTime())) return { h: d.getHours(), m: d.getMinutes() };
       }
-      return inside;
-    }
-
-    function showToast(message) {
-      const stack = document.getElementById('toast-stack-box');
-      if (!stack) return;
-
-      while (stack.children.length >= 2) {
-        stack.removeChild(stack.firstChild);
+      const m = String(val).match(/(\d{1,2}):(\d{2})/);
+      if (m) {
+        let h = parseInt(m[1], 10);
+        const min = parseInt(m[2], 10);
+        if (/pm|مساء/i.test(val) && h < 12) h += 12;
+        if (/am|صباح/i.test(val) && h === 12) h = 0;
+        return { h: h % 24, m: min % 60 };
       }
-
-      const pill = document.createElement('div');
-      pill.className = 'luxury-toast-pill';
-      pill.innerHTML = `<span>${message}</span>`;
-
-      let touchStartX = 0;
-      let touchStartY = 0;
-      let touchDeltaX = 0;
-      let touchDeltaY = 0;
-
-      pill.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-
-      pill.addEventListener('touchmove', (e) => {
-        touchDeltaX = e.touches[0].clientX - touchStartX;
-        touchDeltaY = e.touches[0].clientY - touchStartY;
-
-        if (Math.abs(touchDeltaX) > 10) {
-          pill.style.transform = `translateX(${touchDeltaX}px)`;
-          pill.style.opacity = Math.max(0.2, 1 - Math.abs(touchDeltaX) / 180);
-        }
-      }, { passive: true });
-
-      pill.addEventListener('touchend', () => {
-        if (Math.abs(touchDeltaX) > 60) {
-          pill.style.transform = `translateX(${touchDeltaX > 0 ? 300 : -300}px)`;
-          pill.style.opacity = '0';
-          setTimeout(() => pill.remove(), 250);
-        } else if (touchDeltaY < -40) {
-          stack.innerHTML = "";
-        } else {
-          pill.style.transform = 'translateX(0)';
-          pill.style.opacity = '1';
-        }
-      });
-
-      stack.appendChild(pill);
-      setTimeout(() => { if (pill.parentElement) pill.remove(); }, 4000);
-    }
-
-    function extractDriveId(url) {
-      if (!url) return '';
-      const m = String(url).split(',')[0].trim().match(/[-\w]{25,}/);
-      return m ? m[0] : '';
-    }
-    function getDriveImageUrl(url) {
-      const id = extractDriveId(url);
-      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : (url ? url.trim() : '');
-    }
-
-    function convertArabicToEnglishDigits(str) {
-      if (!str) return '';
-      return str.toString().replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-    }
-
-    function sanitizeJordanPhoneInput(inputEl) {
-      let raw = convertArabicToEnglishDigits(inputEl.value);
-      let digits = raw.replace(/\D/g, '');
-      if (digits.startsWith('962')) digits = digits.slice(3);
-      if (digits.startsWith('00962')) digits = digits.slice(5);
-      while (digits.startsWith('0')) digits = digits.slice(1);
-      inputEl.value = digits;
-      document.getElementById('jordan-phone-box').classList.remove('input-error');
-      validateCheckoutReadiness();
-    }
-
-    function getFullJordanPhoneNumber() {
-      const el = document.getElementById('cust-phone-input');
-      const val = el.value.trim();
-      if (!val || val.length !== 9 || !val.startsWith('7')) return null;
-      return `+962${val}`;
-    }
-
-    function parseSafeTime(openStr, closeStr, isActive = true) {
-      const parse = (s, defH, defM) => {
-        if (!s) return { h: defH, m: defM, min: defH * 60 + defM };
-        const p = String(s).replace(/[^\d:]/g, '').split(':').map(Number);
-        if (p.length >= 2 && !isNaN(p[0]) && !isNaN(p[1])) {
-          return { h: p[0], m: p[1], min: p[0] * 60 + p[1] };
-        }
-        return { h: defH, m: defM, min: defH * 60 + defM };
-      };
-      const o = parse(openStr, 14, 0);
-      const c = parse(closeStr, 2, 0);
-      return {
-        active: Boolean(isActive),
-        openH: o.h, openM: o.m, openMin: o.min,
-        closeH: c.h, closeM: c.m, closeMin: c.min,
-        isOvernight: c.min <= o.min
-      };
+      return { h: defH, m: defM };
     }
 
     function formatTimeFriendly(h, m, isOvernight = false) {
@@ -1541,7 +1422,7 @@
       const h24 = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
       let h12 = h % 12 || 12;
       const ampm = h >= 12 ? 'مساءً' : 'صباحاً';
-      const overnightSuffix = isOvernight ? ' (اليوم التالي)' : '';
+      const overnightSuffix = isOvernight ? ' (فجر الغد)' : '';
       return `${h24} (${h12}:${String(m).padStart(2, '0')} ${ampm})${overnightSuffix}`;
     }
 
@@ -1550,144 +1431,85 @@
       const h24 = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
       let h12 = h % 12 || 12;
       const ampm = h >= 12 ? 'مساءً' : 'صباحاً';
-      const overnightSuffix = isOvernight ? ' (اليوم التالي)' : '';
+      const overnightSuffix = isOvernight ? ' (فجر الغد)' : '';
       return `
         <div style="font-family:var(--font-en); font-size:13px; font-weight:900; line-height:1.2;">${h24}</div>
         <div style="font-size:10px; color:var(--text-muted); font-weight:700; line-height:1.2; margin-top:2px;">${h12}:${String(m).padStart(2, '0')} ${ampm}${overnightSuffix}</div>
       `;
     }
 
-    function getHaversineDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371;
-      const dLat = (lat2 - lat1) * Math.PI / 180;
-      const dLon = (lon2 - lon1) * Math.PI / 180;
-      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-    }
-
-    function extractItemTags(item) {
-      const tags = [];
-      const cat = (item.Category || item['التصنيف'] || '').trim();
-      if (cat && cat !== 'الكل' && cat !== 'عام') tags.push(cat);
-      const rawTags = (item.Tags || item['الوسوم'] || item['وسوم'] || '').toString();
-      if (rawTags) {
-        rawTags.split(/[,،#]/).map(t => t.trim()).filter(Boolean).forEach(t => tags.push(t));
-      }
-      const desc = (item.Description_AR || item['وصف النكهة (عربي)'] || '').toString();
-      const hashMatches = desc.match(/#[\w\u0600-\u06FF]+/g);
-      if (hashMatches) {
-        hashMatches.forEach(h => tags.push(h.replace('#', '').trim()));
-      }
-      return Array.from(new Set(tags)).filter(Boolean);
-    }
-
-    /* 🔍 نافذة البحث المنبثقة */
-    function openSearchModal() {
-      document.getElementById('search-modal').classList.add('open');
-      const inputEl = document.getElementById('search-modal-input-field');
-      inputEl.value = searchQuery;
-      setTimeout(() => inputEl.focus(), 250);
-      document.getElementById('search-clear-btn').style.display = searchQuery ? 'block' : 'none';
-    }
-
-    function closeSearchModal() {
-      document.getElementById('search-modal').classList.remove('open');
-    }
-
-    function handleSearchModalInput(val) {
-      searchQuery = val.trim().toLowerCase();
-      document.getElementById('search-clear-btn').style.display = searchQuery ? 'block' : 'none';
-      document.getElementById('search-active-dot').style.display = searchQuery ? 'block' : 'none';
-      document.getElementById('header-search-btn').classList.toggle('active-has-val', Boolean(searchQuery));
-      renderMenuFeed();
-    }
-
-    function clearSearchModalInput() {
-      const inputEl = document.getElementById('search-modal-input-field');
-      inputEl.value = '';
-      handleSearchModalInput('');
-      inputEl.focus();
-    }
-
-    /* 🎛️ نافذة الفرز وتصفية الوسوم المتكاملة */
-    function openSortFilterModal() {
-      renderTagsModalClusters();
-      highlightActiveSortOption(currentSortMode);
-      document.getElementById('sort-filter-modal').classList.add('open');
-    }
-
-    function closeSortFilterModal() {
-      document.getElementById('sort-filter-modal').classList.remove('open');
-    }
-
-    function selectSortOption(mode) {
-      currentSortMode = mode;
-      highlightActiveSortOption(mode);
-    }
-
-    function highlightActiveSortOption(mode) {
-      document.querySelectorAll('.sort-choice-pill').forEach(el => el.classList.remove('active'));
-      const activeEl = document.getElementById(`sort-opt-${mode}`);
-      if (activeEl) activeEl.classList.add('active');
-    }
-
-    function toggleTagFilter(tag, event) {
-      if (event) event.stopPropagation();
-      if (selectedTags.has(tag)) selectedTags.delete(tag);
-      else selectedTags.add(tag);
-      renderTagsModalClusters();
-    }
-
-    function renderTagsModalClusters() {
-      const container = document.getElementById('all-tags-selection-cluster');
-      if (!container) return;
-      const allTags = new Set();
-      rawFlavors.forEach(f => extractItemTags(f).forEach(t => allTags.add(t)));
-      container.innerHTML = Array.from(allTags).map(t => `
-        <span class="hashtag-pill ${selectedTags.has(t) ? 'active-hash' : ''}" onclick="toggleTagFilter('${t}', event)">#${t}</span>
-      `).join('');
-    }
-
-    function resetSortAndFilters() {
-      currentSortMode = 'DEFAULT';
-      selectedTags.clear();
-      highlightActiveSortOption('DEFAULT');
-      renderTagsModalClusters();
-      confirmSortAndFilters();
-      showToast("تمت استعادة الترتيب الافتراضي وتفريغ الوسوم ✓");
-    }
-
-    function confirmSortAndFilters() {
-      updateSortFilterHeaderBadge();
-      renderMenuFeed();
-      closeSortFilterModal();
-    }
-
-    function updateSortFilterHeaderBadge() {
-      const badge = document.getElementById('active-sort-filter-badge');
-      const btn = document.getElementById('header-sort-btn');
-      let count = selectedTags.size;
-      if (currentSortMode !== 'DEFAULT') count += 1;
-
-      if (count > 0) {
-        badge.style.display = 'flex';
-        badge.textContent = count;
-        btn.classList.add('active-has-val');
-      } else {
-        badge.style.display = 'none';
-        btn.classList.remove('active-has-val');
-      }
-    }
-
-    /* Store Hours Badge */
-    function updateStoreLiveHoursBadge() {
+    /* ⏱️ المحرك الزمني البيولوجي المطلق: حساب دقيق ومحمي 100% للدوام */
+    function calculateStoreLiveState() {
       const now = new Date();
-      const currentDay = now.getDay();
-      const prevDay = (currentDay + 6) % 7;
-      const nextDay = (currentDay + 1) % 7;
-      const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-      const nowMin = Math.floor(nowSec / 60);
+      const todayIdx = now.getDay();
+      const prevIdx = (todayIdx + 6) % 7;
+      const nextIdx = (todayIdx + 1) % 7;
 
+      const getShift = (dayIndex, dayOffset) => {
+        const conf = weeklyHours[dayIndex] || DEFAULT_WEEKLY_HOURS[dayIndex];
+        const openT = getTimeFromCell(conf.open, 14, 0);
+        const closeT = getTimeFromCell(conf.close, 2, 0);
+        const isActive = conf.active === true || String(conf.active).toUpperCase() === 'TRUE';
+
+        const openDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + dayOffset, openT.h, openT.m, 0, 0);
+        const closeDate = new Date(openDate);
+        const isOvernight = (closeT.h < openT.h) || (closeT.h === openT.h && closeT.m <= openT.m);
+        if (isOvernight) {
+          closeDate.setDate(closeDate.getDate() + 1);
+        }
+        closeDate.setHours(closeT.h, closeT.m, 0, 0);
+
+        return { isActive, openDate, closeDate, openT, closeT, isOvernight, dayName: conf.name || '' };
+      };
+
+      const prevShift = getShift(prevIdx, -1);
+      const todayShift = getShift(todayIdx, 0);
+      const nextShift = getShift(nextIdx, 1);
+
+      let isOpen = false;
+      let targetDate = null;
+      let targetType = "";
+      let activeShift = null;
+
+      // 1. هل نحن حالياً ضمن وردية الأمس الممتدة بعد منتصف الليل؟
+      if (prevShift.isActive && now >= prevShift.openDate && now < prevShift.closeDate) {
+        isOpen = true;
+        targetDate = prevShift.closeDate;
+        targetType = "CLOSE";
+        activeShift = prevShift;
+      }
+      // 2. هل نحن حالياً ضمن وردية اليوم العادية أو الممتدة؟
+      else if (todayShift.isActive && now >= todayShift.openDate && now < todayShift.closeDate) {
+        isOpen = true;
+        targetDate = todayShift.closeDate;
+        targetType = "CLOSE";
+        activeShift = todayShift;
+      }
+      // 3. خلاف ذلك: المتجر مغلق، نحدد الموعد القادم للافتتاح
+      else {
+        isOpen = false;
+        targetType = "OPEN";
+        if (todayShift.isActive && now < todayShift.openDate) {
+          targetDate = todayShift.openDate;
+          activeShift = todayShift;
+        } else {
+          targetDate = nextShift.openDate;
+          activeShift = nextShift;
+        }
+      }
+
+      const diffMs = Math.max(0, targetDate.getTime() - now.getTime());
+      const totalSec = Math.floor(diffMs / 1000);
+      const hrs = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+      const formattedCountdown = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+      return { isOpen, targetDate, targetType, totalSec, remMin: Math.floor(totalSec / 60), formattedCountdown, activeShift, todayShift, nextShift };
+    }
+
+    function updateStoreLiveHoursBadge() {
+      const state = calculateStoreLiveState();
       const pill = document.getElementById('store-header-status-pill');
       const title = document.getElementById('store-status-title');
       const countdownCard = document.getElementById('modal-countdown-card');
@@ -1695,72 +1517,31 @@
       const countdownDigits = document.getElementById('modal-countdown-digits');
       const eventDetail = document.getElementById('modal-event-detail-txt');
 
-      const prevS = parseSafeTime(weeklyHours[prevDay]?.open, weeklyHours[prevDay]?.close, weeklyHours[prevDay]?.active);
-      const todayS = parseSafeTime(weeklyHours[currentDay]?.open, weeklyHours[currentDay]?.close, weeklyHours[currentDay]?.active);
-      const nextS = parseSafeTime(weeklyHours[nextDay]?.open, weeklyHours[nextDay]?.close, weeklyHours[nextDay]?.active);
+      if (countdownDigits) countdownDigits.textContent = state.formattedCountdown;
 
-      let isStoreOpen = false;
-      let targetSec = 0;
-
-      if (prevS.active && prevS.isOvernight && nowMin < prevS.closeMin) {
-        isStoreOpen = true;
-        targetSec = prevS.closeMin * 60;
-      } else if (todayS.active) {
-        const closeEffMin = todayS.isOvernight ? todayS.closeMin + 1440 : todayS.closeMin;
-        if (nowMin >= todayS.openMin && nowMin < closeEffMin) {
-          isStoreOpen = true;
-          targetSec = closeEffMin * 60;
-        } else if (nowMin < todayS.openMin) {
-          isStoreOpen = false;
-          targetSec = todayS.openMin * 60;
-        } else {
-          isStoreOpen = false;
-          targetSec = (nextS.openMin + 1440) * 60;
-        }
-      } else {
-        isStoreOpen = false;
-        targetSec = (nextS.openMin + 1440) * 60;
-      }
-
-      let diffSec = targetSec - nowSec;
-      if (diffSec < 0) diffSec += 86400;
-
-      const hrs = Math.floor(diffSec / 3600);
-      const mins = Math.floor((diffSec % 3600) / 60);
-      const secs = diffSec % 60;
-      const formattedCountdown = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-      if (countdownDigits) countdownDigits.textContent = formattedCountdown;
-
-      if (isStoreOpen) {
-        const remMin = Math.floor(diffSec / 60);
-        const closeFormatted = formatTimeFriendly(todayS.closeH, todayS.closeM, todayS.isOvernight);
-
-        if (remMin <= 60) {
+      if (state.isOpen) {
+        const closeFormatted = formatTimeFriendly(state.activeShift.closeT.h, state.activeShift.closeT.m, state.activeShift.isOvernight);
+        if (state.remMin <= 60) {
           pill.className = "store-status-pill closing-soon";
-          title.textContent = `يغلق خلال ${remMin} دقيقة`;
+          title.textContent = `يغلق خلال ${state.remMin} دقيقة`;
           if (countdownCard) countdownCard.className = "countdown-card-pill alert";
           if (nextTitle) nextTitle.textContent = "سنغلق أبوابنا بعد";
-          if (eventDetail) eventDetail.textContent = `عند الساعة ${closeFormatted}`;
         } else {
           pill.className = "store-status-pill open";
-          title.textContent = "مفتوح الآن";
+          title.textContent = "مفتوح الآن ✨";
           if (countdownCard) countdownCard.className = "countdown-card-pill";
-          if (nextTitle) nextTitle.textContent = "نستقبلكم الآن";
-          if (eventDetail) eventDetail.textContent = `حتى الساعة ${closeFormatted}`;
+          if (nextTitle) nextTitle.textContent = "نستقبلكم الآن بكل حب";
         }
+        if (eventDetail) eventDetail.textContent = `حتى الساعة ${closeFormatted}`;
       } else {
-        const remMin = Math.floor(diffSec / 60);
-        const openFormatted = todayS.active && nowMin < todayS.openMin 
-          ? formatTimeFriendly(todayS.openH, todayS.openM)
-          : formatTimeFriendly(nextS.openH, nextS.openM);
-
-        if (remMin <= 60) {
+        const openFormatted = formatTimeFriendly(state.activeShift.openT.h, state.activeShift.openT.m);
+        if (state.remMin <= 60) {
           pill.className = "store-status-pill opening-soon";
-          title.textContent = `يفتح خلال ${remMin} دقيقة`;
+          title.textContent = `يفتح خلال ${state.remMin} دقيقة`;
           if (countdownCard) countdownCard.className = "countdown-card-pill alert";
         } else {
           pill.className = "store-status-pill closed";
-          title.textContent = "مغلق حالياً";
+          title.textContent = "مغلق حالياً ✕";
           if (countdownCard) countdownCard.className = "countdown-card-pill";
         }
         if (nextTitle) nextTitle.textContent = "نفتح أبوابنا بعد";
@@ -1768,728 +1549,19 @@
       }
     }
 
-    function openStoreHoursModal() { renderStoreHoursTable(); document.getElementById('store-hours-modal').classList.add('open'); }
-    function closeStoreHoursModal() { document.getElementById('store-hours-modal').classList.remove('open'); }
-
-    function renderStoreHoursTable() {
-      const tbody = document.getElementById('hours-table-body');
-      if (!tbody) return;
-      const now = new Date();
-      const currentDay = now.getDay();
-      const nextDay = (currentDay + 1) % 7;
-
-      let html = "";
-      for (let i = 0; i < 7; i++) {
-        const sched = weeklyHours[i] || DEFAULT_WEEKLY_HOURS[i];
-        let dayLabel = sched.name;
-        if (i === currentDay) dayLabel = `اليوم (${sched.name})`;
-        else if (i === nextDay) dayLabel = `غداً (${sched.name})`;
-
-        const sOpen = sched.active ? formatTimeDoubleLine(sched.open.split(':')[0], sched.open.split(':')[1]) : '<div style="color:var(--text-muted);">عطلة</div>';
-        const sClose = sched.active ? formatTimeDoubleLine(sched.close.split(':')[0], sched.close.split(':')[1], sched.isOvernight) : '<div style="color:var(--text-muted);">عطلة</div>';
-
-        html += `
-          <div class="hours-row ${i === currentDay ? 'is-today' : ''}">
-            <span>${dayLabel}</span>
-            <span>${sOpen}</span>
-            <span>${sClose}</span>
-          </div>
-        `;
-      }
-      tbody.innerHTML = html;
-    }
-
-    /* Timing Calculation */
-    function calculateAccurateSchedule() {
-      const now = new Date();
-      const currentDay = now.getDay();
-      const prevDay = (currentDay + 6) % 7;
-      const nextDay = (currentDay + 1) % 7;
-      const nowMin = now.getHours() * 60 + now.getMinutes();
-
-      const prevS = parseSafeTime(weeklyHours[prevDay]?.open, weeklyHours[prevDay]?.close, weeklyHours[prevDay]?.active);
-      const todayS = parseSafeTime(weeklyHours[currentDay]?.open, weeklyHours[currentDay]?.close, weeklyHours[currentDay]?.active);
-      const nextS = parseSafeTime(weeklyHours[nextDay]?.open, weeklyHours[nextDay]?.close, weeklyHours[nextDay]?.active);
-
-      const isPickup = (orderType === 'PICKUP');
-      const minPrepBuffer = isPickup ? 5 : 20;
-      const slotStep = isPickup ? 5 : 15;
-
-      let isNowOpen = false;
-      let activeShiftCloseMin = 0;
-      let targetDayText = "اليوم";
-      let shiftIsOvernight = false;
-      let earliestDeliveryMin = 0;
-
-      // 1. وردية الأمس فجراً
-      if (prevS.active && prevS.isOvernight && nowMin < prevS.closeMin) {
-        isNowOpen = true;
-        activeShiftCloseMin = prevS.closeMin;
-        targetDayText = "اليوم فجراً";
-        shiftIsOvernight = true;
-
-        let rawTarget = nowMin + minPrepBuffer;
-        let roundedTarget = Math.ceil(rawTarget / slotStep) * slotStep;
-
-        if (roundedTarget <= activeShiftCloseMin) {
-          earliestDeliveryMin = roundedTarget;
-        } else {
-          isNowOpen = false;
-          targetDayText = "اليوم عند الافتتاح";
-          let openTarget = todayS.openMin + minPrepBuffer;
-          earliestDeliveryMin = Math.ceil(openTarget / slotStep) * slotStep;
-          activeShiftCloseMin = todayS.isOvernight ? todayS.closeMin + 1440 : todayS.closeMin;
-        }
-      } 
-      // 2. وردية اليوم
-      else if (todayS.active) {
-        const closeEff = todayS.isOvernight ? todayS.closeMin + 1440 : todayS.closeMin;
-        shiftIsOvernight = todayS.isOvernight;
-
-        if (nowMin >= todayS.openMin && nowMin < closeEff) {
-          isNowOpen = true;
-          activeShiftCloseMin = closeEff;
-          targetDayText = "اليوم";
-
-          let rawTarget = nowMin + minPrepBuffer;
-          let roundedTarget = Math.ceil(rawTarget / slotStep) * slotStep;
-
-          if (roundedTarget <= activeShiftCloseMin) {
-            earliestDeliveryMin = roundedTarget;
-          } else {
-            isNowOpen = false;
-            targetDayText = "غداً عند الافتتاح";
-            let nextOpenTarget = nextS.openMin + minPrepBuffer;
-            earliestDeliveryMin = Math.ceil(nextOpenTarget / slotStep) * slotStep;
-            activeShiftCloseMin = nextS.isOvernight ? nextS.closeMin + 1440 : nextS.closeMin;
-          }
-        } else if (nowMin < todayS.openMin) {
-          isNowOpen = false;
-          activeShiftCloseMin = closeEff;
-          targetDayText = "اليوم عند الافتتاح";
-          let openTarget = todayS.openMin + minPrepBuffer;
-          earliestDeliveryMin = Math.ceil(openTarget / slotStep) * slotStep;
-        } else {
-          isNowOpen = false;
-          activeShiftCloseMin = nextS.isOvernight ? nextS.closeMin + 1440 : nextS.closeMin;
-          targetDayText = "غداً عند الافتتاح";
-          let nextOpenTarget = nextS.openMin + minPrepBuffer;
-          earliestDeliveryMin = Math.ceil(nextOpenTarget / slotStep) * slotStep;
-          shiftIsOvernight = nextS.isOvernight;
-        }
-      } else {
-        isNowOpen = false;
-        activeShiftCloseMin = nextS.isOvernight ? nextS.closeMin + 1440 : nextS.closeMin;
-        targetDayText = "غداً عند الافتتاح";
-        let nextOpenTarget = nextS.openMin + minPrepBuffer;
-        earliestDeliveryMin = Math.ceil(nextOpenTarget / slotStep) * slotStep;
-        shiftIsOvernight = nextS.isOvernight;
-      }
-
-      let fastH = Math.floor(earliestDeliveryMin / 60) % 24;
-      let fastM = earliestDeliveryMin % 60;
-      const formattedFastSlot = `${targetDayText}: ${formatTimeFriendly(fastH, fastM, (earliestDeliveryMin >= 1440 && shiftIsOvernight))}`;
-
-      const titleEl = document.getElementById('fast-slot-main-title');
-      const subTimeEl = document.getElementById('fast-slot-sub-time');
-      const labelEl = document.getElementById('time-slot-form-label');
-
-      if (labelEl) {
-        labelEl.textContent = isPickup 
-          ? 'موعد الاستلام من المحل (أقرب موعد بعد 5 دقائق)' 
-          : 'موعد التسليم (أقرب موعد متاح بعد 20 دقيقة)';
-      }
-      
-      if (titleEl) {
-        titleEl.textContent = isPickup 
-          ? 'أقرب موعد استلام من المحل (خلال 5 دقائق)' 
-          : 'أسرع موعد توصيل متاح (خلال 20 دقيقة)';
-      }
-      if (subTimeEl) subTimeEl.textContent = formattedFastSlot;
-
-      if (!isCustomTimeSelected) {
-        selectedTimeSlot = formattedFastSlot;
-      }
-
-      return {
-        activeShiftOpenMin: todayS.openMin,
-        activeShiftCloseMin,
-        isNowOpen,
-        earliestDeliveryMin,
-        targetDayText,
-        minPrepBuffer,
-        slotStep,
-        shiftIsOvernight,
-        nowMin,
-        isPickup
-      };
-    }
-
-    function chooseFastSuggestedSlot() {
-      isCustomTimeSelected = false;
-      calculateAccurateSchedule();
-      document.getElementById('fast-slot-suggestion-card').classList.add('active');
-      document.getElementById('btn-open-custom-time').classList.remove('has-value');
-      document.getElementById('custom-time-btn-label').textContent = "تحديد موعد تسليم مخصص";
-      showToast("تم اعتماد أقرب موعد مقترح ✓");
-    }
-
-    function openInteractiveTimeModal() {
-      renderInteractiveHoursTrack();
-      renderInteractiveMinutesCluster();
-      document.getElementById('interactive-time-modal').classList.add('open');
-    }
-    function closeInteractiveTimeModal() {
-      document.getElementById('interactive-time-modal').classList.remove('open');
-    }
-
-    function renderInteractiveHoursTrack() {
-      const track = document.getElementById('interactive-hours-track');
-      if (!track) return;
-      track.innerHTML = "";
-
-      const sched = calculateAccurateSchedule();
-      const currentStartMin = sched.earliestDeliveryMin;
-      const minAllowedHour = Math.floor(currentStartMin / 60);
-      const maxAllowedHour = Math.floor((sched.activeShiftCloseMin - 5) / 60);
-
-      const availableHours = [];
-      for (let h = minAllowedHour; h <= maxAllowedHour; h++) {
-        if ((h * 60 + 55) >= currentStartMin) {
-          let realH = h % 24;
-          let isNextDay = (h >= 24);
-          let dayNote = isNextDay ? "اليوم التالي" : sched.targetDayText;
-          availableHours.push({ rawHour: h, realHour: realH, dayNote, isNextDay });
-        }
-      }
-
-      if (availableHours.length === 0) {
-        track.innerHTML = `<div style="font-size:12px; color:#991b1b; padding:10px;">انتهت مواعيد الاستقبال لهذا اليوم</div>`;
-        return;
-      }
-
-      tempChosenHourObj = availableHours[0];
-
-      availableHours.forEach((item, idx) => {
-        const node = document.createElement('div');
-        node.className = `hour-pin-node ${idx === 0 ? 'selected' : ''}`;
-        const h12 = item.realHour % 12 || 12;
-        const ampm = item.realHour >= 12 ? 'مساءً' : 'صباحاً';
-
-        node.innerHTML = `
-          <span style="font-family:var(--font-en); font-size:14px; font-weight:900;">${String(item.realHour).padStart(2,'0')}:00</span>
-          <span style="font-size:9.5px; font-weight:700;">${h12} ${ampm}</span>
-          <span style="font-size:8px; opacity:0.75;">${item.dayNote}</span>
-        `;
-
-        node.onclick = () => {
-          document.querySelectorAll('.hour-pin-node').forEach(n => n.classList.remove('selected'));
-          node.classList.add('selected');
-          tempChosenHourObj = item;
-          updateMinutesAvailability();
-          updateInteractiveTimePreview();
-        };
-
-        track.appendChild(node);
-      });
-
-      updateMinutesAvailability();
-      updateInteractiveTimePreview();
-    }
-
-    function renderInteractiveMinutesCluster() {
-      const container = document.getElementById('minutes-selection-cluster');
-      if (!container) return;
-      
-      const isPickup = (orderType === 'PICKUP');
-      const validMinutes = isPickup 
-        ? [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55] 
-        : [0, 15, 30, 45];
-
-      container.innerHTML = validMinutes.map(m => `
-        <div class="min-choice-pill ${m === tempChosenMin ? 'active' : ''}" id="min-btn-${m}" onclick="selectCustomMinute(${m}, this)">
-          :${String(m).padStart(2, '0')}
-        </div>
-      `).join('');
-    }
-
-    function updateMinutesAvailability() {
-      if (!tempChosenHourObj) return;
-      const sched = calculateAccurateSchedule();
-      const currentEarliestMin = sched.earliestDeliveryMin;
-      const maxAllowedTotalMin = sched.activeShiftCloseMin - 5;
-
-      const isPickup = (orderType === 'PICKUP');
-      const validMinutes = isPickup 
-        ? [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55] 
-        : [0, 15, 30, 45];
-
-      let firstValidMin = null;
-
-      validMinutes.forEach(m => {
-        const btn = document.getElementById(`min-btn-${m}`);
-        if (!btn) return;
-        const totalMin = tempChosenHourObj.rawHour * 60 + m;
-        
-        if (totalMin < currentEarliestMin || totalMin > maxAllowedTotalMin) {
-          btn.classList.add('disabled');
-        } else {
-          btn.classList.remove('disabled');
-          if (firstValidMin === null) firstValidMin = m;
-        }
-      });
-
-      const currentBtn = document.getElementById(`min-btn-${tempChosenMin}`);
-      if (!currentBtn || currentBtn.classList.contains('disabled')) {
-        tempChosenMin = firstValidMin !== null ? firstValidMin : validMinutes[0];
-        document.querySelectorAll('.min-choice-pill').forEach(b => b.classList.remove('active'));
-        const autoActiveBtn = document.getElementById(`min-btn-${tempChosenMin}`);
-        if (autoActiveBtn) autoActiveBtn.classList.add('active');
-      }
-    }
-
-    function selectCustomMinute(m, btnEl) {
-      if (btnEl.classList.contains('disabled')) return;
-      tempChosenMin = m;
-      document.querySelectorAll('.min-choice-pill').forEach(b => b.classList.remove('active'));
-      btnEl.classList.add('active');
-      updateInteractiveTimePreview();
-    }
-
-    function updateInteractiveTimePreview() {
-      if (!tempChosenHourObj) return;
-      const formatted = `${tempChosenHourObj.dayNote}: ${formatTimeFriendly(tempChosenHourObj.realHour, tempChosenMin, tempChosenHourObj.isNextDay)}`;
-      document.getElementById('interactive-time-preview-text').textContent = formatted;
-    }
-
-    function confirmCustomInteractiveTime() {
-      if (!tempChosenHourObj) return;
-      isCustomTimeSelected = true;
-      selectedTimeSlot = `${tempChosenHourObj.dayNote}: ${formatTimeFriendly(tempChosenHourObj.realHour, tempChosenMin, tempChosenHourObj.isNextDay)}`;
-
-      document.getElementById('fast-slot-suggestion-card').classList.remove('active');
-      const btn = document.getElementById('btn-open-custom-time');
-      btn.classList.add('has-value');
-      document.getElementById('custom-time-btn-label').textContent = `موعد مخصص: ${selectedTimeSlot}`;
-
-      closeInteractiveTimeModal();
-      showToast("تم تثبيت موعد التسليم المخصص بنجاح ✓");
-    }
-
-    /* Checkout Flow */
-    function triggerCheckoutFlow(mode) {
-      if (mode === 'SINGLE' && activeDrawerItem) {
-        const id = activeDrawerItem.ID || activeDrawerItem.Flavor_Name_AR;
-        const nameAR = activeDrawerItem.Flavor_Name_AR || 'بوظة لوفي';
-        const nameEN = activeDrawerItem.Flavor_Name_EN || '';
-        const thumb = getDriveImageUrl(activeDrawerItem['Image_URL Show'] || '');
-        const unitPrice = getItemPrice(activeDrawerItem);
-        const exist = cartItems.find(c => c.id === id);
-        if (exist) exist.qty += selectedQuantity;
-        else cartItems.push({ id, nameAR, nameEN, thumb, price: unitPrice, qty: selectedQuantity });
-        localStorage.setItem('luffy_cart', JSON.stringify(cartItems));
-        updateCartFloatingBar();
-      }
-
-      closeDrawer();
-      closeCartDrawer();
-      
-      document.getElementById('checkout-step-choice-view').style.display = 'block';
-      document.getElementById('checkout-step-form-view').style.display = 'none';
-      document.getElementById('checkout-drawer-bottom-actions').style.display = 'none';
-      orderType = null;
-
-      openCheckoutDrawer();
-    }
-
-    function selectFulfillmentAndProceed(type) {
-      orderType = type;
-      document.getElementById('checkout-step-choice-view').style.display = 'none';
-      document.getElementById('checkout-step-form-view').style.display = 'block';
-      document.getElementById('checkout-drawer-bottom-actions').style.display = 'block';
-
-      setOrderType(type);
-      
-      const totalAmount = cartItems.reduce((s, i) => s + (i.qty * (i.price || 2.50)), 0);
-      document.getElementById('order-text-summary-view').textContent = cartItems.map(c => `${c.nameAR} × ${c.qty} علبة (${((c.price || 2.50) * c.qty).toFixed(2)} د.أ)`).join(' ، ');
-      document.getElementById('checkout-total-price-view').textContent = `${totalAmount.toFixed(2)} د.أ`;
-
-      validateCheckoutReadiness();
-    }
-
-    function setOrderType(t) {
-      orderType = t;
-      document.getElementById('btn-type-delivery').classList.toggle('active', t === 'DELIVERY');
-      document.getElementById('btn-type-pickup').classList.toggle('active', t === 'PICKUP');
-      document.getElementById('delivery-location-section').style.display = (t === 'DELIVERY') ? 'block' : 'none';
-      
-      calculateAccurateSchedule();
-
-      if (t === 'DELIVERY') {
-        setTimeout(initLeafletMap, 200);
-      }
-      validateCheckoutReadiness();
-    }
-
-    /* 🟢 فاحص الجاهزية لإظهار رسالة التأكيد فقط عند اكتمال البيانات */
-    function validateCheckoutReadiness() {
-      const banner = document.getElementById('checkout-ready-alert-banner');
-      if (!banner) return;
-
-      const custName = (document.getElementById('cust-name-input')?.value || '').trim();
-      const fullPhone = getFullJordanPhoneNumber();
-
-      let isReady = false;
-
-      if (orderType && custName.length >= 2 && fullPhone) {
-        if (orderType === 'PICKUP') {
-          isReady = true;
-        } else if (orderType === 'DELIVERY') {
-          if (capturedGpsLocation && capturedGpsLocation.mapUrl && isLocationValidated) {
-            isReady = true;
-          }
-        }
-      }
-
-      if (isReady) {
-        banner.classList.add('visible');
-      } else {
-        banner.classList.remove('visible');
-      }
-    }
-
-    function evaluateAqabaGeofence(lat, lng) {
-      lat = parseFloat(lat); lng = parseFloat(lng);
-      if (isNaN(lat) || isNaN(lng)) return { valid: false, msg: "الموقع غير محدد بدقة" };
-
-      if (isPointInPolygon([lat, lng], OCCUPIED_POLYGON)) {
-        return { 
-          valid: false, 
-          msg: "عذراً، التوصيل غير متاح حالياً.. ولكننا قريباً سنكون عندكم بإذن الله سبحانه وتعالى 🇵🇸✌️🇯🇴" 
-        };
-      }
-
-      if (isPointInPolygon([lat, lng], SEA_POLYGON)) {
-        return { valid: false, msg: "الموقع المحدد يقع داخل مياه البحر! يرجى اختيار موقع بري على اليابسة." };
-      }
-
-      if (lat < 29.3550 || lat > 29.6500 || lng < 34.9600 || lng > 35.1200) {
-        return { valid: false, msg: "نعتذر منكم عن عدم توفر خدمة التوصيل في منطقتكم حالياً، نسأل الله أن نصلكم قريباً 🇯🇴" };
-      }
-
-      const dist = getHaversineDistance(AQABA_STORE_COORDS[0], AQABA_STORE_COORDS[1], lat, lng);
-      calculatedDistanceKm = parseFloat(dist.toFixed(2));
-
-      if (dist > 18) return { valid: false, msg: "نعتذر منكم عن عدم توفر خدمة التوصيل في منطقتكم حالياً، نسأل الله أن نصلكم قريباً 🇯🇴" };
-      if (dist > 8) return { valid: true, warning: true, msg: "📍 لبعد المسافة، يلزم تأكيد قبول الطلب هاتفياً من قبل إدارة المحل قبل الإرسال." };
-
-      return { valid: true, warning: false, msg: "الموقع معتمد ضمن النطاق المباشر للتوصيل السريع في العقبة ✓" };
-    }
-
-    /* 🗺️ تهيئة خريطة Leaflet الرسمية النظيفة بدون علامات مائية وبدون API Key */
-    function initLeafletMap() {
-      const mapEl = document.getElementById('leaflet-map-element');
-      if (!mapEl) return;
-
-      if (!leafletMapInstance) {
-        leafletMapInstance = L.map('leaflet-map-element', {
-          attributionControl: false, zoomControl: true
-        }).setView(AQABA_STORE_COORDS, 13);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19
-        }).addTo(leafletMapInstance);
-
-        const customPinIcon = L.divIcon({
-          className: 'custom-leaflet-pin',
-          html: `<div style="background:var(--brand-red); width:26px; height:26px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); border:2.5px solid #ffffff; box-shadow:0 4px 10px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;"><div style="width:8px; height:8px; background:#ffffff; border-radius:50%;"></div></div>`,
-          iconSize: [26, 26], iconAnchor: [13, 26]
-        });
-
-        leafletMapInstance.on('click', (e) => {
-          if (!leafletMarkerInstance) {
-            leafletMarkerInstance = L.marker(e.latlng, { draggable: true, icon: customPinIcon }).addTo(leafletMapInstance);
-            leafletMarkerInstance.on('dragend', (ev) => {
-              const pos = ev.target.getLatLng();
-              setCapturedPin(pos.lat, pos.lng);
-            });
-          } else {
-            leafletMarkerInstance.setLatLng(e.latlng);
-          }
-          setCapturedPin(e.latlng.lat, e.latlng.lng);
-        });
-
-      } else {
-        leafletMapInstance.invalidateSize();
-      }
-    }
-
-    function setCapturedPin(lat, lng) {
-      lat = parseFloat(lat).toFixed(6);
-      lng = parseFloat(lng).toFixed(6);
-      
-      const mapUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-      capturedGpsLocation = { lat: lat, lng: lng, mapUrl: mapUrl };
-
-      const badge = document.getElementById('location-geofence-alert');
-      const evalRes = evaluateAqabaGeofence(lat, lng);
-
-      if (!evalRes.valid) {
-        isLocationValidated = false;
-        badge.className = "location-validation-badge error";
-        badge.textContent = evalRes.msg;
-        showToast(evalRes.msg);
-      } else if (evalRes.warning) {
-        isLocationValidated = true;
-        badge.className = "location-validation-badge warning";
-        badge.textContent = evalRes.msg;
-      } else {
-        isLocationValidated = true;
-        badge.className = "location-validation-badge success";
-        badge.textContent = evalRes.msg;
-      }
-      validateCheckoutReadiness();
-    }
-
-    function captureLiveGpsLocation() {
-      if (!navigator.geolocation) { showToast('تحديد الموقع غير مدعوم بالجهاز'); return; }
-      document.getElementById('gps-btn-label').textContent = "جاري الاتصال بالأقمار الصناعية...";
-
-      navigator.geolocation.getCurrentPosition(pos => {
-        const lat = pos.coords.latitude.toFixed(6);
-        const lng = pos.coords.longitude.toFixed(6);
-        
-        if (leafletMapInstance) {
-          const customPinIcon = L.divIcon({
-            className: 'custom-leaflet-pin',
-            html: `<div style="background:var(--brand-red); width:26px; height:26px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); border:2.5px solid #ffffff; box-shadow:0 4px 10px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;"><div style="width:8px; height:8px; background:#ffffff; border-radius:50%;"></div></div>`,
-            iconSize: [26, 26], iconAnchor: [13, 26]
-          });
-
-          if (!leafletMarkerInstance) {
-            leafletMarkerInstance = L.marker([lat, lng], { draggable: true, icon: customPinIcon }).addTo(leafletMapInstance);
-            leafletMarkerInstance.on('dragend', (ev) => {
-              const p = ev.target.getLatLng();
-              setCapturedPin(p.lat, p.lng);
-            });
-          } else {
-            leafletMarkerInstance.setLatLng([lat, lng]);
-          }
-          leafletMapInstance.setView([lat, lng], 15);
-        }
-
-        setCapturedPin(lat, lng);
-        document.getElementById('gps-btn-label').textContent = "تم تثبيت موقعك الحالي بنجاح ✓";
-        showToast('تم تثبيت موقعك في العقبة بنجاح ✓');
-
-      }, () => {
-        showToast('يرجى تفعيل صلاحية الموقع في هاتفك');
-        document.getElementById('gps-btn-label').textContent = "اضغط لتثبيت موقعك الحالي";
-      }, { enableHighAccuracy: true });
-    }
-
-    function openCheckoutDrawer() { document.getElementById('checkout-drawer').classList.add('open'); }
-    function closeCheckoutDrawer() { document.getElementById('checkout-drawer').classList.remove('open'); }
-
-    /* Dispatch Direct Order */
-    function dispatchDirectOrder(channel) {
-      if (!orderType) { showToast('يرجى اختيار طريقة استلام الطلب'); return; }
-
-      const custNameInput = document.getElementById('cust-name-input');
-      const custName = custNameInput.value.trim();
-      if (!custName) {
-        custNameInput.focus();
-        showToast('يرجى إدخال اسمك الكريم');
-        return;
-      }
-
-      const fullPhone = getFullJordanPhoneNumber();
-      const phoneBox = document.getElementById('jordan-phone-box');
-      if (!fullPhone) {
-        phoneBox.classList.add('input-error');
-        document.getElementById('cust-phone-input').focus();
-        showToast('يرجى إدخال رقم هاتف أردني صحيح (9 أرقام يبدأ بـ 7)');
-        return;
-      }
-      phoneBox.classList.remove('input-error');
-
-      const custAddress = document.getElementById('cust-address-input').value.trim();
-
-      // القفل الإلزامي للتوصيل
-      if (orderType === 'DELIVERY') {
-        if (!capturedGpsLocation || !capturedGpsLocation.mapUrl || !isLocationValidated) {
-          showToast('⚠️ إلزامي: يرجى تثبيت موقع التوصيل أو تحديد موقعك على الخريطة أولاً');
-          const locBox = document.getElementById('location-suite-box-container');
-          if (locBox) locBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          return;
-        }
-        const evalRes = evaluateAqabaGeofence(capturedGpsLocation.lat, capturedGpsLocation.lng);
-        if (!evalRes.valid) { showToast(evalRes.msg); return; }
-      }
-
-      const orderId = `LFY-${Date.now().toString().slice(-4)}`;
-      let itemsSummary = cartItems.map(c => `${c.nameAR} × ${c.qty} (${((c.price || 2.50) * c.qty).toFixed(2)} د.أ)`).join(' ، ');
-      let totalQty = cartItems.reduce((s, i) => s + i.qty, 0);
-      let totalSum = cartItems.reduce((s, i) => s + (i.qty * (i.price || 2.50)), 0);
-
-      const orderPayload = {
-        id: orderId,
-        order_id: orderId,
-        customer_name: custName,
-        phone: fullPhone,
-        phone_number: fullPhone,
-        order_type: orderType,
-        status: "UNCONFIRMED",
-        time_slot: selectedTimeSlot,
-        items_summary: itemsSummary,
-        total_qty: totalQty,
-        total_amount: totalSum.toFixed(2) + " د.أ",
-        total_price: totalSum.toFixed(2) + " د.أ",
-        gps_url: (capturedGpsLocation && capturedGpsLocation.mapUrl) ? capturedGpsLocation.mapUrl : '',
-        address: custAddress,
-        address_details: custAddress,
-        distance_km: (orderType === 'DELIVERY' && calculatedDistanceKm) ? calculatedDistanceKm : 0,
-        raw_cart: cartItems
-      };
-
-      // إرسال الطلب إلى السحابة الموزعة الجديدة
-      const s = document.createElement("script");
-      s.src = `${APPS_SCRIPT_EXEC_URL}?action=create_order&data=${encodeURIComponent(JSON.stringify(orderPayload))}&_ts=${Date.now()}`;
-      document.body.appendChild(s);
-
-      let distanceNote = (orderType === 'DELIVERY' && calculatedDistanceKm && calculatedDistanceKm > 8) 
-        ? `\nملاحظة: لبعد المسافة، يلزم تأكيد قبول الطلب هاتفياً من الإدارة.` : "";
-
-      let message = `طلب جديد من القائمة الرقمية (LUFFY • لوفي) 🇯🇴
-كابتن السعادة • بوظة طبيعية 100%
-رقم الطلب: #${orderId}
-━━━━━━━━━━━━━━━━━━━━━━
-اسم العميل: ${custName}
-هاتف العميل: ${fullPhone}
-طريقة الاستلام: ${orderType === 'DELIVERY' ? 'توصيل إلى موقعي' : 'استلام مباشر من المحل'}
-موعد التسليم: ${selectedTimeSlot}
-
-تفاصيل الأصناف والأسعار:
-${itemsSummary}
-
-المجموع الإجمالي: ${totalSum.toFixed(2)} د.أ (${totalQty} علبة)
-${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع التوصيل (خرائط Google):\n${capturedGpsLocation.mapUrl}\n` : ''}${custAddress ? `العنوان: ${custAddress}\n` : ''}${distanceNote}━━━━━━━━━━━━━━━━━━━━━━
-بوظة لوفي الطبيعية 100% • كابتن السعادة • العقبة 🇯🇴
-(تم تأكيد الطلب واعتماده للتجهيز فوراً)`;
-
-      if (channel === 'WHATSAPP') {
-        const url = `https://api.whatsapp.com/send?phone=${STORE_WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
-        showToast('جاري فتح واتساب وتجهيز الطلب مع كابتن السعادة...');
-        closeCheckoutDrawer();
-        setTimeout(() => { window.open(url, '_blank'); }, 400);
-      } else {
-        copyTextSync(message);
-        showToast(`تم نسخ تفاصيل الطلب #${orderId}! جاري فتح إنستغرام لوفي...`);
-        closeCheckoutDrawer();
-        setTimeout(() => { window.open(`https://ig.me/m/${INSTAGRAM_HANDLE}`, '_blank'); }, 500);
-      }
-    }
-
-    /* مزامنة المنظومة السحابية الموزعة الجديدة (Dynamic Vault Sync) */
-    function syncMobileMenu() {
-      // 1. مزامنة خارطة الـ IDs التوجيهية الحية من السحابة
-      fetchDynamicRoutingRegistry();
-      // 2. مزامنة الكتالوج المعتمد
-      fetchCatalogFromEngine();
-      // 3. مزامنة الإعدادات وثوابت المتجر
-      fetchStoreConfigFromEngine();
-      // 4. مزامنة ساعات الدوام
-      fetchStoreHoursFromEngine();
-    }
-
-    function fetchDynamicRoutingRegistry() {
-      const cb = "onRouteRegLoaded_" + Date.now();
-      window[cb] = function(res) {
-        if (res && res.registry) {
-          DYNAMIC_CATALOG_ID = res.registry.VAULT_CATALOG_ID || DYNAMIC_CATALOG_ID;
-          DYNAMIC_CONFIG_ID = res.registry.VAULT_CONFIG_ID || DYNAMIC_CONFIG_ID;
-          localStorage.setItem('luffy_vault_catalog_id', DYNAMIC_CATALOG_ID);
-          localStorage.setItem('luffy_vault_config_id', DYNAMIC_CONFIG_ID);
-        }
-      };
-      const s = document.createElement("script");
-      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_routing_registry&callback=${cb}&_ts=${Date.now()}`;
-      document.body.appendChild(s);
-    }
-
-    function fetchCatalogFromEngine() {
-      const cb = "onLiveCatalogEngineLoaded_" + Date.now();
-      window[cb] = function(res) {
-        if (!res || !res.catalog) return;
-        handleNewCatalogData(res.catalog);
-      };
-      const s = document.createElement("script");
-      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_full_menu_catalog&callback=${cb}&_ts=${Date.now()}`;
-      document.body.appendChild(s);
-    }
-
-    function fetchStoreConfigFromEngine() {
-      const cb = "onSystemConfigEngineLoaded_" + Date.now();
-      window[cb] = function(res) {
-        if (!res || !res.config) return;
-        res.config.forEach(cfg => {
-          if (cfg.Config_Key === "STORE_WHATSAPP_NUMBER" && cfg.Config_Value) {
-            STORE_WHATSAPP_NUMBER = String(cfg.Config_Value).replace(/\D/g, '');
-            localStorage.setItem('luffy_store_wa', STORE_WHATSAPP_NUMBER);
-          }
-          if (cfg.Config_Key === "INSTAGRAM_HANDLE" && cfg.Config_Value) {
-            INSTAGRAM_HANDLE = String(cfg.Config_Value).trim();
-            localStorage.setItem('luffy_store_insta', INSTAGRAM_HANDLE);
-          }
-        });
-      };
-      const s = document.createElement("script");
-      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_system_config&callback=${cb}&_ts=${Date.now()}`;
-      document.body.appendChild(s);
-    }
-
-    function fetchStoreHoursFromEngine() {
-      const cb = "onStoreHoursEngineLoaded_" + Date.now();
-      window[cb] = function(res) {
-        if (!res || !res.data) return;
-        res.data.forEach((row, idx) => {
-          const dayIdx = Number(row.Day_Index !== undefined ? row.Day_Index : idx);
-          if (weeklyHours[dayIdx]) {
-            weeklyHours[dayIdx].open = String(row.Open_Time || "14:00");
-            weeklyHours[dayIdx].close = String(row.Close_Time || "02:00");
-            weeklyHours[dayIdx].active = String(row.Is_Active).toUpperCase() === "TRUE";
-          }
-        });
-        localStorage.setItem('luffy_weekly_hours', JSON.stringify(weeklyHours));
-        updateStoreLiveHoursBadge();
-      };
-      const s = document.createElement("script");
-      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_store_hours&callback=${cb}&_ts=${Date.now()}`;
-      document.body.appendChild(s);
-    }
-
+    /* 🛡️ خوارزمية فلترة ومنع تكرار النكهات في المنيو (Deduplication Engine) */
     function handleNewCatalogData(newFlavors) {
-      const currentMap = {};
+      if (!Array.isArray(newFlavors)) return;
+
+      // دمج الأصناف ومنع تكرار أي صنف بنفس الاسم، مع الاحتفاظ بالأحدث
+      const dedupedMap = new Map();
       newFlavors.forEach(item => {
-        const id = item.ID || item.Flavor_Name_AR;
-        const { isFresh, stockState } = checkFreshAndStockStatus(item);
-        currentMap[id] = { id, nameAR: item.Flavor_Name_AR, stockState, isFresh };
+        const nameKey = (item.Flavor_Name_AR || item['اسم النكهة (عربي)'] || item.name_ar || '').trim().toLowerCase();
+        if (nameKey) {
+          dedupedMap.set(nameKey, item);
+        }
       });
-
-      if (!isFirstDataLoad && Object.keys(previousFlavorsMap).length > 0) {
-        cartItems.forEach(c => {
-          const prev = previousFlavorsMap[c.id];
-          const curr = currentMap[c.id];
-          if (prev && curr && prev.stockState !== 'soldout' && curr.stockState === 'soldout') {
-            if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-            showToast(`⚠️ تنبيه: نكهة [${curr.nameAR}] نفدت من المتجر، يرجى تعديل السلة`);
-          }
-        });
-      }
-
-      previousFlavorsMap = currentMap;
-      isFirstDataLoad = false;
-      rawFlavors = newFlavors;
+      rawFlavors = Array.from(dedupedMap.values());
 
       buildCategoryChips();
       renderMenuFeed();
@@ -2500,50 +1572,6 @@ ${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع ا�
         const freshItem = rawFlavors.find(f => (f.ID || f.Flavor_Name_AR) === (activeDrawerItem.ID || activeDrawerItem.Flavor_Name_AR));
         if (freshItem) updateDrawerContent(freshItem);
       }
-    }
-
-    function buildCategoryChips() {
-      const cats = new Set();
-      rawFlavors.forEach(f => {
-        const cat = (f.Category || f['التصنيف'] || '').trim();
-        if (cat) cats.add(cat);
-      });
-
-      const container = document.getElementById("filter-container");
-      container.innerHTML = `<button class="chip-filter-btn ${currentCategory === 'ALL' ? 'active' : ''}" onclick="applyCategoryFilter('ALL', this)"><span>الكل</span></button>`;
-
-      if (favoriteIds && favoriteIds.length > 0) {
-        const favBtn = document.createElement("button");
-        favBtn.className = `chip-filter-btn ${currentCategory === 'FAVORITES' ? 'active' : ''}`;
-        favBtn.innerHTML = `
-          <svg class="chip-heart-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span>المفضلة</span>
-        `;
-        favBtn.onclick = () => applyCategoryFilter('FAVORITES', favBtn);
-        container.appendChild(favBtn);
-      }
-
-      cats.forEach(rawCat => {
-        const btn = document.createElement("button");
-        btn.className = `chip-filter-btn ${currentCategory === rawCat ? 'active' : ''}`;
-        btn.textContent = rawCat;
-        btn.onclick = () => applyCategoryFilter(rawCat, btn);
-        container.appendChild(btn);
-      });
-    }
-
-    function applyCategoryFilter(cat, btnEl) {
-      currentCategory = cat;
-      document.querySelectorAll(".chip-filter-btn").forEach(b => b.classList.remove("active"));
-      if (btnEl) btnEl.classList.add("active");
-      renderMenuFeed();
-    }
-
-    function checkFreshAndStockStatus(item) {
-      let isActive = String(item.Is_Active || item['متوفر اليوم؟ (Active)'] || '').trim().toUpperCase() === "TRUE";
-      let isFresh = String(item.Is_Fresh_Batch || item['طازج الآن؟ (Batch)'] || '').trim().toUpperCase() === "TRUE";
-      let stockState = item.Stock_State || (isActive ? 'available' : 'soldout');
-      return { isFresh, stockState };
     }
 
     function renderMenuFeed() {
@@ -2563,7 +1591,6 @@ ${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع ا�
         return matchSearch && matchCat && matchTags;
       });
 
-      // تطبيق الفرز الذكي
       if (currentSortMode === 'PRICE_ASC') {
         filtered.sort((a, b) => getItemPrice(a) - getItemPrice(b));
       } else if (currentSortMode === 'PRICE_DESC') {
@@ -2644,6 +1671,687 @@ ${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع ا�
       });
     }
 
+    function calculateAccurateSchedule() {
+      const state = calculateStoreLiveState();
+      const isPickup = (orderType === 'PICKUP');
+      const minPrepBuffer = isPickup ? 5 : 20;
+      const now = new Date();
+      
+      let deliveryDate = new Date(now.getTime() + minPrepBuffer * 60000);
+      if (!state.isOpen) {
+        deliveryDate = new Date(state.targetDate.getTime() + minPrepBuffer * 60000);
+      }
+
+      const formattedSlot = `${state.isOpen ? 'اليوم' : 'الموعد المتاح القادم'}: ${formatTimeFriendly(deliveryDate.getHours(), deliveryDate.getMinutes())}`;
+      
+      const titleEl = document.getElementById('fast-slot-main-title');
+      const subTimeEl = document.getElementById('fast-slot-sub-time');
+      const labelEl = document.getElementById('time-slot-form-label');
+
+      if (labelEl) labelEl.textContent = isPickup ? 'موعد الاستلام من المحل' : 'موعد التسليم للموقع';
+      if (titleEl) titleEl.textContent = isPickup ? 'أقرب موعد استلام من المحل (خلال 5 دقائق)' : 'أسرع موعد توصيل متاح (خلال 20 دقيقة)';
+      if (subTimeEl) subTimeEl.textContent = formattedSlot;
+
+      if (!isCustomTimeSelected) {
+        selectedTimeSlot = formattedSlot;
+      }
+    }
+
+    function renderStoreHoursTable() {
+      const tbody = document.getElementById('hours-table-body');
+      if (!tbody) return;
+      const now = new Date();
+      const currentDay = now.getDay();
+      const nextDay = (currentDay + 1) % 7;
+
+      let html = "";
+      for (let i = 0; i < 7; i++) {
+        const sched = weeklyHours[i] || DEFAULT_WEEKLY_HOURS[i];
+        let dayLabel = sched.name;
+        if (i === currentDay) dayLabel = `اليوم (${sched.name})`;
+        else if (i === nextDay) dayLabel = `غداً (${sched.name})`;
+
+        const openT = getTimeFromCell(sched.open, 14, 0);
+        const closeT = getTimeFromCell(sched.close, 2, 0);
+        const isOvernight = (closeT.h < openT.h) || (closeT.h === openT.h && closeT.m <= openT.m);
+
+        const sOpen = sched.active ? formatTimeDoubleLine(openT.h, openT.m) : '<div style="color:var(--text-muted);">عطلة</div>';
+        const sClose = sched.active ? formatTimeDoubleLine(closeT.h, closeT.m, isOvernight) : '<div style="color:var(--text-muted);">عطلة</div>';
+
+        html += `
+          <div class="hours-row ${i === currentDay ? 'is-today' : ''}">
+            <span>${dayLabel}</span>
+            <span>${sOpen}</span>
+            <span>${sClose}</span>
+          </div>
+        `;
+      }
+      tbody.innerHTML = html;
+    }
+
+    /* مزامنة البيانات عبر الـ Engine الجديد */
+    function syncMobileMenu() {
+      fetchDynamicRoutingRegistry();
+      fetchCatalogFromEngine();
+      fetchStoreConfigFromEngine();
+      fetchStoreHoursFromEngine();
+    }
+
+    function fetchDynamicRoutingRegistry() {
+      const cb = "onRouteRegLoaded_" + Date.now();
+      window[cb] = function(res) {
+        if (res && res.registry) {
+          DYNAMIC_CATALOG_ID = res.registry.VAULT_CATALOG_ID || DYNAMIC_CATALOG_ID;
+          DYNAMIC_CONFIG_ID = res.registry.VAULT_CONFIG_ID || DYNAMIC_CONFIG_ID;
+          localStorage.setItem('luffy_vault_catalog_id', DYNAMIC_CATALOG_ID);
+          localStorage.setItem('luffy_vault_config_id', DYNAMIC_CONFIG_ID);
+        }
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_routing_registry&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    function fetchCatalogFromEngine() {
+      const cb = "onLiveCatalogEngineLoaded_" + Date.now();
+      window[cb] = function(res) {
+        if (!res || !res.catalog) return;
+        handleNewCatalogData(res.catalog);
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_full_menu_catalog&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    function fetchStoreConfigFromEngine() {
+      const cb = "onSystemConfigEngineLoaded_" + Date.now();
+      window[cb] = function(res) {
+        if (!res || !res.config) return;
+        res.config.forEach(cfg => {
+          if (cfg.Config_Key === "STORE_WHATSAPP_NUMBER" && cfg.Config_Value) {
+            STORE_WHATSAPP_NUMBER = String(cfg.Config_Value).replace(/\D/g, '');
+            localStorage.setItem('luffy_store_wa', STORE_WHATSAPP_NUMBER);
+          }
+          if (cfg.Config_Key === "INSTAGRAM_HANDLE" && cfg.Config_Value) {
+            INSTAGRAM_HANDLE = String(cfg.Config_Value).trim();
+            localStorage.setItem('luffy_store_insta', INSTAGRAM_HANDLE);
+          }
+        });
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_system_config&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    function fetchStoreHoursFromEngine() {
+      const cb = "onStoreHoursEngineLoaded_" + Date.now();
+      window[cb] = function(res) {
+        if (!res || !res.data) return;
+        res.data.forEach((row, idx) => {
+          const dayIdx = Number(row.Day_Index !== undefined ? row.Day_Index : idx);
+          if (weeklyHours[dayIdx]) {
+            weeklyHours[dayIdx].open = String(row.Open_Time || "14:00");
+            weeklyHours[dayIdx].close = String(row.Close_Time || "02:00");
+            weeklyHours[dayIdx].active = String(row.Is_Active).toUpperCase() === "TRUE";
+          }
+        });
+        localStorage.setItem('luffy_weekly_hours', JSON.stringify(weeklyHours));
+        updateStoreLiveHoursBadge();
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_store_hours&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    function isPointInPolygon(point, vs) {
+      const x = point[0], y = point[1];
+      let inside = false;
+      for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+        const xi = vs[i][0], yi = vs[i][1];
+        const xj = vs[j][0], yj = vs[j][1];
+        const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+      }
+      return inside;
+    }
+
+    function showToast(message) {
+      const stack = document.getElementById('toast-stack-box');
+      if (!stack) return;
+      while (stack.children.length >= 2) stack.removeChild(stack.firstChild);
+
+      const pill = document.createElement('div');
+      pill.className = 'luxury-toast-pill';
+      pill.innerHTML = `<span>${message}</span>`;
+      stack.appendChild(pill);
+      setTimeout(() => { if (pill.parentElement) pill.remove(); }, 3500);
+    }
+
+    function extractDriveId(url) {
+      if (!url) return '';
+      const m = String(url).split(',')[0].trim().match(/[-\w]{25,}/);
+      return m ? m[0] : '';
+    }
+    function getDriveImageUrl(url) {
+      const id = extractDriveId(url);
+      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : (url ? url.trim() : '');
+    }
+
+    function convertArabicToEnglishDigits(str) {
+      if (!str) return '';
+      return str.toString().replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+    }
+
+    function sanitizeJordanPhoneInput(inputEl) {
+      let raw = convertArabicToEnglishDigits(inputEl.value);
+      let digits = raw.replace(/\D/g, '');
+      if (digits.startsWith('962')) digits = digits.slice(3);
+      if (digits.startsWith('00962')) digits = digits.slice(5);
+      while (digits.startsWith('0')) digits = digits.slice(1);
+      inputEl.value = digits;
+      document.getElementById('jordan-phone-box').classList.remove('input-error');
+      validateCheckoutReadiness();
+    }
+
+    function getFullJordanPhoneNumber() {
+      const el = document.getElementById('cust-phone-input');
+      const val = el.value.trim();
+      if (!val || val.length !== 9 || !val.startsWith('7')) return null;
+      return `+962${val}`;
+    }
+
+    function extractItemTags(item) {
+      const tags = [];
+      const cat = (item.Category || item['التصنيف'] || '').trim();
+      if (cat && cat !== 'الكل' && cat !== 'عام') tags.push(cat);
+      const rawTags = (item.Tags || item['الوسوم'] || item['وسوم'] || '').toString();
+      if (rawTags) {
+        rawTags.split(/[,،#]/).map(t => t.trim()).filter(Boolean).forEach(t => tags.push(t));
+      }
+      return Array.from(new Set(tags)).filter(Boolean);
+    }
+
+    function openSearchModal() {
+      document.getElementById('search-modal').classList.add('open');
+      const inputEl = document.getElementById('search-modal-input-field');
+      inputEl.value = searchQuery;
+      setTimeout(() => inputEl.focus(), 250);
+      document.getElementById('search-clear-btn').style.display = searchQuery ? 'block' : 'none';
+    }
+    function closeSearchModal() { document.getElementById('search-modal').classList.remove('open'); }
+
+    function handleSearchModalInput(val) {
+      searchQuery = val.trim().toLowerCase();
+      document.getElementById('search-clear-btn').style.display = searchQuery ? 'block' : 'none';
+      document.getElementById('search-active-dot').style.display = searchQuery ? 'block' : 'none';
+      document.getElementById('header-search-btn').classList.toggle('active-has-val', Boolean(searchQuery));
+      renderMenuFeed();
+    }
+
+    function clearSearchModalInput() {
+      const inputEl = document.getElementById('search-modal-input-field');
+      inputEl.value = '';
+      handleSearchModalInput('');
+      inputEl.focus();
+    }
+
+    function openSortFilterModal() {
+      renderTagsModalClusters();
+      highlightActiveSortOption(currentSortMode);
+      document.getElementById('sort-filter-modal').classList.add('open');
+    }
+    function closeSortFilterModal() { document.getElementById('sort-filter-modal').classList.remove('open'); }
+
+    function selectSortOption(mode) {
+      currentSortMode = mode;
+      highlightActiveSortOption(mode);
+    }
+    function highlightActiveSortOption(mode) {
+      document.querySelectorAll('.sort-choice-pill').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById(`sort-opt-${mode}`);
+      if (activeEl) activeEl.classList.add('active');
+    }
+
+    function toggleTagFilter(tag, event) {
+      if (event) event.stopPropagation();
+      if (selectedTags.has(tag)) selectedTags.delete(tag);
+      else selectedTags.add(tag);
+      renderTagsModalClusters();
+    }
+
+    function renderTagsModalClusters() {
+      const container = document.getElementById('all-tags-selection-cluster');
+      if (!container) return;
+      const allTags = new Set();
+      rawFlavors.forEach(f => extractItemTags(f).forEach(t => allTags.add(t)));
+      container.innerHTML = Array.from(allTags).map(t => `
+        <span class="hashtag-pill ${selectedTags.has(t) ? 'active-hash' : ''}" onclick="toggleTagFilter('${t}', event)">#${t}</span>
+      `).join('');
+    }
+
+    function resetSortAndFilters() {
+      currentSortMode = 'DEFAULT';
+      selectedTags.clear();
+      highlightActiveSortOption('DEFAULT');
+      renderTagsModalClusters();
+      confirmSortAndFilters();
+      showToast("تمت استعادة الترتيب الافتراضي وتفريغ الوسوم ✓");
+    }
+
+    function confirmSortAndFilters() {
+      updateSortFilterHeaderBadge();
+      renderMenuFeed();
+      closeSortFilterModal();
+    }
+
+    function updateSortFilterHeaderBadge() {
+      const badge = document.getElementById('active-sort-filter-badge');
+      const btn = document.getElementById('header-sort-btn');
+      let count = selectedTags.size;
+      if (currentSortMode !== 'DEFAULT') count += 1;
+
+      if (count > 0) {
+        badge.style.display = 'flex';
+        badge.textContent = count;
+        btn.classList.add('active-has-val');
+      } else {
+        badge.style.display = 'none';
+        btn.classList.remove('active-has-val');
+      }
+    }
+
+    function openStoreHoursModal() { renderStoreHoursTable(); document.getElementById('store-hours-modal').classList.add('open'); }
+    function closeStoreHoursModal() { document.getElementById('store-hours-modal').classList.remove('open'); }
+
+    function chooseFastSuggestedSlot() {
+      isCustomTimeSelected = false;
+      calculateAccurateSchedule();
+      document.getElementById('fast-slot-suggestion-card').classList.add('active');
+      document.getElementById('btn-open-custom-time').classList.remove('has-value');
+      document.getElementById('custom-time-btn-label').textContent = "تحديد موعد تسليم مخصص";
+      showToast("تم اعتماد أقرب موعد مقترح ✓");
+    }
+
+    function openInteractiveTimeModal() {
+      renderInteractiveHoursTrack();
+      renderInteractiveMinutesCluster();
+      document.getElementById('interactive-time-modal').classList.add('open');
+    }
+    function closeInteractiveTimeModal() { document.getElementById('interactive-time-modal').classList.remove('open'); }
+
+    function renderInteractiveHoursTrack() {
+      const track = document.getElementById('interactive-hours-track');
+      if (!track) return;
+      track.innerHTML = "";
+      const now = new Date();
+      const state = calculateStoreLiveState();
+      
+      const availableHours = [];
+      let baseHour = state.isOpen ? now.getHours() : state.targetDate.getHours();
+
+      for (let i = 0; i < 12; i++) {
+        let h = (baseHour + i) % 24;
+        let dayNote = (baseHour + i >= 24) ? "اليوم التالي" : "اليوم";
+        availableHours.push({ rawHour: baseHour + i, realHour: h, dayNote, isNextDay: (baseHour + i >= 24) });
+      }
+
+      tempChosenHourObj = availableHours[0];
+
+      availableHours.forEach((item, idx) => {
+        const node = document.createElement('div');
+        node.className = `hour-pin-node ${idx === 0 ? 'selected' : ''}`;
+        const h12 = item.realHour % 12 || 12;
+        const ampm = item.realHour >= 12 ? 'مساءً' : 'صباحاً';
+
+        node.innerHTML = `
+          <span style="font-family:var(--font-en); font-size:14px; font-weight:900;">${String(item.realHour).padStart(2,'0')}:00</span>
+          <span style="font-size:9.5px; font-weight:700;">${h12} ${ampm}</span>
+          <span style="font-size:8px; opacity:0.75;">${item.dayNote}</span>
+        `;
+
+        node.onclick = () => {
+          document.querySelectorAll('.hour-pin-node').forEach(n => n.classList.remove('selected'));
+          node.classList.add('selected');
+          tempChosenHourObj = item;
+          updateInteractiveTimePreview();
+        };
+
+        track.appendChild(node);
+      });
+
+      updateInteractiveTimePreview();
+    }
+
+    function renderInteractiveMinutesCluster() {
+      const container = document.getElementById('minutes-selection-cluster');
+      if (!container) return;
+      const isPickup = (orderType === 'PICKUP');
+      const validMinutes = isPickup ? [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55] : [0, 15, 30, 45];
+
+      container.innerHTML = validMinutes.map(m => `
+        <div class="min-choice-pill ${m === tempChosenMin ? 'active' : ''}" onclick="selectCustomMinute(${m}, this)">
+          :${String(m).padStart(2, '0')}
+        </div>
+      `).join('');
+    }
+
+    function selectCustomMinute(m, btnEl) {
+      tempChosenMin = m;
+      document.querySelectorAll('.min-choice-pill').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+      updateInteractiveTimePreview();
+    }
+
+    function updateInteractiveTimePreview() {
+      if (!tempChosenHourObj) return;
+      const formatted = `${tempChosenHourObj.dayNote}: ${formatTimeFriendly(tempChosenHourObj.realHour, tempChosenMin, tempChosenHourObj.isNextDay)}`;
+      document.getElementById('interactive-time-preview-text').textContent = formatted;
+    }
+
+    function confirmCustomInteractiveTime() {
+      if (!tempChosenHourObj) return;
+      isCustomTimeSelected = true;
+      selectedTimeSlot = `${tempChosenHourObj.dayNote}: ${formatTimeFriendly(tempChosenHourObj.realHour, tempChosenMin, tempChosenHourObj.isNextDay)}`;
+
+      document.getElementById('fast-slot-suggestion-card').classList.remove('active');
+      const btn = document.getElementById('btn-open-custom-time');
+      btn.classList.add('has-value');
+      document.getElementById('custom-time-btn-label').textContent = `موعد مخصص: ${selectedTimeSlot}`;
+
+      closeInteractiveTimeModal();
+      showToast("تم تثبيت موعد التسليم المخصص بنجاح ✓");
+    }
+
+    function triggerCheckoutFlow(mode) {
+      if (mode === 'SINGLE' && activeDrawerItem) {
+        const id = activeDrawerItem.ID || activeDrawerItem.Flavor_Name_AR;
+        const nameAR = activeDrawerItem.Flavor_Name_AR || 'بوظة لوفي';
+        const nameEN = activeDrawerItem.Flavor_Name_EN || '';
+        const thumb = getDriveImageUrl(activeDrawerItem['Image_URL Show'] || '');
+        const unitPrice = getItemPrice(activeDrawerItem);
+        const exist = cartItems.find(c => c.id === id);
+        if (exist) exist.qty += selectedQuantity;
+        else cartItems.push({ id, nameAR, nameEN, thumb, price: unitPrice, qty: selectedQuantity });
+        localStorage.setItem('luffy_cart', JSON.stringify(cartItems));
+        updateCartFloatingBar();
+      }
+
+      closeDrawer();
+      closeCartDrawer();
+      document.getElementById('checkout-step-choice-view').style.display = 'block';
+      document.getElementById('checkout-step-form-view').style.display = 'none';
+      document.getElementById('checkout-drawer-bottom-actions').style.display = 'none';
+      orderType = null;
+      openCheckoutDrawer();
+    }
+
+    function selectFulfillmentAndProceed(type) {
+      orderType = type;
+      document.getElementById('checkout-step-choice-view').style.display = 'none';
+      document.getElementById('checkout-step-form-view').style.display = 'block';
+      document.getElementById('checkout-drawer-bottom-actions').style.display = 'block';
+
+      setOrderType(type);
+      
+      const totalAmount = cartItems.reduce((s, i) => s + (i.qty * (i.price || 2.50)), 0);
+      document.getElementById('order-text-summary-view').textContent = cartItems.map(c => `${c.nameAR} × ${c.qty} علبة (${((c.price || 2.50) * c.qty).toFixed(2)} د.أ)`).join(' ، ');
+      document.getElementById('checkout-total-price-view').textContent = `${totalAmount.toFixed(2)} د.أ`;
+
+      validateCheckoutReadiness();
+    }
+
+    function setOrderType(t) {
+      orderType = t;
+      document.getElementById('btn-type-delivery').classList.toggle('active', t === 'DELIVERY');
+      document.getElementById('btn-type-pickup').classList.toggle('active', t === 'PICKUP');
+      document.getElementById('delivery-location-section').style.display = (t === 'DELIVERY') ? 'block' : 'none';
+      
+      calculateAccurateSchedule();
+
+      if (t === 'DELIVERY') {
+        setTimeout(initLeafletMap, 200);
+      }
+      validateCheckoutReadiness();
+    }
+
+    function validateCheckoutReadiness() {
+      const banner = document.getElementById('checkout-ready-alert-banner');
+      if (!banner) return;
+
+      const custName = (document.getElementById('cust-name-input')?.value || '').trim();
+      const fullPhone = getFullJordanPhoneNumber();
+
+      let isReady = false;
+      if (orderType && custName.length >= 2 && fullPhone) {
+        if (orderType === 'PICKUP') {
+          isReady = true;
+        } else if (orderType === 'DELIVERY') {
+          if (capturedGpsLocation && capturedGpsLocation.mapUrl && isLocationValidated) {
+            isReady = true;
+          }
+        }
+      }
+
+      if (isReady) banner.classList.add('visible');
+      else banner.classList.remove('visible');
+    }
+
+    function evaluateAqabaGeofence(lat, lng) {
+      lat = parseFloat(lat); lng = parseFloat(lng);
+      if (isNaN(lat) || isNaN(lng)) return { valid: false, msg: "الموقع غير محدد بدقة" };
+
+      if (isPointInPolygon([lat, lng], OCCUPIED_POLYGON)) {
+        return { valid: false, msg: "عذراً، التوصيل غير متاح حالياً.. ولكننا قريباً سنكون عندكم بإذن الله سبحانه وتعالى 🇵🇸✌️🇯🇴" };
+      }
+      if (isPointInPolygon([lat, lng], SEA_POLYGON)) {
+        return { valid: false, msg: "الموقع المحدد يقع داخل مياه البحر! يرجى اختيار موقع بري على اليابسة." };
+      }
+      if (lat < 29.3550 || lat > 29.6500 || lng < 34.9600 || lng > 35.1200) {
+        return { valid: false, msg: "نعتذر منكم عن عدم توفر خدمة التوصيل في منطقتكم حالياً، نسأل الله أن نصلكم قريباً 🇯🇴" };
+      }
+
+      return { valid: true, warning: false, msg: "الموقع معتمد ضمن النطاق المباشر للتوصيل السريع في العقبة ✓" };
+    }
+
+    function initLeafletMap() {
+      const mapEl = document.getElementById('leaflet-map-element');
+      if (!mapEl) return;
+
+      if (!leafletMapInstance) {
+        leafletMapInstance = L.map('leaflet-map-element', { attributionControl: false, zoomControl: true }).setView(AQABA_STORE_COORDS, 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
+
+        const customPinIcon = L.divIcon({
+          className: 'custom-leaflet-pin',
+          html: `<div style="background:var(--brand-red); width:26px; height:26px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); border:2.5px solid #ffffff; box-shadow:0 4px 10px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;"><div style="width:8px; height:8px; background:#ffffff; border-radius:50%;"></div></div>`,
+          iconSize: [26, 26], iconAnchor: [13, 26]
+        });
+
+        leafletMapInstance.on('click', (e) => {
+          if (!leafletMarkerInstance) {
+            leafletMarkerInstance = L.marker(e.latlng, { draggable: true, icon: customPinIcon }).addTo(leafletMapInstance);
+            leafletMarkerInstance.on('dragend', (ev) => {
+              const pos = ev.target.getLatLng();
+              setCapturedPin(pos.lat, pos.lng);
+            });
+          } else {
+            leafletMarkerInstance.setLatLng(e.latlng);
+          }
+          setCapturedPin(e.latlng.lat, e.latlng.lng);
+        });
+      } else {
+        leafletMapInstance.invalidateSize();
+      }
+    }
+
+    function setCapturedPin(lat, lng) {
+      lat = parseFloat(lat).toFixed(6);
+      lng = parseFloat(lng).toFixed(6);
+      
+      const mapUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+      capturedGpsLocation = { lat, lng, mapUrl };
+
+      const badge = document.getElementById('location-geofence-alert');
+      const evalRes = evaluateAqabaGeofence(lat, lng);
+
+      if (!evalRes.valid) {
+        isLocationValidated = false;
+        badge.className = "location-validation-badge error";
+        badge.textContent = evalRes.msg;
+        showToast(evalRes.msg);
+      } else {
+        isLocationValidated = true;
+        badge.className = "location-validation-badge success";
+        badge.textContent = evalRes.msg;
+      }
+      validateCheckoutReadiness();
+    }
+
+    function captureLiveGpsLocation() {
+      if (!navigator.geolocation) { showToast('تحديد الموقع غير مدعوم بالجهاز'); return; }
+      document.getElementById('gps-btn-label').textContent = "جاري الاتصال بالأقمار الصناعية...";
+
+      navigator.geolocation.getCurrentPosition(pos => {
+        const lat = pos.coords.latitude.toFixed(6);
+        const lng = pos.coords.longitude.toFixed(6);
+        if (leafletMapInstance) {
+          leafletMapInstance.setView([lat, lng], 15);
+        }
+        setCapturedPin(lat, lng);
+        document.getElementById('gps-btn-label').textContent = "تم تثبيت موقعك الحالي بنجاح ✓";
+        showToast('تم تثبيت موقعك في العقبة بنجاح ✓');
+      }, () => {
+        showToast('يرجى تفعيل صلاحية الموقع في هاتفك');
+        document.getElementById('gps-btn-label').textContent = "اضغط لتثبيت موقعك الحالي";
+      }, { enableHighAccuracy: true });
+    }
+
+    function openCheckoutDrawer() { document.getElementById('checkout-drawer').classList.add('open'); }
+    function closeCheckoutDrawer() { document.getElementById('checkout-drawer').classList.remove('open'); }
+
+    function dispatchDirectOrder(channel) {
+      if (!orderType) { showToast('يرجى اختيار طريقة استلام الطلب'); return; }
+
+      const custNameInput = document.getElementById('cust-name-input');
+      const custName = custNameInput.value.trim();
+      if (!custName) { custNameInput.focus(); showToast('يرجى إدخال اسمك الكريم'); return; }
+
+      const fullPhone = getFullJordanPhoneNumber();
+      if (!fullPhone) { showToast('يرجى إدخال رقم هاتف أردني صحيح (9 أرقام يبدأ بـ 7)'); return; }
+
+      const custAddress = document.getElementById('cust-address-input').value.trim();
+
+      if (orderType === 'DELIVERY') {
+        if (!capturedGpsLocation || !capturedGpsLocation.mapUrl || !isLocationValidated) {
+          showToast('⚠️ إلزامي: يرجى تثبيت موقع التوصيل على الخريطة أولاً');
+          return;
+        }
+      }
+
+      const orderId = `LFY-${Date.now().toString().slice(-4)}`;
+      let itemsSummary = cartItems.map(c => `${c.nameAR} × ${c.qty} (${((c.price || 2.50) * c.qty).toFixed(2)} د.أ)`).join(' ، ');
+      let totalQty = cartItems.reduce((s, i) => s + i.qty, 0);
+      let totalSum = cartItems.reduce((s, i) => s + (i.qty * (i.price || 2.50)), 0);
+
+      const orderPayload = {
+        id: orderId,
+        order_id: orderId,
+        customer_name: custName,
+        phone: fullPhone,
+        phone_number: fullPhone,
+        order_type: orderType,
+        status: "UNCONFIRMED",
+        time_slot: selectedTimeSlot,
+        items_summary: itemsSummary,
+        total_qty: totalQty,
+        total_amount: totalSum.toFixed(2) + " د.أ",
+        total_price: totalSum.toFixed(2) + " د.أ",
+        gps_url: (capturedGpsLocation && capturedGpsLocation.mapUrl) ? capturedGpsLocation.mapUrl : '',
+        address: custAddress,
+        address_details: custAddress,
+        distance_km: (orderType === 'DELIVERY' && calculatedDistanceKm) ? calculatedDistanceKm : 0,
+        raw_cart: cartItems
+      };
+
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=create_order&data=${encodeURIComponent(JSON.stringify(orderPayload))}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+
+      let message = `طلب جديد من القائمة الرقمية (LUFFY • لوفي) 🇯🇴
+كابتن السعادة • بوظة طبيعية 100%
+رقم الطلب: #${orderId}
+━━━━━━━━━━━━━━━━━━━━━━
+اسم العميل: ${custName}
+هاتف العميل: ${fullPhone}
+طريقة الاستلام: ${orderType === 'DELIVERY' ? 'توصيل إلى موقعي' : 'استلام مباشر من المحل'}
+موعد التسليم: ${selectedTimeSlot}
+
+تفاصيل الأصناف والأسعار:
+${itemsSummary}
+
+المجموع الإجمالي: ${totalSum.toFixed(2)} د.أ (${totalQty} علبة)
+${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع التوصيل (خرائط Google):\n${capturedGpsLocation.mapUrl}\n` : ''}${custAddress ? `العنوان: ${custAddress}\n` : ''}━━━━━━━━━━━━━━━━━━━━━━
+بوظة لوفي الطبيعية 100% • كابتن السعادة • العقبة 🇯🇴
+(تم تأكيد الطلب واعتماده للتجهيز فوراً)`;
+
+      if (channel === 'WHATSAPP') {
+        const url = `https://api.whatsapp.com/send?phone=${STORE_WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+        showToast('جاري فتح واتساب وتجهيز الطلب مع كابتن السعادة...');
+        closeCheckoutDrawer();
+        setTimeout(() => { window.open(url, '_blank'); }, 400);
+      } else {
+        copyTextSync(message);
+        showToast(`تم نسخ تفاصيل الطلب #${orderId}! جاري فتح إنستغرام لوفي...`);
+        closeCheckoutDrawer();
+        setTimeout(() => { window.open(`https://ig.me/m/${INSTAGRAM_HANDLE}`, '_blank'); }, 500);
+      }
+    }
+
+    function buildCategoryChips() {
+      const cats = new Set();
+      rawFlavors.forEach(f => {
+        const cat = (f.Category || f['التصنيف'] || '').trim();
+        if (cat) cats.add(cat);
+      });
+
+      const container = document.getElementById("filter-container");
+      container.innerHTML = `<button class="chip-filter-btn ${currentCategory === 'ALL' ? 'active' : ''}" onclick="applyCategoryFilter('ALL', this)"><span>الكل</span></button>`;
+
+      if (favoriteIds && favoriteIds.length > 0) {
+        const favBtn = document.createElement("button");
+        favBtn.className = `chip-filter-btn ${currentCategory === 'FAVORITES' ? 'active' : ''}`;
+        favBtn.innerHTML = `
+          <svg class="chip-heart-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>المفضلة</span>
+        `;
+        favBtn.onclick = () => applyCategoryFilter('FAVORITES', favBtn);
+        container.appendChild(favBtn);
+      }
+
+      cats.forEach(rawCat => {
+        const btn = document.createElement("button");
+        btn.className = `chip-filter-btn ${currentCategory === rawCat ? 'active' : ''}`;
+        btn.textContent = rawCat;
+        btn.onclick = () => applyCategoryFilter(rawCat, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function applyCategoryFilter(cat, btnEl) {
+      currentCategory = cat;
+      document.querySelectorAll(".chip-filter-btn").forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+      renderMenuFeed();
+    }
+
+    function checkFreshAndStockStatus(item) {
+      let isActive = String(item.Is_Active || item['متوفر اليوم؟ (Active)'] || '').trim().toUpperCase() === "TRUE";
+      let isFresh = String(item.Is_Fresh_Batch || item['طازج الآن؟ (Batch)'] || '').trim().toUpperCase() === "TRUE";
+      let stockState = item.Stock_State || (isActive ? 'available' : 'soldout');
+      return { isFresh, stockState };
+    }
+
     function toggleFeedCardFavorite(id, event) {
       event.stopPropagation();
       const index = favoriteIds.indexOf(id);
@@ -2686,7 +2394,6 @@ ${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع ا�
       titleEnEl.style.color = item.Primary_Color || 'var(--brand-gold)';
       
       document.getElementById("drawer-story-ar").textContent = item.Description_AR || '';
-
       document.getElementById("drawer-unit-price-display").textContent = `${unitPrice.toFixed(2)} د.أ`;
 
       const statusBox = document.getElementById("drawer-status-badge-box");
@@ -2775,30 +2482,18 @@ ${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع ا�
         return;
       }
 
-      let hasSoldOutInCart = false;
       let grandTotal = 0;
-
       const itemsHtml = cartItems.map((c, i) => {
-        const liveItem = rawFlavors.find(f => (f.ID || f.Flavor_Name_AR) === c.id);
-        let isSoldOut = false;
-        if (liveItem) {
-          const { stockState } = checkFreshAndStockStatus(liveItem);
-          if (stockState === 'soldout') {
-            isSoldOut = true;
-            hasSoldOutInCart = true;
-          }
-        }
         const itemPrice = c.price || 2.50;
         const lineTotal = itemPrice * c.qty;
         grandTotal += lineTotal;
 
         return `
-          <div style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid ${isSoldOut ? '#fecaca' : '#e2e8f0'}; padding:10px 12px; border-radius:14px; margin-bottom:8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid #e2e8f0; padding:10px 12px; border-radius:14px; margin-bottom:8px;">
             <div style="display:flex; align-items:center; gap:8px;">
               <img src="${c.thumb}" style="width:34px; height:34px; object-fit:contain;">
               <div>
                 <strong style="font-size:12.5px; color:var(--text-espresso);">${c.nameAR}</strong>
-                ${isSoldOut ? `<span style="font-size:9.5px; color:#991b1b; background:#fee2e2; padding:1px 5px; border-radius:4px; font-weight:800; display:inline-block; margin-right:4px;">نفدت ⚠️</span>` : ''}
                 <div style="font-size:11px; color:var(--text-muted); font-family:var(--font-en), var(--font-ar);">${c.qty} × ${itemPrice.toFixed(2)} = <b style="color:var(--brand-red);">${lineTotal.toFixed(2)} د.أ</b></div>
               </div>
             </div>
@@ -2818,17 +2513,6 @@ ${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع ا�
           <span style="font-family:var(--font-en), var(--font-ar); font-size:16px; font-weight:900; color:var(--brand-red);">${grandTotal.toFixed(2)} د.أ</span>
         </div>
       `;
-
-      const checkoutBtn = document.getElementById('btn-cart-checkout-action');
-      if (checkoutBtn) {
-        if (hasSoldOutInCart) {
-          checkoutBtn.style.opacity = '0.5';
-          checkoutBtn.innerHTML = `<span>⚠️ يرجى إزالة النكهات المنتهية للمتابعة</span>`;
-        } else {
-          checkoutBtn.style.opacity = '1';
-          checkoutBtn.innerHTML = `<span style="font-size:13.5px; font-weight:900;">متابعة تأكيد الطلب وتحديد الموعد</span><span class="en-sub" style="color:#ffffff !important; opacity:0.85;">Proceed to Schedule & Delivery</span>`;
-        }
-      }
     }
 
     function modifyCartQty(idx, d) {
@@ -2858,4 +2542,114 @@ ${(capturedGpsLocation && capturedGpsLocation.mapUrl) ? `\nرابط موقع ا�
   </script>
 </body>
 </html>
+
+2️⃣ تحديث خادم Google Apps Script لمنع تكرار النكهات في الشيت
+
+في محرر Apps Script، افتح ملف UploadEngine.gs واستبدل دالة
+processFlavorUploadAndRegister بالكود التالي (المحدث ليفحص الصنف ويعدله في سطره
+الحالي إذا كان موجوداً بدلاً من إنشاء سطر مكرر):
+
+/**
+ * المعالج الذكي للرفع: يحدّث السطر الحالي إذا كان الصنف موجوداً، أو يضيف سطراً جديداً إن لم يكن موجوداً
+ */
+function processFlavorUploadAndRegister(payload) {
+  var assetsFolder = getOrCreateFlavorAssetsFolder();
+  var timestamp = Date.now();
+  var safeTitle = (payload.name_en || payload.name_ar || "flavor")
+                    .toString().trim()
+                    .replace(/[^a-zA-Z0-9_\u0600-\u06FF]/g, "_");
+
+  var showCdnUrl = "";
+  if (payload.img_show_base64) {
+    var showBlob = decodeBase64PreservingAlpha(payload.img_show_base64, "show_" + safeTitle + "_" + timestamp);
+    var showFile = assetsFolder.createFile(showBlob);
+    showFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    showCdnUrl = "https://lh3.googleusercontent.com/d/" + showFile.getId() + "=w1000";
+  }
+
+  var fruitCdnUrl = "";
+  if (payload.img_fruit_base64) {
+    var fruitBlob = decodeBase64PreservingAlpha(payload.img_fruit_base64, "fruit_" + safeTitle + "_" + timestamp);
+    var fruitFile = assetsFolder.createFile(fruitBlob);
+    fruitFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    fruitCdnUrl = "https://lh3.googleusercontent.com/d/" + fruitFile.getId() + "=w1000";
+  }
+
+  var props = PropertiesService.getScriptProperties();
+  var catalogSheetId = props.getProperty("VAULT_CATALOG_ID");
+  if (!catalogSheetId) {
+    var files = DriveApp.getFilesByName("LUFFY_VAULT_01_CATALOG");
+    if (files.hasNext()) catalogSheetId = files.next().getId();
+  }
+
+  var ss = SpreadsheetApp.openById(catalogSheetId);
+  var sheet = ss.getSheetByName("Live_Flavors") || ss.getSheets()[0];
+  var data = sheet.getDataRange().getValues();
+
+  // 🛡️ فحص ذكي: هل الصنف موجود بالفعل في الشيت لتعديله بدلاً من تكراره؟
+  var targetRowIndex = -1;
+  var targetId = payload.id || payload.ID || payload.flavor_id;
+
+  for (var i = 1; i < data.length; i++) {
+    var rowId = String(data[i][0]).trim();
+    var rowName = String(data[i][1]).trim().toLowerCase();
+    var payloadName = String(payload.name_ar).trim().toLowerCase();
+
+    if ((targetId && rowId === String(targetId).trim()) || (rowName === payloadName)) {
+      targetRowIndex = i + 1; // رقم السطر في الشيت
+      targetId = rowId;
+      break;
+    }
+  }
+
+  if (targetRowIndex > -1) {
+    // ✏️ تحديث السطر القائم فوراً دون إنشاء سطر جديد
+    sheet.getRange(targetRowIndex, 2).setValue(payload.name_ar);
+    if (payload.name_en) sheet.getRange(targetRowIndex, 3).setValue(payload.name_en);
+    if (payload.category) sheet.getRange(targetRowIndex, 4).setValue(payload.category);
+    if (payload.price) sheet.getRange(targetRowIndex, 5).setValue(parseFloat(payload.price));
+    if (payload.desc_ar) sheet.getRange(targetRowIndex, 6).setValue(payload.desc_ar);
+    if (showCdnUrl) sheet.getRange(targetRowIndex, 7).setValue(showCdnUrl);
+    if (fruitCdnUrl) sheet.getRange(targetRowIndex, 8).setValue(fruitCdnUrl);
+    if (payload.color) sheet.getRange(targetRowIndex, 9).setValue(payload.color);
+    if (payload.tags) sheet.getRange(targetRowIndex, 10).setValue(payload.tags);
+    sheet.getRange(targetRowIndex, 14).setValue(new Date().toISOString());
+
+    return createJsonResponse({
+      status: "success",
+      message: "تم تحديث بيانات الصنف الحالي وصوره في نفس السطر بنجاح ✓",
+      flavor_id: targetId,
+      image_show_url: showCdnUrl,
+      image_fruit_url: fruitCdnUrl
+    });
+  } else {
+    // ➕ صنف جديد كلياً: يتم إدراجه في سطر جديد
+    var newFlavorId = "FLV-" + timestamp.toString().slice(-4);
+    var newRow = [
+      newFlavorId,
+      payload.name_ar,
+      payload.name_en || "",
+      payload.category || "بوظة فواكه",
+      parseFloat(payload.price || 2.50),
+      payload.desc_ar || "",
+      showCdnUrl,
+      fruitCdnUrl,
+      payload.color || "#ff2a5f",
+      payload.tags || "#طبيعي, #طازج",
+      "TRUE",
+      "TRUE",
+      "available",
+      new Date().toISOString()
+    ];
+    sheet.appendRow(newRow);
+
+    return createJsonResponse({
+      status: "success",
+      message: "تمت إضافة الصنف الجديد بنجاح ✓",
+      flavor_id: newFlavorId,
+      image_show_url: showCdnUrl,
+      image_fruit_url: fruitCdnUrl
+    });
+  }
+}
 
