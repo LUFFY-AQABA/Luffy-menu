@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>LUFFY • لوفي | استوديو رفع النكهات السحابي المباشر</title>
+  <title>LUFFY • لوفي | استوديو رفع النكهات المباشر</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,22 +14,19 @@
     :root {
       --font-ar: 'Readex Pro', system-ui, sans-serif;
       --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
-
       --bg-cream: #fffdfa;
       --card-surface: #ffffff;
       --text-espresso: #1a110d;
       --text-muted: #71625b;
-
       --brand-red: #ff2a5f;
       --brand-gold: #f59e0b;
       --emerald: #10b981;
-      --blue-accent: #2563eb;
-
       --border-soft: 1.5px solid rgba(254, 215, 170, 0.45);
       --shadow-luxury: 0 16px 36px -8px rgba(180, 100, 120, 0.1), 0 2px 8px rgba(0, 0, 0, 0.02);
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
     body {
       font-family: var(--font-ar);
@@ -56,29 +53,40 @@
     .brand-cluster { display: flex; align-items: center; gap: 8px; }
     .straw-hat-svg { width: 34px; height: 34px; filter: drop-shadow(0 3px 6px rgba(217, 119, 6, 0.35)); }
 
-    /* Live Preview Card */
+    /* Live Preview Card المتداخل فائق الإحسان بدون صندوق مربع */
     .preview-stage-container {
       background: linear-gradient(135deg, #fffdfa 0%, #fdf6f0 100%);
       border: 1.5px dashed var(--brand-gold); border-radius: 20px; padding: 14px;
       display: flex; flex-direction: column; gap: 8px;
     }
-    .preview-label { font-size: 11px; font-weight: 800; color: var(--brand-gold); display: flex; align-items: center; gap: 4px; }
+    .preview-label { font-size: 11px; font-weight: 800; color: var(--brand-gold); }
 
     .flavor-card-sample {
-      background: #ffffff; border-radius: 18px; border: 1.5px solid #ffffff;
-      padding: 12px; display: flex; gap: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-      position: relative; overflow: hidden;
+      background: #ffffff; border-radius: 20px; border: 1.5px solid #ffffff;
+      padding: 14px; display: flex; gap: 14px; box-shadow: 0 10px 24px rgba(180, 100, 120, 0.08);
+      position: relative; overflow: hidden; align-items: center;
     }
+
     .sample-halo {
-      position: absolute; top: -30%; right: -30%; width: 140%; height: 140%;
-      border-radius: 50%; filter: blur(35px); opacity: 0.18; pointer-events: none;
+      position: absolute; top: -25%; right: -25%; width: 140%; height: 140%;
+      border-radius: 50%; filter: blur(40px); opacity: 0.18; pointer-events: none;
     }
+
+    /* 🍨 مسرح الصورة المتداخل بدون أي إطار أو صندوق مربع */
     .sample-img-box {
-      width: 80px; height: 80px; border-radius: 14px; background: #fdfaf7;
-      display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0;
+      width: 95px; height: 105px;
+      display: flex; align-items: center; justify-content: center; position: relative;
+      flex-shrink: 0; background: transparent !important; border: none !important;
     }
-    .sample-main-img { max-width: 85%; max-height: 85%; object-fit: contain; }
-    .sample-fruit-img { position: absolute; bottom: 0; left: 0; width: 30px; height: 30px; object-fit: contain; transform: rotate(-10deg); }
+    .sample-main-img {
+      max-width: 100%; max-height: 100%; object-fit: contain;
+      filter: drop-shadow(0 12px 18px rgba(35, 15, 20, 0.18));
+      transition: transform 0.3s ease;
+    }
+    .sample-fruit-img {
+      position: absolute; bottom: -2px; left: -2px; width: 34px; height: 34px;
+      object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.18)); transform: rotate(-10deg);
+    }
 
     /* Form Inputs */
     .form-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
@@ -113,7 +121,6 @@
     .btn-submit-master:active { transform: scale(0.98); }
     .btn-submit-master:disabled { opacity: 0.65; cursor: not-allowed; }
 
-    /* Toast */
     #toast-box { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 10000; pointer-events: none; }
     .toast-pill {
       background: #1a110d; color: #fff; border: 1.5px solid #fed7aa; padding: 8px 18px;
@@ -126,7 +133,6 @@
   <div id="toast-box"></div>
 
   <div class="studio-wrapper">
-    <!-- Header -->
     <div class="studio-header">
       <div class="brand-cluster">
         <svg class="straw-hat-svg" viewBox="0 0 100 100" fill="none">
@@ -135,28 +141,31 @@
           <path d="M23.5 64.5C34 68.5 66 68.5 76.5 64.5C75.5 57.5 74.5 53 74.5 53C63 57.5 37 57.5 25.5 53Z" fill="#FF2A5F"/>
         </svg>
         <div>
-          <div style="font-size:15px; font-weight:900;">استوديو رفع وتوليد النكهات المباشر</div>
-          <div style="font-size:10px; color:var(--text-muted);">رفع الملفات مباشرة لـ Google Drive وإدراج روابط CDN بالشيت 🇯🇴</div>
+          <div style="font-size:15px; font-weight:900;">استوديو رفع وتوليد النكهات الشفافة</div>
+          <div style="font-size:10px; color:var(--text-muted);">حفظ شفافية PNG 100% بدون أي سواد وتداخل متكامل بالبطاقة 🇯🇴</div>
         </div>
       </div>
     </div>
 
-    <!-- Live Card Preview -->
+    <!-- Live Card Preview (متداخل بدون أي صندوق مربع) -->
     <div class="preview-stage-container">
-      <span class="preview-label">👁️ معاينة حية لما سيظهر في منيو الزبائن:</span>
+      <span class="preview-label">👁️ معاينة حية لشكل الكرت المتداخل في منيو الزبائن:</span>
       <div class="flavor-card-sample" id="preview-card-box">
         <div class="sample-halo" id="preview-halo" style="background:#10b981;"></div>
+        
+        <!-- مسرح الصورة المتداخل بدون إطار -->
         <div class="sample-img-box">
-          <img class="sample-main-img" id="preview-main-img" src="https://images.unsplash.com/photo-1560008511-11c63416e52d?w=150" alt="">
+          <img class="sample-main-img" id="preview-main-img" src="https://images.unsplash.com/photo-1560008511-11c63416e52d?w=200" alt="">
           <img class="sample-fruit-img" id="preview-fruit-img" src="" style="display:none;" alt="">
         </div>
-        <div style="display:flex; flex-direction:column; justify-content:center; gap:2px; flex:1; min-width:0;">
+
+        <div style="display:flex; flex-direction:column; justify-content:center; gap:3px; flex:1; min-width:0; z-index:2;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div style="font-size:14px; font-weight:900; color:var(--text-espresso);" id="preview-name-ar">اسم النكهة بالعربي</div>
-            <span style="font-family:var(--font-en), var(--font-ar); font-size:12px; font-weight:900; color:var(--brand-red);" id="preview-price">2.50 د.أ</span>
+            <div style="font-size:15px; font-weight:900; color:var(--text-espresso);" id="preview-name-ar">اسم النكهة بالعربي</div>
+            <span style="font-family:var(--font-en), var(--font-ar); font-size:12px; font-weight:900; color:var(--brand-red); background:#fff0f3; padding:2px 8px; border-radius:8px;" id="preview-price">2.50 د.أ</span>
           </div>
-          <div style="font-size:10.5px; font-weight:800; font-family:var(--font-en); color:#10b981;" id="preview-name-en">FLAVOR ENGLISH NAME</div>
-          <div style="font-size:10px; color:var(--text-muted);" id="preview-desc-ar">وصف النكهة الطبيعية والمكونات الطازجة...</div>
+          <div style="font-size:10.5px; font-weight:800; font-family:var(--font-en); color:#10b981; text-transform:uppercase;" id="preview-name-en">FLAVOR ENGLISH NAME</div>
+          <div style="font-size:10.5px; color:var(--text-muted); line-height:1.35;" id="preview-desc-ar">وصف النكهة الطبيعية والمكونات الطازجة...</div>
         </div>
       </div>
     </div>
@@ -190,25 +199,25 @@
         </div>
 
         <div class="form-group full">
-          <label>لون الهالة الضوئية المخصص للنكهة</label>
+          <label>لون الهالة المحيطية المتدفقة خلف الصورة</label>
           <input type="color" id="flv_color" value="#10b981" style="height:38px; padding:0; cursor:pointer;" onchange="updateLivePreview()">
         </div>
 
-        <!-- 📸 رفع صورة العرض المباشرة -->
+        <!-- 📸 رفع صورة العرض المباشرة مع الحفاظ التام على الشفافية -->
         <div class="form-group">
-          <label>صورة العرض الرئيسية (رفع مباشر من جهازك) *</label>
+          <label>صورة العرض الرئيسية (PNG شفافة أو JPG) *</label>
           <div class="dropzone-box" onclick="document.getElementById('input_file_show').click()">
-            <span style="font-size:11px; font-weight:800; color:var(--text-muted);" id="label-file-show">📁 اضغط هنا لاختيار صورة البوظة</span>
+            <span style="font-size:11px; font-weight:800; color:var(--text-muted);" id="label-file-show">📁 اضغط لاختيار صورة البوظة (حفظ شفافية PNG)</span>
             <img id="thumb-show" class="dropzone-thumb-preview" alt="">
           </div>
           <input type="file" id="input_file_show" accept="image/*" style="display:none;" onchange="handleImageSelection(this, 'SHOW')">
         </div>
 
-        <!-- 🍓 رفع صورة الفاكهة المباشرة -->
+        <!-- 🍓 رفع صورة الفاكهة كـ PNG شفافة -->
         <div class="form-group">
-          <label>صورة الفاكهة/المكون (شفافة PNG - اختياري)</label>
+          <label>صورة الفاكهة المصاحبة (شفافة PNG)</label>
           <div class="dropzone-box" onclick="document.getElementById('input_file_fruit').click()">
-            <span style="font-size:11px; font-weight:800; color:var(--text-muted);" id="label-file-fruit">🍓 اضغط هنا لاختيار صورة الفاكهة</span>
+            <span style="font-size:11px; font-weight:800; color:var(--text-muted);" id="label-file-fruit">🍓 اضغط لاختيار صورة الفاكهة (PNG)</span>
             <img id="thumb-fruit" class="dropzone-thumb-preview" alt="">
           </div>
           <input type="file" id="input_file_fruit" accept="image/*" style="display:none;" onchange="handleImageSelection(this, 'FRUIT')">
@@ -232,7 +241,6 @@
   </div>
 
   <script>
-    // الرابط المباشر لنواة Google Apps Script المعتمدة
     const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbw2zN2iZ2uK9xRYsOuz7_Tvz-_kJGwXteMFP3-X2c-Guj-uljMSJMWjNacvKn__GJrIIA/exec";
     const MASTER_SECRET = "LUFFY#2026$Aqaba_Master!Vault@99";
 
@@ -264,7 +272,7 @@
       document.getElementById('preview-halo').style.background = color;
     }
 
-    // ⚡ محرك ضغط وتجهيز الصور المباشر داخل المتصفح قبل الرفع
+    // 🛡️ الحل الجذري لمشكلة السواد: الحفاظ على قناة الألفا (Alpha Channel) لـ PNG بنسبة 100%
     function handleImageSelection(input, target) {
       const file = input.files[0];
       if (!file) return;
@@ -276,7 +284,7 @@
           const canvas = document.createElement('canvas');
           let width = img.width;
           let height = img.height;
-          const maxDim = 1000;
+          const maxDim = 1100;
 
           if (width > maxDim || height > maxDim) {
             if (width > height) { height = Math.round((height * maxDim) / width); width = maxDim; }
@@ -286,34 +294,37 @@
           canvas.width = width;
           canvas.height = height;
           const ctx = canvas.getContext('2d');
+
+          // تنظيف الكانفاس لضمان الشفافية المطلقة
+          ctx.clearRect(0, 0, width, height);
           ctx.drawImage(img, 0, 0, width, height);
 
-          // تحويل الصورة لـ Base64 نقي مضغوط
-          const compressedDataUrl = canvas.toDataURL(target === 'FRUIT' ? 'image/png' : 'image/jpeg', 0.85);
+          // فحص نوع الملف: إذا كان PNG نخرجه حصرياً بصيغة PNG ليحافظ على الشفافية دون أي سواد نهائياً
+          const isPng = file.type === 'image/png' || file.name.toLowerCase().endsWith('.png');
+          const compressedDataUrl = isPng ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', 0.88);
 
           if (target === 'SHOW') {
             base64Show = compressedDataUrl;
             document.getElementById('thumb-show').src = compressedDataUrl;
             document.getElementById('thumb-show').style.display = 'block';
-            document.getElementById('label-file-show').textContent = `✓ تم اختيار (${file.name})`;
+            document.getElementById('label-file-show').textContent = `✓ تم اختيار صورة شفافة (${file.name})`;
             document.getElementById('preview-main-img').src = compressedDataUrl;
           } else {
             base64Fruit = compressedDataUrl;
             document.getElementById('thumb-fruit').src = compressedDataUrl;
             document.getElementById('thumb-fruit').style.display = 'block';
-            document.getElementById('label-file-fruit').textContent = `✓ تم اختيار (${file.name})`;
+            document.getElementById('label-file-fruit').textContent = `✓ تم اختيار فاكهة شفافة (${file.name})`;
             const pFruit = document.getElementById('preview-fruit-img');
             pFruit.src = compressedDataUrl;
             pFruit.style.display = 'block';
           }
-          showToast("تم تحسين الصورة وجاهزيتها للرفع المباشر ✓");
+          showToast(isPng ? "تم حفظ شفافية الصورة النقية 100% ✓" : "تم تحسين الصورة بنجاح ✓");
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    // 🚀 إرسال البيانات والصور عبر POST لتجاوز أي قيود في طول الرابط
     async function submitFlavorToCloud() {
       if (!base64Show) {
         showToast("⚠️ يرجى اختيار صورة العرض الرئيسية للنكهة");
@@ -322,7 +333,7 @@
 
       const btn = document.getElementById('btn-submit');
       btn.disabled = true;
-      btn.innerHTML = `<span>جاري رفع الصور إلى Drive وكتابة الشيت... ⏳</span>`;
+      btn.innerHTML = `<span>جاري رفع الصور الشفافة لـ Drive وحفظ الصنف... ⏳</span>`;
 
       const payload = {
         auth_pass: MASTER_SECRET,
@@ -338,7 +349,6 @@
       };
 
       try {
-        // إرسال POST مباشر بدون CORS Preflight
         const response = await fetch(APPS_SCRIPT_EXEC_URL, {
           method: "POST",
           body: JSON.stringify(payload)
@@ -350,14 +360,14 @@
         btn.innerHTML = `<span>رفع الصور لـ Drive وحفظ الصنف بالشيت فوراً ⚡</span>`;
 
         if (res && res.status === "success") {
-          alert(`🎉 تم رفع الصور بنجاح إلى مجلد Drive وحفظ نكهة [${payload.name_ar}] في شيت الكتالوج!`);
+          alert(`🎉 تم رفع الصور الشفافة بنجاح إلى مجلد Drive وحفظ نكهة [${payload.name_ar}] في شيت الكتالوج!`);
           document.getElementById('flavor-form').reset();
           base64Show = ""; base64Fruit = "";
           document.getElementById('thumb-show').style.display = 'none';
           document.getElementById('thumb-fruit').style.display = 'none';
           document.getElementById('preview-fruit-img').style.display = 'none';
-          document.getElementById('label-file-show').textContent = "📁 اضغط هنا لاختيار صورة البوظة";
-          document.getElementById('label-file-fruit').textContent = "🍓 اضغط هنا لاختيار صورة الفاكهة";
+          document.getElementById('label-file-show').textContent = "📁 اضغط لاختيار صورة البوظة (حفظ شفافية PNG)";
+          document.getElementById('label-file-fruit').textContent = "🍓 اضغط لاختيار صورة الفاكهة (PNG)";
           updateLivePreview();
         } else {
           alert("خطأ أثناء الحفظ: " + (res ? res.message : "تعذر الرد من الخادم"));
