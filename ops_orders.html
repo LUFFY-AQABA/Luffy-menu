@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>LUFFY • لوفي | رادار إدارة الطلبات والميدان المتقدم</title>
+  <title>LUFFY • لوفي | رادار إدارة الطلبات وتتبع السائق</title>
   
   <!-- مكتبة توليد رموز QR للتذاكر الحرارية -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -204,21 +204,15 @@
     .orders-stream { display: flex; flex-direction: column; gap: 10px; }
     .order-card-box {
       background: #ffffff; border: 1.5px solid #f1f0ee; border-radius: 20px;
-      padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 8px;
-      box-shadow: var(--shadow-card); transition: transform 0.2s ease;
+      padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 9px;
+      box-shadow: var(--shadow-card); transition: all 0.25s ease;
       position: relative;
     }
-    .order-card-box.status-unconfirmed { background: #fffdf8; border-color: #fde68a; }
+    .order-card-box.status-unconfirmed { background: #fffdf8; border-color: #fde68a; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.12); }
     .order-card-box.status-confirmed { background: #f0fdf4; border-color: #a7f3d0; }
-    .order-card-box.status-preparing { background: #eff6ff; border-color: #bfdbfe; }
-    .order-card-box.status-dispatched { background: #faf5ff; border-color: #e9d5ff; }
+    .order-card-box.status-preparing { background: #eff6ff; border-color: #93c5fd; box-shadow: 0 6px 20px rgba(37, 99, 235, 0.12); }
+    .order-card-box.status-dispatched { background: #faf5ff; border-color: #d8b4fe; }
     .order-card-box.status-delivered { background: #f8fafc; border-color: #e2e8f0; opacity: 0.85; }
-
-    .route-sequence-badge {
-      position: absolute; top: -8px; left: 14px; background: var(--brand-gold);
-      color: #ffffff; font-family: var(--font-en); font-size: 9.5px; font-weight: 900;
-      padding: 2px 8px; border-radius: 9999px; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
-    }
 
     .status-pill {
       font-size: 10.5px; font-weight: 900; padding: 3px 9px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;
@@ -231,18 +225,71 @@
 
     @keyframes pulseAlert { 0% { opacity: 0.85; } 50% { opacity: 1; } 100% { opacity: 0.85; } }
 
-    .timestamps-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 4px;
-      background: #fdfaf7; border: 1px solid #fed7aa; border-radius: 10px; padding: 6px 10px;
-      font-size: 10px; font-weight: 700; color: #92400e;
+    /* ⏰ لافتة موعد التسليم البارزة جداً */
+    .delivery-prominent-strip {
+      border-radius: 12px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .delivery-prominent-strip.type-deliv {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1.5px solid #bfdbfe;
+      color: #1e40af;
+    }
+    .delivery-prominent-strip.type-pick {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1.5px solid #fde68a;
+      color: #92400e;
     }
 
-    .stopwatch-box {
-      background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 10px;
-      padding: 6px 12px; font-size: 11px; font-weight: 900; color: #92400e;
-      display: flex; align-items: center; justify-content: space-between;
+    .delivery-main-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      font-weight: 900;
     }
-    .stopwatch-digits { font-family: var(--font-en); font-size: 14px; color: var(--brand-red); font-weight: 900; letter-spacing: 0.5px; }
+    .delivery-sub-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 700;
+      opacity: 0.85;
+    }
+
+    /* عداد التحضير اللحظي في المطبخ */
+    .stopwatch-box {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 7px 12px;
+      font-size: 11px;
+      font-weight: 900;
+      color: #1e40af;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+    .stopwatch-box.warning-time {
+      background: #fffbeb;
+      border-color: #fde68a;
+      color: #92400e;
+    }
+    .stopwatch-box.alert-time {
+      background: #fff1f2;
+      border-color: #fecdd3;
+      color: #9f1239;
+      animation: pulseAlert 1.5s infinite;
+    }
+    .stopwatch-digits {
+      font-family: var(--font-en);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+    }
 
     /* Action Buttons */
     .btn-act {
@@ -358,7 +405,7 @@
   <iframe id="thermal-print-hidden-frame"></iframe>
 
   <div class="master-wrapper">
-    <!-- Top Header -->
+    <!-- Header -->
     <div class="top-header-cluster">
       <div class="brand-cluster">
         <div class="straw-hat-badge">
@@ -408,16 +455,16 @@
       </div>
     </div>
 
-    <!-- كابتن التوصيل الوحيد المعتمد -->
+    <!-- كابتن التوصيل -->
     <div class="driver-coordination-bar">
       <div style="display:flex; align-items:center; gap:6px;">
         <span style="font-size:14px;">🛵</span>
-        <span>كابتن السعادة المعتمد بالوردية: <strong id="assigned-driver-name">كابتن السعادة (محمد)</strong></span>
+        <span>كابتن السعادة بالوردية: <strong id="assigned-driver-name">كابتن السعادة (محمد)</strong></span>
       </div>
-      <span style="background:#ffffff; color:#065f46; padding:2px 8px; border-radius:9999px; font-size:10px;">متاح وجاهز للتوصيل ✓</span>
+      <span style="background:#ffffff; color:#065f46; padding:2px 8px; border-radius:9999px; font-size:10px;">جاهز للتوصيل ✓</span>
     </div>
 
-    <!-- شريط مقترح تسلسل خط السير الذكي في العقبة -->
+    <!-- شريط تسلسل المسار الجغرافي الذكي -->
     <div class="smart-route-banner" id="smart-route-box">
       <strong>💡 مقترح خط السير الأسرع لتوصيل طلبات هذه الساعة:</strong>
       <div id="smart-route-sequence-txt" style="margin-top:2px;">جاري حساب أقصر تسلسل جغرافي...</div>
@@ -443,7 +490,7 @@
     <div class="orders-stream" id="orders-stream-container">جاري جلب الطلبات من السحابة...</div>
   </div>
 
-  <!-- 🍦 استوديو الكاشير والمنيو الرقمي التفاعلي للطلب المباشر -->
+  <!-- 🍦 استوديو الكاشير والمنيو الرقمي للطلب المباشر -->
   <div class="drawer-backdrop" id="direct-menu-modal" onclick="closeDirectMenuModal()">
     <div class="drawer-surface" onclick="event.stopPropagation()">
       <div class="drawer-header-bar">
@@ -455,7 +502,6 @@
       </div>
 
       <div class="pos-scroll-body">
-        <!-- بيانات العميل والتوصيل -->
         <div style="background:#fdfaf7; border:1.5px solid #fed7aa; border-radius:16px; padding:12px; margin-bottom:12px;">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
             <div>
@@ -477,7 +523,7 @@
               </select>
             </div>
             <div>
-              <label style="font-size:11px; font-weight:800; display:block; margin-bottom:2px;">موعد التسليم:</label>
+              <label style="font-size:11px; font-weight:800; display:block; margin-bottom:2px;">موعد التسليم المطلوب *</label>
               <input type="text" id="pos_time_slot" value="فوري (خلال 20 دقيقة)">
             </div>
           </div>
@@ -527,9 +573,8 @@
         
         <div style="font-size:17px; font-weight:900;" id="slip-order-id">#LFY-0000</div>
         <div style="font-size:11px; font-weight:800; margin:2px 0;" id="slip-order-type">[ طلب توصيل خارجي 🛵 ]</div>
-        <div style="font-size:10.5px; font-weight:700;" id="slip-time-slot">موعد التسليم: فوري</div>
+        <div style="font-size:12px; font-weight:900; margin:4px 0; color:#000;" id="slip-time-slot">موعد التسليم: فوري</div>
         
-        <!-- كود استلام الكابتن -->
         <div style="font-size:9.5px; font-weight:800; margin-top:6px;">[ كود تسليم الطلب لكابتن الأسطول ]</div>
         <div id="slip-pickup-qr-box" style="display:flex; justify-content:center; margin:4px auto; width:95px; height:95px;"></div>
 
@@ -541,7 +586,6 @@
         <div style="text-align:right; font-weight:900; font-size:11.5px; margin-bottom:3px;">الأصناف والأسعار:</div>
         <div style="text-align:right; font-size:11px; line-height:1.4;" id="slip-items-summary">...</div>
 
-        <!-- كود الملاحة GPS -->
         <div class="gps-hero-box-thermal" id="slip-gps-hero-box" style="display:none;">
           <span style="font-size:11.5px; font-weight:900; display:block;">★ موقع التوصيل Google Maps ★</span>
           <div id="slip-gps-qr-box" style="display:flex; justify-content:center; margin:4px auto; width:115px; height:115px;"></div>
@@ -633,7 +677,6 @@
     const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbw2zN2iZ2uK9xRYsOuz7_Tvz-_kJGwXteMFP3-X2c-Guj-uljMSJMWjNacvKn__GJrIIA/exec";
     const MASTER_PASSPHRASE = "LUFFY#2026$Aqaba_Master!Vault@99";
 
-    // موقع متجر لوفي المعتمد في العقبة لحساب خط السير
     const STORE_AQABA_COORDS = { lat: 29.5265, lng: 35.0020 };
 
     let rawOrdersList = [];
@@ -641,7 +684,11 @@
     let posSelectedBasket = {};
     let currentFilterStage = "ALL";
     let searchQuery = "";
-    let activeStopwatches = {};
+
+    // 🔒 نظام الحماية ضد التأخر والارتداد اللحظي (Optimistic Locks Store)
+    let optimisticStateLocks = {};
+    // ⏱️ مخزن توقيتات بدء التحضير المستقل لمنع التصفير والتذبذب
+    let prepTimersStore = JSON.parse(localStorage.getItem('luffy_prep_timers_dict') || "{}");
 
     function showToast(msg) {
       const c = document.getElementById('toast-box');
@@ -671,17 +718,32 @@
       return clean.trim();
     }
 
-    /* 1. جلب بيانات الطلبات والكتالوج */
+    /* 1. جلب البيانات مع حماية التحديث التفاؤلي الفوري */
     function fetchLiveOrdersData() {
-      rawOrdersList = JSON.parse(localStorage.getItem('luffy_unconfirmed_orders') || "[]");
-      updateKpisAndBadges();
-      calculateSmartRouteSequence();
-      renderOrdersStream();
+      const cached = localStorage.getItem('luffy_unconfirmed_orders');
+      if (cached) {
+        rawOrdersList = JSON.parse(cached);
+        updateKpisAndBadges();
+        calculateSmartRouteSequence();
+        renderOrdersStream();
+      }
 
       const cb = "onOrdersHubLoaded_" + Date.now();
       window[cb] = function(res) {
         if (res && res.data) {
-          rawOrdersList = res.data;
+          const now = Date.now();
+          // دمج ذكي: لا نسمح للسيرفر بمسح حالة تم تعديلها قبل ثوانٍ (منع مشكلة التأخر والارتداد)
+          const mergedList = res.data.map(serverOrder => {
+            const id = serverOrder.order_id || serverOrder.id || serverOrder.Order_ID;
+            const lock = optimisticStateLocks[id];
+            if (lock && now < lock.expiresAt) {
+              serverOrder.status = lock.status;
+              serverOrder.Status = lock.status;
+            }
+            return serverOrder;
+          });
+
+          rawOrdersList = mergedList;
           localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
           updateKpisAndBadges();
           calculateSmartRouteSequence();
@@ -760,7 +822,6 @@
         return;
       }
 
-      // فرز الطلبات من الأقرب للأبعد عن محل لوفي
       activeDeliveries.sort((a, b) => {
         let distA = 999, distB = 999;
         if (a.gps_url && a.gps_url.includes('q=')) {
@@ -794,7 +855,34 @@
       renderOrdersStream();
     }
 
-    /* 2. رسم بطاقات الطلبات مع مسار الحالات الكامل والمؤقتات */
+    /* ⏱️ المحرك المركزي للمؤقتات الحية في المطبخ (يعمل باستمرار بالثانية دون تذبذب) */
+    function globalStopwatchTick() {
+      const now = Date.now();
+      document.querySelectorAll('.stopwatch-display').forEach(el => {
+        const orderId = el.getAttribute('data-order-id');
+        const startMs = prepTimersStore[orderId];
+        if (!startMs) return;
+
+        const diffSec = Math.max(0, Math.floor((now - startMs) / 1000));
+        const m = String(Math.floor(diffSec / 60)).padStart(2, '0');
+        const s = String(diffSec % 60).padStart(2, '0');
+        el.textContent = `${m}:${s}`;
+
+        const box = el.closest('.stopwatch-box');
+        if (box) {
+          if (diffSec > 1200) { // أكثر من 20 دقيقة
+            box.className = "stopwatch-box alert-time";
+          } else if (diffSec > 600) { // أكثر من 10 دقائق
+            box.className = "stopwatch-box warning-time";
+          } else {
+            box.className = "stopwatch-box";
+          }
+        }
+      });
+    }
+    setInterval(globalStopwatchTick, 1000);
+
+    /* 2. رسم بطاقات الطلبات مع لافتة الموعد البارزة جداً والمؤقت */
     function renderOrdersStream() {
       const container = document.getElementById('orders-stream-container');
       container.innerHTML = "";
@@ -861,10 +949,20 @@
           `;
         }
 
+        // تسجيل توقيت التحضير إن وجد في البيانات ولم يكن مسجلاً محلياً
+        if (isPrep && !prepTimersStore[id]) {
+          const rawStart = order.prep_started_at || order.Prep_Started_At;
+          prepTimersStore[id] = rawStart ? new Date(rawStart).getTime() : Date.now();
+          localStorage.setItem('luffy_prep_timers_dict', JSON.stringify(prepTimersStore));
+        }
+
         const card = document.createElement('div');
         card.className = `order-card-box ${cardClass}`;
 
+        const deliverySlotText = order.time_slot || order.Time_Slot || 'فوري (خلال 20 دقيقة)';
+
         card.innerHTML = `
+          <!-- الرأس المالي ورقم الطلب -->
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="font-family:var(--font-en); font-weight:900; color:var(--brand-red); font-size:14px;">#${id}</span>
@@ -873,37 +971,45 @@
               </span>
               ${badgeHtml}
             </div>
-            <span style="font-family:var(--font-en), var(--font-ar); font-size:14.5px; font-weight:900; color:var(--brand-red);">
+            <span style="font-family:var(--font-en), var(--font-ar); font-size:15px; font-weight:900; color:var(--brand-red);">
               ${order.total_amount || order.total_price || '2.50 د.أ'}
             </span>
           </div>
 
-          <!-- توثيق تسلسل المواعيد الزمنية -->
-          <div class="timestamps-grid">
-            <span>وصول: <b>${order.created_at || 'اليوم'}</b></span>
-            <span>الموعد المطلوب: <b>${order.time_slot || order.Time_Slot || 'فوري'}</b></span>
-            ${order.confirmed_at ? `<span>تأكيد: <b>${order.confirmed_at}</b></span>` : ''}
+          <!-- 🌟 لافتة موعد التسليم البارزة جداً بأقصى درجات الوضوح -->
+          <div class="delivery-prominent-strip ${isDelivery ? 'type-deliv' : 'type-pick'}">
+            <div class="delivery-main-row">
+              <span>${isDelivery ? '🛵 موعد وصول السائق للعميل:' : '🛍️ موعد الاستلام بالمحل:'}</span>
+              <span style="font-size:13.5px; text-decoration: underline;">${deliverySlotText}</span>
+            </div>
+            <div class="delivery-sub-row">
+              <span>تم استلام الطلب: <b>${order.created_at || 'اليوم'}</b></span>
+              ${order.confirmed_at ? `<span>توقيت التأكيد: <b>${order.confirmed_at}</b></span>` : ''}
+            </div>
           </div>
 
+          <!-- بيانات العميل -->
           <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; font-weight:800;">
             <span>👤 العميل: ${order.customer_name || order.Customer_Name}</span>
             <span>📞 ${order.phone_number || order.phone || order.Phone_Number}</span>
           </div>
 
+          <!-- تفاصيل الأصناف -->
           <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:8px 10px; font-size:11.5px; font-weight:700; line-height:1.45;">
             ${order.items_summary || order.Items_Summary}
           </div>
 
           ${(order.address_details || order.address) ? `<div style="font-size:11px; color:var(--text-muted);">العنوان: ${order.address_details || order.address}</div>` : ''}
 
-          <!-- مؤقت التحضير المباشر بالثواني والدقائق -->
+          <!-- عداد التحضير اللحظي في المطبخ -->
           ${isPrep ? `
             <div class="stopwatch-box">
-              <span>⏱️ عداد التحضير الحي بالمطبخ:</span>
-              <span class="stopwatch-digits" id="timer-${id}">00:00</span>
+              <span>⏱️ عداد التحضير المباشر بالمطبخ:</span>
+              <span class="stopwatch-digits stopwatch-display" data-order-id="${id}">00:00</span>
             </div>
           ` : ''}
 
+          <!-- أزرار الإجراءات السريعة -->
           <div style="display:flex; gap:5px; margin-top:2px; flex-wrap:wrap;">
             <a href="tel:${order.phone_number || order.phone}" class="btn-act" style="background:#f1f5f9;">📞 اتصال</a>
             <a href="https://api.whatsapp.com/send?phone=${order.phone_number || order.phone}" target="_blank" class="btn-act" style="background:#f0fdf4; color:#166534; border:1px solid #bbf7d0;">💬 واتساب</a>
@@ -916,55 +1022,59 @@
         `;
 
         container.appendChild(card);
-
-        if (isPrep) startPrepTimer(id, order.prep_started_at);
       });
     }
 
-    function startPrepTimer(id, startTime) {
-      if (activeStopwatches[id]) clearInterval(activeStopwatches[id]);
-      const startMs = startTime ? new Date(startTime).getTime() : Date.now();
-
-      activeStopwatches[id] = setInterval(() => {
-        const diffSec = Math.floor((Date.now() - startMs) / 1000);
-        const mins = String(Math.floor(diffSec / 60)).padStart(2, '0');
-        const secs = String(diffSec % 60).padStart(2, '0');
-        const el = document.getElementById(`timer-${id}`);
-        if (el) el.textContent = `${mins}:${secs}`;
-      }, 1000);
-    }
-
+    /* ⚡ تحديث الحالة الفوري التفاؤلي بدون أي تأخر أو ارتداد */
     function setOrderStatus(id, newStatus) {
       const order = rawOrdersList.find(o => (o.order_id || o.id || o.Order_ID) === id);
-      if (order) {
-        order.status = newStatus;
-        order.Status = newStatus;
-        const nowFormatted = new Date().toLocaleTimeString('ar-JO', { hour: '2-digit', minute: '2-digit' });
+      if (!order) return;
 
-        if (newStatus === 'CONFIRMED') order.confirmed_at = nowFormatted;
-        if (newStatus === 'PREPARING') order.prep_started_at = new Date().toISOString();
-        if (newStatus === 'DISPATCHED') order.dispatched_at = nowFormatted;
-        if (newStatus === 'DELIVERED') order.delivered_at = nowFormatted;
+      const nowFormatted = new Date().toLocaleTimeString('ar-JO', { hour: '2-digit', minute: '2-digit' });
 
-        localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
-        updateKpisAndBadges();
-        calculateSmartRouteSequence();
-        renderOrdersStream();
-        showToast(`تم تحديث الطلب #${id} إلى: ${newStatus} ✓`);
+      // 1. تحديث الكائن المحلي فوراً بلمح البصر
+      order.status = newStatus;
+      order.Status = newStatus;
 
-        if (newStatus === 'PREPARING' || newStatus === 'DISPATCHED') {
-          generateThermalSlip(order, false);
-        }
-
-        const s = document.createElement("script");
-        s.src = `${APPS_SCRIPT_EXEC_URL}?action=update_order_status&data=${encodeURIComponent(JSON.stringify({ order_id: id, new_status: newStatus }))}&_ts=${Date.now()}`;
-        document.body.appendChild(s);
+      if (newStatus === 'CONFIRMED') order.confirmed_at = nowFormatted;
+      if (newStatus === 'PREPARING') {
+        const nowIso = new Date().toISOString();
+        order.prep_started_at = nowIso;
+        order.Prep_Started_At = nowIso;
+        prepTimersStore[id] = Date.now();
+        localStorage.setItem('luffy_prep_timers_dict', JSON.stringify(prepTimersStore));
       }
+      if (newStatus === 'DISPATCHED') order.dispatched_at = nowFormatted;
+      if (newStatus === 'DELIVERED') order.delivered_at = nowFormatted;
+
+      // 2. قفل الحالة تفاؤلياً لمدة 12 ثانية لمنع السيرفر من إرجاعها للخلف أثناء المزامنة
+      optimisticStateLocks[id] = { status: newStatus, expiresAt: Date.now() + 12000 };
+
+      // 3. حفظ الكاش ورسم الواجهة فوراً
+      localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+      updateKpisAndBadges();
+      calculateSmartRouteSequence();
+      renderOrdersStream();
+      showToast(`✓ تم تحديث الطلب #${id} فوراً إلى: ${newStatus}`);
+
+      if (newStatus === 'PREPARING' || newStatus === 'DISPATCHED') {
+        generateThermalSlip(order, false);
+      }
+
+      // 4. إرسال أمر التحديث للخادم السحابي
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=update_order_status&data=${encodeURIComponent(JSON.stringify({ order_id: id, new_status: newStatus }))}&_ts=${Date.now()}`;
+      s.onload = () => s.remove();
+      s.onerror = () => s.remove();
+      document.body.appendChild(s);
     }
 
     function cancelOrderAction(id) {
       if (!confirm(`هل ترغب فعلاً بإلغاء الطلب #${id}؟`)) return;
       rawOrdersList = rawOrdersList.filter(o => (o.order_id || o.id || o.Order_ID) !== id);
+      delete prepTimersStore[id];
+      delete optimisticStateLocks[id];
+      localStorage.setItem('luffy_prep_timers_dict', JSON.stringify(prepTimersStore));
       localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
       updateKpisAndBadges();
       calculateSmartRouteSequence();
@@ -1084,8 +1194,8 @@
         customer_name: name,
         phone_number: phone,
         order_type: type,
-        status: "CONFIRMED", // يبدأ مؤكداً ومعتمداً
-        time_slot: timeSlot || "فوري",
+        status: "CONFIRMED",
+        time_slot: timeSlot || "فوري (خلال 20 دقيقة)",
         items_summary: itemsSummary,
         total_amount: `${grandTotal.toFixed(2)} د.أ`,
         address_details: type === 'DELIVERY' ? address : 'استلام مباشر من المتجر',
@@ -1242,4 +1352,4 @@
     setInterval(fetchLiveOrdersData, 8000);
   </script>
 </body>
-</html>
+        </html>
