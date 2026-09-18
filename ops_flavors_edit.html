@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>LUFFY • لوفي | استوديو تعديل النكهات والأسعار الشامل</title>
+  
+  <!-- خطوط النخبة العالمية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Readex+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-ar: 'Readex Pro', system-ui, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+      --bg-radial: radial-gradient(circle at 10% 10%, #fff0f5 0%, #fcf9f5 45%, #fef5eb 100%);
+      --surface-glass: rgba(255, 255, 255, 0.96);
+      --border-glass: rgba(254, 215, 170, 0.45);
+
+      --text-espresso: #1a110d;
+      --text-muted: #71625b;
+
+      --brand-red: #ff2a5f;
+      --brand-gold: #f59e0b;
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --blue-accent: #2563eb;
+      --purple-accent: #7c3aed;
+
+      --shadow-luxury: 0 20px 50px -10px rgba(180, 100, 120, 0.1);
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      --shadow-btn-glow: 0 8px 20px -4px rgba(255, 42, 95, 0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: var(--font-ar);
+      background: var(--bg-radial);
+      color: var(--text-espresso);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: clamp(8px, 1.5vh, 16px) clamp(6px, 1.5vw, 12px) 90px;
+      overflow-x: hidden;
+    }
+
+    .master-wrapper {
+      width: 100%;
+      max-width: 900px;
+      background: var(--surface-glass);
+      backdrop-filter: blur(25px);
+      border: 1.5px solid #ffffff;
+      border-radius: 28px;
+      padding: clamp(12px, 2vh, 18px) clamp(10px, 2vw, 16px);
+      box-shadow: var(--shadow-luxury);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .svg-icon {
+      width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; flex-shrink: 0;
+    }
+
+    /* Header */
+    .top-header-cluster {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid #f1f0ee;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-cluster { display: flex; align-items: center; gap: 8px; min-width: max-content; }
+    .straw-hat-badge { width: 38px; height: 38px; position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .hat-glow { position: absolute; width: 140%; height: 140%; border-radius: 50%; background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%); filter: blur(8px); }
+    .straw-hat-svg { width: 100%; height: 100%; position: relative; z-index: 2; }
+    .brand-title { font-size: clamp(14px, 1.8vw, 16.5px); font-weight: 900; }
+    .name-en { font-family: var(--font-en); background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .btn-header-refresh {
+      background: #ffffff;
+      color: var(--text-espresso);
+      border: 1.5px solid #fed7aa;
+      border-radius: 9999px;
+      padding: 7px 14px;
+      font-family: var(--font-ar);
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-card);
+    }
+    .btn-header-refresh:active { transform: scale(0.94); }
+    .btn-header-refresh.refreshing .svg-icon { animation: spin 0.8s infinite linear; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* KPIs Row */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+    @media (min-width: 650px) { .kpi-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1.5px solid #f1f0ee;
+      border-radius: 16px;
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      box-shadow: var(--shadow-card);
+    }
+    .kpi-title { font-size: 10.5px; font-weight: 800; color: var(--text-muted); }
+    .kpi-digits { font-family: var(--font-en); font-size: 19px; font-weight: 900; color: var(--text-espresso); }
+
+    /* Controls Bar */
+    .controls-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .search-box input {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid var(--border-glass);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-family: var(--font-ar);
+      font-size: 12px;
+      outline: none;
+    }
+    .category-chips-track {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .category-chips-track::-webkit-scrollbar { display: none; }
+    .cat-chip {
+      white-space: nowrap;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      color: var(--text-muted);
+      padding: 6px 13px;
+      border-radius: 9999px;
+      font-family: var(--font-ar);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .cat-chip.active {
+      background: var(--brand-red);
+      color: #fff;
+      border-color: var(--brand-red);
+      box-shadow: 0 4px 12px rgba(255, 42, 95, 0.25);
+    }
+
+    /* Flavor Item Card in Management Feed */
+    .flavor-manager-card {
+      background: #ffffff;
+      border: 1.5px solid #f1f0ee;
+      border-radius: 20px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      margin-bottom: 10px;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+    .flavor-manager-card.is-soldout {
+      background: #fafafa;
+      border-color: #fee2e2;
+    }
+
+    .flavor-avatar-stage {
+      width: 78px;
+      min-width: 78px;
+      height: 78px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: radial-gradient(circle, #fff0f3 0%, #ffffff 80%);
+      border: 1px solid #fed7aa;
+      flex-shrink: 0;
+    }
+    .flavor-avatar-img {
+      max-width: 88%;
+      max-height: 88%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+    .flavor-avatar-fruit {
+      position: absolute;
+      bottom: -2px;
+      left: -2px;
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      transform: rotate(-10deg);
+    }
+
+    .flavor-details-col {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .flavor-title-ar { font-size: 14.5px; font-weight: 900; color: var(--text-espresso); }
+    .flavor-title-en { font-family: var(--font-en); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+
+    .flavor-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 2px 0;
+    }
+
+    .status-badge-mini {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .badge-avail { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+    .badge-sold { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .badge-fresh { background: #fff0f3; color: var(--brand-red); border: 1px solid #fecdd3; }
+    .badge-price { font-family: var(--font-en), var(--font-ar); font-size: 11px; font-weight: 900; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+
+    /* Actions */
+    .flavor-actions-col {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .btn-action-edit {
+      background: linear-gradient(135deg, var(--brand-red) 0%, #ff5e7e 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-family: var(--font-ar);
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: var(--shadow-btn-glow);
+      transition: transform 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-action-edit:active { transform: scale(0.94); }
+
+    .btn-quick-toggle {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    /* Modal: Deep Granular Edit */
+    .modal-backdrop {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100%; height: 100dvh;
+      background: rgba(10, 8, 9, 0.68); backdrop-filter: blur(8px); z-index: 10000;
+      display: flex; align-items: center; justify-content: center; padding: 12px;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .modal-sheet {
+      background: #ffffff;
+      border-radius: 26px;
+      padding: clamp(14px, 2vh, 20px);
+      width: 100%;
+      max-width: 820px;
+      max-height: 92vh;
+      overflow-y: auto;
+      text-align: right;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      border: 1.5px solid #fed7aa;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .editor-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 720px) {
+      .editor-layout-grid { grid-template-columns: 1.4fr 1fr; }
+    }
+
+    .form-unit {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 8px;
+    }
+    .form-unit label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-espresso);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 11px;
+      padding: 9px 12px;
+      font-family: var(--font-ar);
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--brand-red);
+      background: #ffffff;
+    }
+
+    /* Live Card Simulator داخل نافذة التعديل */
+    .simulator-container-box {
+      background: #fffdfa;
+      border: 1.5px dashed var(--brand-gold);
+      border-radius: 20px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      height: 100%;
+    }
+    .sim-header-label {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #92400e;
+      background: #fef3c7;
+      padding: 3px 9px;
+      border-radius: 9999px;
+    }
+
+    /* الكرت المحاكي للمنيو */
+    .sim-flavor-card {
+      width: 100%;
+      max-width: 320px;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      padding: 12px;
+      display: flex;
+      gap: 10px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+    .sim-halo-glow {
+      position: absolute; top: -30%; right: -30%; width: 150%; height: 150%;
+      border-radius: 50%; filter: blur(35px); opacity: 0.18; pointer-events: none;
+    }
+    .sim-visual-box {
+      width: 85px; min-width: 85px; height: 90px; border-radius: 16px;
+      background: radial-gradient(circle, rgba(255, 240, 243, 0.85) 0%, rgba(255, 255, 255, 0.15) 75%);
+      position: relative; display: flex; align-items: center; justify-content: center; z-index: 2; flex-shrink: 0;
+    }
+    .sim-ice-img { max-width: 95%; max-height: 95%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15)); }
+    .sim-fruit-img { position: absolute; bottom: 0; left: 0; width: 32px; height: 32px; object-fit: contain; }
+
+    /* Tags Cluster */
+    .tags-editor-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .tag-editable-pill {
+      background: #fff0f3;
+      border: 1px solid #fecdd3;
+      color: var(--brand-red);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .tag-remove-x { cursor: pointer; opacity: 0.6; font-size: 11px; }
+    .tag-remove-x:hover { opacity: 1; }
+
+    #toast-box { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 99999; pointer-events: none; }
+    .admin-toast {
+      background: rgba(26, 17, 13, 0.96); color: #ffffff; border: 1.5px solid #fed7aa;
+      border-radius: 16px; padding: 8px 16px; font-size: 11.5px; font-weight: 800; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toast-box"></div>
+
+  <div class="master-wrapper">
+    <!-- Header -->
+    <div class="top-header-cluster">
+      <div class="brand-cluster">
+        <div class="straw-hat-badge">
+          <div class="hat-glow"></div>
+          <svg class="straw-hat-svg" viewBox="0 0 100 100" fill="none">
+            <ellipse cx="50" cy="70" rx="46" ry="13" fill="#EAB308"/>
+            <path d="M24 67C24 38 31 24 50 24C69 24 76 38 76 67Z" fill="#FACC15"/>
+            <path d="M23.5 64.5C34 68.5 66 68.5 76.5 64.5C75.5 57.5 74.5 53 74.5 53C63 57.5 37 57.5 25.5 53Z" fill="#FF2A5F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title"><span class="name-en">LUFFY</span> • <span>استوديو تعديل النكهات والأسعار الشامل</span></div>
+          <div style="font-size:10px; color:var(--text-muted); font-weight:800;">تعديل كل حرف وتفصيلة • صور Drive • الهالة والوسوم • العقبة 🇯🇴</div>
+        </div>
+      </div>
+
+      <button class="btn-header-refresh" id="btn-refresh-catalog" onclick="fetchLiveCatalog(true)">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+        <span>تحديث الكتالوج ⚡</span>
+      </button>
+    </div>
+
+    <!-- KPIs Row -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-title">إجمالي النكهات</span>
+        <span class="kpi-digits" id="kpi-total-flavors">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">المتوفر في المنيو</span>
+        <span class="kpi-digits" style="color:var(--emerald-dark);" id="kpi-active-flavors">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">طازج اليوم ✨</span>
+        <span class="kpi-digits" style="color:var(--brand-red);" id="kpi-fresh-flavors">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">انتهت الكمية (نفد)</span>
+        <span class="kpi-digits" style="color:#b91c1c;" id="kpi-soldout-flavors">0</span>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-panel">
+      <div class="search-box">
+        <input type="text" id="catalog-search-input" placeholder="ابحث باسم النكهة بالعربي أو الإنجليزي..." oninput="handleCatalogSearch(this.value)">
+      </div>
+      <div class="category-chips-track" id="category-filter-chips">
+        <button class="cat-chip active" onclick="filterByCategory('ALL', this)">الكل</button>
+      </div>
+    </div>
+
+    <!-- Feed Container -->
+    <div id="catalog-manager-feed">جاري تحميل كتالوج النكهات...</div>
+  </div>
+
+  <!-- 🎨 نافذة التعديل التفصيلي الشامل لكل حرف (Granular Mutation Studio) -->
+  <div class="modal-backdrop" id="flavor-edit-modal" onclick="closeEditModal()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1.5px solid #f1f0ee;">
+        <div>
+          <strong style="font-size:15px; color:var(--text-espresso);">تعديل تفاصيل النكهة والصنف بالكامل</strong>
+          <span style="font-size:11px; color:var(--text-muted); display:block;">المعرّف: <b id="lbl-edit-id" style="font-family:var(--font-en); color:var(--brand-red);">FLV-000</b></span>
+        </div>
+        <button style="border:none; background:#f1f5f9; width:30px; height:30px; border-radius:50%; font-weight:800; cursor:pointer;" onclick="closeEditModal()">✕</button>
+      </div>
+
+      <div class="editor-layout-grid">
+        <!-- حقول التعديل الشاملة -->
+        <div>
+          <input type="hidden" id="edit_flavor_id">
+
+          <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:8px;">
+            <div class="form-unit">
+              <label>الاسم بالعربي *</label>
+              <input type="text" id="edit_name_ar" oninput="updateLiveSimulator()" required>
+            </div>
+            <div class="form-unit">
+              <label>الاسم بالإنجليزية</label>
+              <input type="text" id="edit_name_en" dir="ltr" oninput="updateLiveSimulator()">
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:8px;">
+            <div class="form-unit">
+              <label>التصنيف *</label>
+              <select id="edit_category" onchange="updateLiveSimulator()">
+                <option value="بوظة فواكه">بوظة فواكه</option>
+                <option value="نكهات فاخرة">نكهات فاخرة</option>
+                <option value="كلاسيكيات">كلاسيكيات</option>
+                <option value="عصائر طبيعية">عصائر طبيعية</option>
+              </select>
+            </div>
+            <div class="form-unit">
+              <label>السعر بالدينار الأردني (د.أ) *</label>
+              <input type="number" step="0.25" id="edit_price" oninput="updateLiveSimulator()" required>
+            </div>
+          </div>
+
+          <div class="form-unit">
+            <label>وصف النكهة وقصتها بالعربي</label>
+            <textarea id="edit_desc_ar" rows="2" oninput="updateLiveSimulator()"></textarea>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div class="form-unit">
+              <label>
+                <span>صورة العرض الرئيسية</span>
+                <span style="font-size:9.5px; color:var(--brand-gold);">يدعم روابط Drive تلقائياً</span>
+              </label>
+              <input type="text" id="edit_img_show" dir="ltr" placeholder="https://..." oninput="resolveDriveInput(this); updateLiveSimulator();">
+            </div>
+            <div class="form-unit">
+              <label>صورة الفاكهة المصاحبة</label>
+              <input type="text" id="edit_img_fruit" dir="ltr" placeholder="https://..." oninput="resolveDriveInput(this); updateLiveSimulator();">
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div class="form-unit">
+              <label>لون الهالة الضوئية (Primary Color)</label>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <input type="color" id="edit_color" style="width:48px; height:38px; padding:0; cursor:pointer;" onchange="document.getElementById('edit_color_hex').value=this.value; updateLiveSimulator();">
+                <input type="text" id="edit_color_hex" dir="ltr" style="font-family:var(--font-en); font-weight:800;" oninput="document.getElementById('edit_color').value=this.value; updateLiveSimulator();">
+              </div>
+            </div>
+            <div class="form-unit">
+              <label>حالة المخزون</label>
+              <select id="edit_stock_state" onchange="updateLiveSimulator()">
+                <option value="available">متوفر للطلب (Available)</option>
+                <option value="restocking">قيد التجهيز بالمطبخ (Restocking)</option>
+                <option value="soldout">انتهت الكمية مؤقتاً (Sold Out)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-unit">
+            <label>إدارة الوسوم (#Tags) - اضغط Enter لإضافة وسم</label>
+            <input type="text" id="edit_tag_input" placeholder="اكتب الوسم واضغط Enter (مثلاً: #صيف)..." onkeydown="handleTagInputKey(event)">
+            <div class="tags-editor-cluster" id="edit_tags_container"></div>
+          </div>
+
+          <div style="display:flex; gap:16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:10px 14px; margin-top:6px;">
+            <label style="font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px;">
+              <input type="checkbox" id="edit_is_active" onchange="updateLiveSimulator()">
+              <span>متوفر في المنيو (Active)</span>
+            </label>
+            <label style="font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px;">
+              <input type="checkbox" id="edit_is_fresh" onchange="updateLiveSimulator()">
+              <span>طازج اليوم (Fresh Batch ✨)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- محاكي المنيو الحي المباشر -->
+        <div class="simulator-container-box">
+          <span class="sim-header-label">محاكي كرت المنيو الحي (Live 3D Simulator)</span>
+          <div style="font-size:10px; color:var(--text-muted); text-align:center;">يعرض شكل الصنف في المنيو بدقة تامة لحظة بلحظة:</div>
+
+          <div class="sim-flavor-card" id="sim-card-root">
+            <div class="sim-halo-glow" id="sim-card-halo"></div>
+            
+            <div class="sim-visual-box">
+              <img class="sim-ice-img" id="sim-ice-img" src="" alt="">
+              <img class="sim-fruit-img" id="sim-fruit-img" src="" alt="" style="display:none;">
+            </div>
+
+            <div style="flex:1; display:flex; flex-direction:column; justify-content:space-between; min-width:0; z-index:2;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <div>
+                    <div style="font-size:13px; font-weight:900; color:var(--text-espresso);" id="sim-txt-name-ar">...</div>
+                    <div style="font-family:var(--font-en); font-size:9.5px; font-weight:800; text-transform:uppercase;" id="sim-txt-name-en">...</div>
+                  </div>
+                  <span id="sim-fresh-badge" style="background:var(--brand-red); color:#fff; font-size:8px; font-weight:800; padding:2px 6px; border-radius:9999px; display:none;">طازج ✨</span>
+                </div>
+                <div style="font-size:9.5px; color:var(--text-muted); line-height:1.3; margin:3px 0;" id="sim-txt-desc">...</div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f6ece5; padding-top:4px;">
+                <span style="font-size:9px; color:var(--text-muted); font-weight:700;" id="sim-txt-category">...</span>
+                <span style="font-family:var(--font-en), var(--font-ar); font-size:11px; font-weight:900; color:var(--brand-red); background:#fff0f3; padding:1px 6px; border-radius:6px;" id="sim-txt-price">0.00 د.أ</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size:9.5px; color:#b45309; text-align:center; line-height:1.4;">
+            يتم تحديث الهالة والصور والأسعار في المحاكي تلقائياً عند تغيير أي حرف.
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div style="display:flex; gap:8px; border-top:1.5px solid #f1f0ee; padding-top:10px; margin-top:6px;">
+        <button style="flex:1; border:none; background:#f1f5f9; padding:11px; border-radius:12px; font-weight:800; cursor:pointer;" onclick="closeEditModal()">إلغاء</button>
+        <button class="btn-action-edit" style="flex:2; padding:11px; justify-content:center; font-size:12.5px;" onclick="saveGranularFlavorChanges()">
+          <span>حفظ التعديلات واعتمادها في السحابة ⚡</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // الرابط السحابي لنواة Google Apps Script المعتمدة
+    const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbw2zN2iZ2uK9xRYsOuz7_Tvz-_kJGwXteMFP3-X2c-Guj-uljMSJMWjNacvKn__GJrIIA/exec";
+    const MASTER_PASSPHRASE = "LUFFY#2026$Aqaba_Master!Vault@99";
+
+    let liveCatalog = [];
+    let currentCategoryFilter = "ALL";
+    let activeTagsSet = new Set();
+    let currentSearchQuery = "";
+
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const t = document.createElement('div');
+      t.className = 'admin-toast';
+      t.textContent = msg;
+      box.appendChild(t);
+      setTimeout(() => t.remove(), 3200);
+    }
+
+    function extractDriveId(url) {
+      if (!url) return '';
+      const m = String(url).split(',')[0].trim().match(/[-\w]{25,}/);
+      return m ? m[0] : '';
+    }
+    function getDriveImageUrl(url) {
+      const id = extractDriveId(url);
+      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : (url ? url.trim() : '');
+    }
+
+    function resolveDriveInput(inputEl) {
+      const val = inputEl.value.trim();
+      if (val.includes("drive.google.com") && val.includes("/d/")) {
+        const directUrl = getDriveImageUrl(val);
+        inputEl.value = directUrl;
+        showToast("✓ تم تحويل رابط Google Drive إلى رابط صورة مباشر عالي الدقة");
+      }
+    }
+
+    /* 1. جلب بيانات الكتالوج الحي */
+    function fetchLiveCatalog(forceRefresh = false) {
+      const cached = localStorage.getItem('luffy_live_catalog');
+      if (cached && !forceRefresh) {
+        liveCatalog = JSON.parse(cached);
+        updateCatalogKpis();
+        buildCategoryChips();
+        renderCatalogFeed();
+      }
+
+      const btn = document.getElementById('btn-refresh-catalog');
+      if (forceRefresh) btn.classList.add('refreshing');
+
+      const cb = "onAdminCatalogLoaded_" + Date.now();
+      window[cb] = function(res) {
+        if (res && res.catalog) {
+          liveCatalog = res.catalog;
+          localStorage.setItem('luffy_live_catalog', JSON.stringify(liveCatalog));
+          updateCatalogKpis();
+          buildCategoryChips();
+          renderCatalogFeed();
+          if (forceRefresh) {
+            btn.classList.remove('refreshing');
+            showToast("تم تحديث الكتالوج بنجاح من الشيت ⚡");
+          }
+        }
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_full_menu_catalog&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    function updateCatalogKpis() {
+      const total = liveCatalog.length;
+      const active = liveCatalog.filter(f => String(f.Is_Active).toUpperCase() === "TRUE").length;
+      const fresh = liveCatalog.filter(f => String(f.Is_Fresh_Batch).toUpperCase() === "TRUE").length;
+      const soldout = liveCatalog.filter(f => f.Stock_State === "soldout").length;
+
+      document.getElementById('kpi-total-flavors').textContent = total;
+      document.getElementById('kpi-active-flavors').textContent = active;
+      document.getElementById('kpi-fresh-flavors').textContent = fresh;
+      document.getElementById('kpi-soldout-flavors').textContent = soldout;
+    }
+
+    function buildCategoryChips() {
+      const cats = [...new Set(liveCatalog.map(f => (f.Category || 'عام').trim()))];
+      const container = document.getElementById('category-filter-chips');
+      container.innerHTML = `<button class="cat-chip ${currentCategoryFilter === 'ALL' ? 'active' : ''}" onclick="filterByCategory('ALL', this)">الكل</button>`;
+
+      cats.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = `cat-chip ${currentCategoryFilter === c ? 'active' : ''}`;
+        btn.textContent = c;
+        btn.onclick = () => filterByCategory(c, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function filterByCategory(cat, btnEl) {
+      currentCategoryFilter = cat;
+      document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+      renderCatalogFeed();
+    }
+
+    function handleCatalogSearch(q) {
+      currentSearchQuery = q.trim().toLowerCase();
+      renderCatalogFeed();
+    }
+
+    /* 2. رسم بطاقات النكهات في صفحة التحكم */
+    function renderCatalogFeed() {
+      const feed = document.getElementById('catalog-manager-feed');
+      feed.innerHTML = "";
+
+      const filtered = liveCatalog.filter(flv => {
+        const nameAR = (flv.Flavor_Name_AR || '').toLowerCase();
+        const nameEN = (flv.Flavor_Name_EN || '').toLowerCase();
+        const cat = flv.Category || '';
+
+        const matchCat = (currentCategoryFilter === 'ALL' || cat === currentCategoryFilter);
+        const matchSearch = !currentSearchQuery || nameAR.includes(currentSearchQuery) || nameEN.includes(currentSearchQuery);
+
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        feed.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-muted); font-size:12px;">لا توجد أصناف مطابقة للبحث حالياً.</div>`;
+        return;
+      }
+
+      filtered.forEach((flv, idx) => {
+        const id = flv.ID || `FLV-${idx}`;
+        const nameAR = flv.Flavor_Name_AR || 'نكهة لوفي';
+        const nameEN = flv.Flavor_Name_EN || '';
+        const price = parseFloat(flv.Price || 2.50).toFixed(2);
+        const isActive = String(flv.Is_Active).toUpperCase() === "TRUE";
+        const isFresh = String(flv.Is_Fresh_Batch).toUpperCase() === "TRUE";
+        const stock = flv.Stock_State || (isActive ? 'available' : 'soldout');
+        const showUrl = getDriveImageUrl(flv['Image_URL Show'] || flv.Image_URL_Show);
+        const fruitUrl = getDriveImageUrl(flv['Image_URL fruit'] || flv.Image_URL_Fruit);
+        const color = flv.Primary_Color || '#ff2a5f';
+
+        const card = document.createElement('div');
+        card.className = `flavor-manager-card ${stock === 'soldout' ? 'is-soldout' : ''}`;
+
+        card.innerHTML = `
+          <div class="flavor-avatar-stage" style="border-color:${color}55;">
+            <img class="flavor-avatar-img" src="${showUrl || 'https://images.unsplash.com/photo-1560008511-11c63416e52d?w=160'}" alt="">
+            ${fruitUrl ? `<img class="flavor-avatar-fruit" src="${fruitUrl}">` : ''}
+          </div>
+
+          <div class="flavor-details-col">
+            <div class="flavor-title-ar">${nameAR}</div>
+            <div class="flavor-title-en" style="color:${color};">${nameEN}</div>
+
+            <div class="flavor-meta-row">
+              <span class="status-badge-mini badge-price">${price} د.أ</span>
+              <span class="status-badge-mini" style="background:#f1f5f9; color:#475569;">${flv.Category || 'عام'}</span>
+              ${isActive ? `<span class="status-badge-mini badge-avail">متوفر بالمنيو ✓</span>` : `<span class="status-badge-mini badge-sold">معطل مؤقتاً</span>`}
+              ${isFresh ? `<span class="status-badge-mini badge-fresh">طازج ✨</span>` : ''}
+              ${stock === 'soldout' ? `<span class="status-badge-mini badge-sold">انتهت الكمية</span>` : ''}
+            </div>
+
+            <div style="font-size:10.5px; color:var(--text-muted); line-height:1.35; margin-top:2px;">
+              ${flv.Description_AR || 'بدون وصف مضاف'}
+            </div>
+          </div>
+
+          <div class="flavor-actions-col">
+            <button class="btn-action-edit" onclick='openEditModal(${JSON.stringify(flv)})'>
+              <span>تعديل تفصيلي كامل ✏️</span>
+            </button>
+            
+            <div style="display:flex; gap:4px; margin-top:4px;">
+              <button class="btn-quick-toggle" onclick="quickToggleStatus('${id}', 'ACTIVE')">${isActive ? 'تجميد ✕' : 'تفعيل ✓'}</button>
+              <button class="btn-quick-toggle" onclick="quickToggleStatus('${id}', 'FRESH')">${isFresh ? 'إلغاء طازج' : 'طازج ✨'}</button>
+            </div>
+          </div>
+        `;
+
+        feed.appendChild(card);
+      });
+    }
+
+    /* 3. نافذة التعديل التفصيلي الشامل والمحاكي الحي */
+    function openEditModal(flv) {
+      document.getElementById('edit_flavor_id').value = flv.ID;
+      document.getElementById('lbl-edit-id').textContent = flv.ID;
+
+      document.getElementById('edit_name_ar').value = flv.Flavor_Name_AR || '';
+      document.getElementById('edit_name_en').value = flv.Flavor_Name_EN || '';
+      document.getElementById('edit_category').value = flv.Category || 'بوظة فواكه';
+      document.getElementById('edit_price').value = parseFloat(flv.Price || 2.50).toFixed(2);
+      document.getElementById('edit_desc_ar').value = flv.Description_AR || '';
+      document.getElementById('edit_img_show').value = flv['Image_URL Show'] || flv.Image_URL_Show || '';
+      document.getElementById('edit_img_fruit').value = flv['Image_URL fruit'] || flv.Image_URL_Fruit || '';
+      
+      const col = flv.Primary_Color || '#ff2a5f';
+      document.getElementById('edit_color').value = col;
+      document.getElementById('edit_color_hex').value = col;
+
+      document.getElementById('edit_stock_state').value = flv.Stock_State || 'available';
+      document.getElementById('edit_is_active').checked = String(flv.Is_Active).toUpperCase() === "TRUE";
+      document.getElementById('edit_is_fresh').checked = String(flv.Is_Fresh_Batch).toUpperCase() === "TRUE";
+
+      // الوسوم
+      activeTagsSet = new Set();
+      const rawTags = (flv.Tags || '').toString().split(/[,،#]/).map(t => t.trim()).filter(Boolean);
+      rawTags.forEach(t => activeTagsSet.add(t));
+      renderEditableTagsCluster();
+
+      updateLiveSimulator();
+      document.getElementById('flavor-edit-modal').classList.add('open');
+    }
+
+    function closeEditModal() {
+      document.getElementById('flavor-edit-modal').classList.remove('open');
+    }
+
+    /* تحديث المحاكي الحي المباشر */
+    function updateLiveSimulator() {
+      const nameAR = document.getElementById('edit_name_ar').value || 'اسم النكهة';
+      const nameEN = document.getElementById('edit_name_en').value || 'FLAVOR NAME';
+      const category = document.getElementById('edit_category').value;
+      const price = parseFloat(document.getElementById('edit_price').value || 0).toFixed(2);
+      const desc = document.getElementById('edit_desc_ar').value || 'وصف النكهة وقصتها يظهر هنا...';
+      const imgShow = getDriveImageUrl(document.getElementById('edit_img_show').value);
+      const imgFruit = getDriveImageUrl(document.getElementById('edit_img_fruit').value);
+      const color = document.getElementById('edit_color').value || '#ff2a5f';
+      const isFresh = document.getElementById('edit_is_fresh').checked;
+
+      document.getElementById('sim-txt-name-ar').textContent = nameAR;
+      const enEl = document.getElementById('sim-txt-name-en');
+      enEl.textContent = nameEN;
+      enEl.style.color = color;
+
+      document.getElementById('sim-txt-category').textContent = category;
+      document.getElementById('sim-txt-price').textContent = `${price} د.أ`;
+      document.getElementById('sim-txt-desc').textContent = desc;
+
+      document.getElementById('sim-ice-img').src = imgShow || 'https://images.unsplash.com/photo-1560008511-11c63416e52d?w=200';
+      const fruitEl = document.getElementById('sim-fruit-img');
+      if (imgFruit) { fruitEl.src = imgFruit; fruitEl.style.display = 'block'; }
+      else { fruitEl.style.display = 'none'; }
+
+      document.getElementById('sim-card-halo').style.background = color;
+      document.getElementById('sim-fresh-badge').style.display = isFresh ? 'inline-block' : 'none';
+    }
+
+    /* إدارة الوسوم في الاستوديو */
+    function handleTagInputKey(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const input = document.getElementById('edit_tag_input');
+        const clean = input.value.replace('#', '').trim();
+        if (clean) {
+          activeTagsSet.add(clean);
+          input.value = '';
+          renderEditableTagsCluster();
+        }
+      }
+    }
+
+    function removeTag(tag) {
+      activeTagsSet.delete(tag);
+      renderEditableTagsCluster();
+    }
+
+    function renderEditableTagsCluster() {
+      const container = document.getElementById('edit_tags_container');
+      container.innerHTML = Array.from(activeTagsSet).map(t => `
+        <span class="tag-editable-pill">
+          <span>#${t}</span>
+          <span class="tag-remove-x" onclick="removeTag('${t}')">✕</span>
+        </span>
+      `).join('');
+    }
+
+    /* 4. حفظ التعديل الشامل وإرساله للنواة السحابية */
+    function saveGranularFlavorChanges() {
+      const id = document.getElementById('edit_flavor_id').value;
+      const nameAR = document.getElementById('edit_name_ar').value.trim();
+      if (!nameAR) { alert("⚠️ يرجى إدخال اسم النكهة بالعربي"); return; }
+
+      const updatedPayload = {
+        ID: id,
+        Flavor_Name_AR: nameAR,
+        'اسم النكهة (عربي)': nameAR,
+        Flavor_Name_EN: document.getElementById('edit_name_en').value.trim(),
+        'اسم النكهة (ENGLISH)': document.getElementById('edit_name_en').value.trim(),
+        Category: document.getElementById('edit_category').value,
+        'التصنيف': document.getElementById('edit_category').value,
+        Price: parseFloat(document.getElementById('edit_price').value || 2.50),
+        'السعر': parseFloat(document.getElementById('edit_price').value || 2.50),
+        Description_AR: document.getElementById('edit_desc_ar').value.trim(),
+        'وصف النكهة (عربي)': document.getElementById('edit_desc_ar').value.trim(),
+        Image_URL_Show: document.getElementById('edit_img_show').value.trim(),
+        'Image_URL Show': document.getElementById('edit_img_show').value.trim(),
+        Image_URL_Fruit: document.getElementById('edit_img_fruit').value.trim(),
+        'Image_URL fruit': document.getElementById('edit_img_fruit').value.trim(),
+        Primary_Color: document.getElementById('edit_color').value,
+        Tags: Array.from(activeTagsSet).map(t => `#${t}`).join(', '),
+        Is_Active: document.getElementById('edit_is_active').checked ? "TRUE" : "FALSE",
+        'متوفر اليوم؟ (Active)': document.getElementById('edit_is_active').checked ? "TRUE" : "FALSE",
+        Is_Fresh_Batch: document.getElementById('edit_is_fresh').checked ? "TRUE" : "FALSE",
+        'طازج الآن؟ (Batch)': document.getElementById('edit_is_fresh').checked ? "TRUE" : "FALSE",
+        Stock_State: document.getElementById('edit_stock_state').value
+      };
+
+      // تحديث محلي فوري
+      const targetIdx = liveCatalog.findIndex(f => f.ID === id);
+      if (targetIdx > -1) {
+        liveCatalog[targetIdx] = updatedPayload;
+        localStorage.setItem('luffy_live_catalog', JSON.stringify(liveCatalog));
+        updateCatalogKpis();
+        renderCatalogFeed();
+      }
+
+      closeEditModal();
+      showToast(`جاري اعتماد التعديلات الشاملة لصنف [${nameAR}] في السحابة...`);
+
+      // إرسال للخادم السحابي عبر الـ Action المخصص
+      const cb = "onFlavorUpdated_" + Date.now();
+      window[cb] = function(res) {
+        showToast(`✓ تم تحديث وحفظ [${nameAR}] في شيت Live_Flavors بنجاح!`);
+      };
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?auth_pass=${encodeURIComponent(MASTER_PASSPHRASE)}&action=update_flavor_granular&data=${encodeURIComponent(JSON.stringify(updatedPayload))}&callback=${cb}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    /* أزرار التبديل السريع من البطاقة */
+    function quickToggleStatus(id, type) {
+      const flv = liveCatalog.find(f => f.ID === id);
+      if (!flv) return;
+
+      if (type === 'ACTIVE') {
+        const curr = String(flv.Is_Active).toUpperCase() === "TRUE";
+        flv.Is_Active = curr ? "FALSE" : "TRUE";
+        flv['متوفر اليوم؟ (Active)'] = flv.Is_Active;
+        flv.Stock_State = curr ? 'soldout' : 'available';
+      } else if (type === 'FRESH') {
+        const curr = String(flv.Is_Fresh_Batch).toUpperCase() === "TRUE";
+        flv.Is_Fresh_Batch = curr ? "FALSE" : "TRUE";
+        flv['طازج الآن؟ (Batch)'] = flv.Is_Fresh_Batch;
+      }
+
+      localStorage.setItem('luffy_live_catalog', JSON.stringify(liveCatalog));
+      updateCatalogKpis();
+      renderCatalogFeed();
+      showToast(`تم تغيير حالة الصنف [${flv.Flavor_Name_AR}] بنجاح ✓`);
+
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?auth_pass=${encodeURIComponent(MASTER_PASSPHRASE)}&action=update_flavor_granular&data=${encodeURIComponent(JSON.stringify(flv))}&_ts=${Date.now()}`;
+      document.body.appendChild(s);
+    }
+
+    fetchLiveCatalog();
+  </script>
+</body>
+</html>
