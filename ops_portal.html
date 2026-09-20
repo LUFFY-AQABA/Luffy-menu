@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>LUFFY • لوفي | البوابة التنفيذية الحاضنة للمنظومة</title>
+  <title>LUFFY • لوفي | لوحة القيادة</title>
   
   <!-- خطوط النخبة العالمية -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
       --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
 
       --bg-cream: #fffdfa;
-      --surface-glass: rgba(255, 255, 255, 0.96);
+      --surface-glass: rgba(255, 255, 255, 0.98);
       --border-glass: rgba(254, 215, 170, 0.45);
 
       --text-espresso: #1a110d;
@@ -46,6 +46,7 @@
       display: flex; flex-direction: column;
       background: radial-gradient(circle at 10% 10%, #fff0f5 0%, #fcf9f5 45%, #fef5eb 100%);
       position: relative;
+      overflow: hidden;
     }
 
     .svg-icon {
@@ -55,60 +56,104 @@
 
     .tabular-nums { font-variant-numeric: tabular-nums; font-family: var(--font-en); }
 
-    /* Executive Top Bar */
+    /* Executive Top Bar متجاوب وخالٍ من الانزلاق */
     .portal-header {
       flex-shrink: 0;
       background: var(--surface-glass);
       backdrop-filter: blur(25px);
       border-bottom: 1.5px solid var(--border-glass);
-      padding: 8px 16px;
+      padding: 8px clamp(8px, 2.5vw, 16px);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      width: 100%;
+      max-width: 100vw;
     }
 
-    .brand-cluster { display: flex; align-items: center; gap: 8px; }
-    .straw-hat-badge { width: 34px; height: 34px; position: relative; display: flex; align-items: center; justify-content: center; }
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+      min-width: max-content;
+    }
+
+    .straw-hat-badge { width: 34px; height: 34px; position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .hat-glow { position: absolute; width: 140%; height: 140%; border-radius: 50%; background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%); filter: blur(6px); }
     .straw-hat-svg { width: 100%; height: 100%; position: relative; z-index: 2; }
-    .portal-title { font-size: 15px; font-weight: 900; }
-    .name-en { font-family: var(--font-en); background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    /* اسم لوفي فقط */
+    .portal-title {
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+    .name-en {
+      font-family: var(--font-en);
+      background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
 
-    .header-tools { display: flex; align-items: center; gap: 6px; }
+    /* أزرار الهيدر المقيدة والمحمية من الخروج عن الشاشة */
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
 
-    .tool-btn {
+    .tool-btn-circle {
+      width: 33px;
+      height: 33px;
+      min-width: 33px;
+      min-height: 33px;
+      border-radius: 50%;
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
       color: var(--text-muted);
-      border-radius: 9999px;
-      padding: 5px 11px;
-      font-family: var(--font-ar);
-      font-size: 11px;
-      font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      justify-content: center;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      padding: 0;
+      flex-shrink: 0;
     }
-    .tool-btn:hover { border-color: var(--brand-red); color: var(--brand-red); }
-    .tool-btn:active { transform: scale(0.95); }
+    .tool-btn-circle:hover { border-color: var(--brand-red); color: var(--brand-red); }
+    .tool-btn-circle:active { transform: scale(0.92); }
+
+    .tool-btn-cloud {
+      border-color: #fed7aa;
+      color: var(--brand-red);
+      background: #fffdfa;
+    }
 
     .clock-pill {
       background: #fdfaf7;
       border: 1px solid #fed7aa;
       color: #92400e;
-      padding: 4px 10px;
+      padding: 4px 8px;
       border-radius: 9999px;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 900;
       direction: ltr;
-      display: inline-flex;
+      display: none;
       align-items: center;
       gap: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    @media (min-width: 440px) {
+      .clock-pill { display: inline-flex; }
     }
 
     /* Desktop Navigation Tabs */
@@ -120,7 +165,7 @@
       padding: 3px;
       border-radius: 9999px;
     }
-    @media (min-width: 820px) {
+    @media (min-width: 860px) {
       .desktop-nav-tabs { display: flex; }
     }
 
@@ -169,7 +214,7 @@
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 40px; height: 40px;
+      width: 38px; height: 38px;
       border: 3px solid #fed7aa;
       border-top-color: var(--brand-red);
       border-radius: 50%;
@@ -179,27 +224,27 @@
     }
     @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
-    /* Mobile Bottom Navigation Dock */
+    /* Mobile Bottom Navigation Dock المريح للإبهام */
     .mobile-bottom-dock {
       flex-shrink: 0;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(20px);
       border-top: 1.5px solid var(--border-glass);
-      padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 8px));
+      padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 8px));
       z-index: 100;
       box-shadow: var(--shadow-dock);
     }
-    @media (min-width: 820px) {
+    @media (min-width: 860px) {
       .mobile-bottom-dock { display: none; }
     }
 
     .dock-tab-btn {
       border: none;
       background: transparent;
-      padding: 5px 8px;
+      padding: 5px 6px;
       border-radius: 12px;
       display: flex;
       flex-direction: column;
@@ -209,7 +254,7 @@
       color: var(--text-muted);
       transition: all 0.2s ease;
       flex: 1;
-      max-width: 75px;
+      max-width: 72px;
     }
     .dock-tab-btn.active {
       color: var(--brand-red);
@@ -227,9 +272,8 @@
     }
     .modal-backdrop.open { opacity: 1; pointer-events: auto; }
     .modal-card {
-      background: #ffffff; border-radius: 24px; padding: 20px 18px; width: 100%; max-width: 480px;
+      background: #ffffff; border-radius: 24px; padding: 20px 18px; width: 100%; max-width: 440px;
       text-align: right; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1.5px solid #fed7aa;
-      max-height: 90vh; overflow-y: auto;
     }
 
     .link-list-item {
@@ -289,8 +333,8 @@
         </svg>
       </div>
 
-      <div style="font-size:16px; font-weight:900;">لوحة القيادة التنفيذية</div>
-      <div style="font-size:11px; color:#fed7aa; margin:3px 0 14px;">الوصول المصرح لمنظومة لوفي السحابية • العقبة 🇯🇴</div>
+      <div style="font-size:16px; font-weight:900;">لوحة القيادة • LUFFY</div>
+      <div style="font-size:11px; color:#fed7aa; margin:3px 0 14px;">الوصول المصرح لمنظومة لوفي • العقبة 🇯🇴</div>
 
       <input type="password" id="gate-pass-input" placeholder="أدخل كلمة المرور التنفيذية..." style="width:100%; background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.25); color:#fff; text-align:center; padding:10px; border-radius:12px; margin-bottom:10px; outline:none;" onkeypress="if(event.key==='Enter') verifyGatePass()">
       <button style="width:100%; background:linear-gradient(135deg, var(--brand-red), #ff5e7e); color:#fff; border:none; padding:11px; border-radius:12px; font-weight:900; font-family:var(--font-ar); cursor:pointer;" onclick="verifyGatePass()">تحقق ودخول ⚡</button>
@@ -298,7 +342,7 @@
   </div>
 
   <div class="portal-shell">
-    <!-- Top Header -->
+    <!-- Top Header المطور بدون انقطاع أو خروج عن الشاشة -->
     <header class="portal-header">
       <div class="brand-cluster">
         <div class="straw-hat-badge">
@@ -309,7 +353,12 @@
             <path d="M23.5 64.5C34 68.5 66 68.5 76.5 64.5C75.5 57.5 74.5 53 74.5 53C63 57.5 37 57.5 25.5 53Z" fill="#FF2A5F"/>
           </svg>
         </div>
-        <div class="portal-title"><span class="name-en">LUFFY</span> • <span>البوابة التنفيذية الحاضنة</span></div>
+        <!-- المسمى المختصر الملكي فقط -->
+        <div class="portal-title">
+          <span class="name-en">LUFFY</span>
+          <span style="color:var(--brand-red);">•</span>
+          <span>لوفي</span>
+        </div>
       </div>
 
       <!-- Desktop Tabs -->
@@ -340,27 +389,25 @@
         </button>
       </nav>
 
-      <!-- Tools Cluster -->
+      <!-- أدوات التحكم الدائرية المحمية كلياً داخل عرض الشاشة -->
       <div class="header-tools">
         <div class="clock-pill">
-          <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          <span id="portal-live-clock" class="tabular-nums">12:00:00 ص</span>
+          <span id="portal-live-clock" class="tabular-nums">12:00 ص</span>
         </div>
 
-        <button class="tool-btn" onclick="reloadActiveViewport()" title="تحديث الإطار النشط">
+        <button class="tool-btn-circle" onclick="reloadActiveViewport()" title="تحديث الإطار">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
         </button>
 
-        <button class="tool-btn" onclick="openExternalActive()" title="فتح في نافذة مستقلة">
+        <button class="tool-btn-circle tool-btn-cloud" onclick="openVaultLinksModal()" title="روابط المنظومة وقواعد البيانات">
+          <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        </button>
+
+        <button class="tool-btn-circle" onclick="openExternalActive()" title="فتح في نافذة مستقلة">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </button>
 
-        <button class="tool-btn" onclick="openVaultLinksModal()" title="روابط السحابة الموزعة">
-          <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-          <span>الروابط ☁️</span>
-        </button>
-
-        <button class="tool-btn" style="color:var(--brand-red);" onclick="lockPortalGate()" title="قفل الجلسة">
+        <button class="tool-btn-circle" style="color:var(--brand-red);" onclick="lockPortalGate()" title="قفل الجلسة">
           <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
         </button>
       </div>
@@ -372,7 +419,7 @@
       <iframe class="master-iframe" id="master-viewport-frame" src="ops_orders.html" onload="onFrameLoaded()"></iframe>
     </main>
 
-    <!-- Mobile Bottom Navigation Dock -->
+    <!-- Mobile Bottom Navigation Dock المخصص للإبهام -->
     <nav class="mobile-bottom-dock">
       <button class="dock-tab-btn active" id="dock-btn-orders" onclick="switchWorkspace('orders', this)">
         <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
@@ -430,7 +477,7 @@
       </a>
 
       <a href="https://docs.google.com/spreadsheets/d/1FLCZimVlzS0cCdWi9RtfXAfYzI2vcceZMc85k0fpkRA/edit" target="_blank" class="link-list-item">
-        <span>📜 شيت الأرشيف والرقابة وسجلات الـ Diff</span>
+        <span>📜 شيت الأرشيف والرقابة وسجلات التدقيق</span>
         <span>↗</span>
       </a>
 
@@ -444,11 +491,11 @@
   <script>
     const MASTER_PASSPHRASE = "LUFFY#2026$Aqaba_Master!Vault@99";
 
-    // 🔗 مسارات صفحات النظام الرسمية الموحدة
+    // المسارات الموحدة
     const WORKSPACE_ROUTES = {
       orders: "ops_orders.html",
       edit_flavors: "ops_flavors_edit.html",
-      add_flavor: "ops_flavor_add.html",  // تم ضبط الاسم النظامي الموحد هنا
+      add_flavor: "ops_flavor_add.html",
       hours: "ops_hours.html",
       live_menu: "https://luffy-menu.pages.dev"
     };
@@ -464,15 +511,14 @@
       setTimeout(() => t.remove(), 3200);
     }
 
-    /* 🔒 التحقق الأمني من الجلسة */
     function verifyGatePass() {
       const val = document.getElementById('gate-pass-input').value.trim();
       if (val === MASTER_PASSPHRASE) {
         sessionStorage.setItem('luffy_portal_auth', 'AUTHORIZED');
         document.getElementById('auth-gate').classList.add('unlocked');
-        showToast("تم فتح الجلسة التنفيذية بنجاح ✓");
+        showToast("تم فتح الجلسة بنجاح ✓");
       } else {
-        alert("كلمة المرور التنفيذية غير صحيحة!");
+        alert("كلمة المرور غير صحيحة!");
       }
     }
 
@@ -488,7 +534,6 @@
       document.getElementById('auth-gate').classList.remove('unlocked');
     }
 
-    /* 🔄 التبديل الذكي بين مساحات العمل مع فاحص الأمان */
     function switchWorkspace(key, btnEl) {
       if (!WORKSPACE_ROUTES[key]) return;
       activeKey = key;
@@ -507,7 +552,6 @@
       frame.classList.add('loading');
       spinner.style.display = 'block';
 
-      // توجيه المسار إلى الملف المطلوب
       frame.src = WORKSPACE_ROUTES[key];
     }
 
@@ -540,15 +584,15 @@
       document.getElementById('vault-links-modal').classList.remove('open');
     }
 
-    /* ⏰ ساعة العقبة اللحظية */
+    /* ساعة العقبة اللحظية الخفيفة */
     function updateLiveClock() {
       const now = new Date();
       let h = now.getHours();
       const m = String(now.getMinutes()).padStart(2, '0');
-      const s = String(now.getSeconds()).padStart(2, '0');
       const ampm = h >= 12 ? 'م' : 'ص';
       h = h % 12 || 12;
-      document.getElementById('portal-live-clock').textContent = `${h}:${m}:${s} ${ampm}`;
+      const clockEl = document.getElementById('portal-live-clock');
+      if (clockEl) clockEl.textContent = `${h}:${m} ${ampm}`;
     }
 
     checkAuthSession();
