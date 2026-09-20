@@ -32,6 +32,7 @@
       --emerald-dark: #059669;
       --blue-accent: #2563eb;
       --purple-accent: #7c3aed;
+      --slate-archive: #475569;
 
       --shadow-luxury: 0 20px 50px -10px rgba(180, 100, 120, 0.1);
       --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
@@ -70,6 +71,13 @@
       stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; flex-shrink: 0;
     }
 
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      font-family: var(--font-en);
+      letter-spacing: 0.5px;
+    }
+
     /* Top Bar */
     .top-header-cluster {
       display: flex;
@@ -89,12 +97,12 @@
     .brand-title { font-size: clamp(14px, 1.8vw, 16.5px); font-weight: 900; }
     .name-en { font-family: var(--font-en); background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    .header-actions-cluster { display: flex; align-items: center; gap: 6px; }
+    .header-actions-cluster { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 
     .btn-luxury-header {
       border: none;
       border-radius: 9999px;
-      padding: clamp(6px, 1vh, 8px) clamp(10px, 1.4vw, 15px);
+      padding: clamp(6px, 1vh, 8px) clamp(11px, 1.4vw, 16px);
       font-family: var(--font-ar);
       font-size: clamp(11px, 1.1vw, 12px);
       font-weight: 800;
@@ -102,7 +110,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 6px;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: var(--shadow-card);
       white-space: nowrap;
@@ -112,6 +120,47 @@
     .btn-header-refresh { background: #ffffff; color: var(--text-espresso); border: 1.5px solid #fed7aa; }
     .btn-header-refresh.refreshing .svg-icon { animation: spin 0.8s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* زر الأرشفة الجماعية السريعة في الهيدر */
+    .btn-header-archive-all {
+      background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+      color: #fed7aa;
+      border: 1px solid #475569;
+    }
+
+    /* شريط إشعار وصول طلبات جديدة وترتيبها يدوياً بأمان */
+    .new-orders-notification-banner {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      color: #fed7aa;
+      border: 1.5px solid #6366f1;
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(49, 46, 129, 0.25);
+      animation: bannerSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes bannerSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .btn-reorder-trigger {
+      background: linear-gradient(135deg, var(--brand-red) 0%, #ff5e7e 100%);
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: var(--font-ar);
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 12px rgba(255, 42, 95, 0.35);
+    }
+    .btn-reorder-trigger:active { transform: scale(0.95); }
 
     /* KPIs Row */
     .kpi-radar-grid {
@@ -159,20 +208,25 @@
     .order-card-box {
       background: #ffffff; border: 1.5px solid #f1f0ee; border-radius: 20px;
       padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 10px;
-      box-shadow: var(--shadow-card); transition: all 0.25s ease; position: relative;
+      box-shadow: var(--shadow-card); transition: border-color 0.25s ease, background 0.25s ease;
+      position: relative;
     }
-    .order-card-box.status-unconfirmed { background: #fffdf8; border-color: #fde68a; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.12); }
-    .order-card-box.status-confirmed { background: #f0fdf4; border-color: #a7f3d0; }
-    .order-card-box.status-preparing { background: #eff6ff; border-color: #93c5fd; box-shadow: 0 6px 20px rgba(37, 99, 235, 0.12); }
-    .order-card-box.status-dispatched { background: #faf5ff; border-color: #d8b4fe; }
-    .order-card-box.status-delivered { background: #f8fafc; border-color: #e2e8f0; opacity: 0.85; }
+    
+    /* ألوان الحالات الخاصة */
+    .order-card-box.status-unconfirmed { background: #fffefb; border-color: #fcd34d; box-shadow: 0 8px 24px rgba(245, 158, 11, 0.12); }
+    .order-card-box.status-confirmed { background: #f8fdfa; border-color: #86efac; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.1); }
+    .order-card-box.status-preparing { background: #f8fbff; border-color: #93c5fd; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12); }
+    .order-card-box.status-dispatched { background: #fbf9ff; border-color: #d8b4fe; box-shadow: 0 8px 24px rgba(124, 58, 237, 0.12); }
+    .order-card-box.status-delivered { background: #f8fafc; border-color: #cbd5e1; }
+    .order-card-box.status-cancelled { background: #fff8f8; border-color: #fca5a5; opacity: 0.92; }
 
-    .status-pill { font-size: 10.5px; font-weight: 900; padding: 3px 9px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; }
+    .status-pill { font-size: 10px; font-weight: 900; padding: 3px 9px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; }
     .status-unconfirmed-pill { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; animation: pulseAlert 2s infinite; }
     .status-confirmed-pill { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
     .status-preparing-pill { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
     .status-dispatched-pill { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
     .status-delivered-pill { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+    .status-cancelled-pill { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
     @keyframes pulseAlert { 0% { opacity: 0.85; } 50% { opacity: 1; } 100% { opacity: 0.85; } }
 
@@ -185,111 +239,51 @@
     .delivery-main-row { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; font-weight: 900; }
     .delivery-sub-row { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; opacity: 0.85; }
 
-    /* ⏱️ العدادان التوأمان (Dual Timers Grid) */
+    /* العدادان التوأمان بأبعاد ثابتة */
     .dual-timers-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
     }
     .timer-tile-box {
-      border-radius: 12px;
-      padding: 8px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
+      border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
     }
-    .timer-tile-target {
-      background: #fdfaf7;
-      border: 1.5px solid #fed7aa;
-      color: #92400e;
-    }
-    .timer-tile-target.is-overdue {
-      background: #fff1f2;
-      border-color: #fecdd3;
-      color: #9f1239;
-      animation: pulseAlert 1.5s infinite;
-    }
-    .timer-tile-prep {
-      background: #eff6ff;
-      border: 1.5px solid #bfdbfe;
-      color: #1e40af;
-    }
+    .timer-tile-target { background: #fdfaf7; border: 1.5px solid #fed7aa; color: #92400e; }
+    .timer-tile-target.is-overdue { background: #fff1f2; border-color: #fecdd3; color: #9f1239; animation: pulseAlert 1.5s infinite; }
+    .timer-tile-prep { background: #eff6ff; border: 1.5px solid #bfdbfe; color: #1e40af; }
     .timer-tile-prep.warning-time { background: #fffbeb; border-color: #fde68a; color: #92400e; }
     .timer-tile-prep.alert-time { background: #fff1f2; border-color: #fecdd3; color: #9f1239; animation: pulseAlert 1.5s infinite; }
 
-    .timer-tile-header {
-      font-size: 10px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .timer-tile-header { font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; }
+    .timer-digits-fixed {
+      font-family: var(--font-en); font-size: 15px; font-weight: 900; letter-spacing: 0.8px;
+      text-align: center; font-variant-numeric: tabular-nums; font-feature-settings: "tnum";
+      display: inline-block; min-width: 60px; margin: 0 auto;
     }
-    .timer-tile-digits {
-      font-family: var(--font-en);
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing: 0.8px;
-      text-align: center;
-      margin-top: 1px;
-    }
+    .target-countdown-digits.is-overdue-digits { min-width: 105px; color: #9f1239; }
 
-    /* 📋 جدول الأصناف والكميات الثابت المنظم في صفوف (Structured Items Invoice) */
-    .structured-items-table {
-      background: #ffffff;
-      border: 1.5px solid #f1f0ee;
-      border-radius: 14px;
-      overflow: hidden;
-    }
+    /* جدول الأصناف والكميات الثابت المنظم */
+    .structured-items-table { background: #ffffff; border: 1.5px solid #f1f0ee; border-radius: 14px; overflow: hidden; }
     .items-table-header {
-      display: grid;
-      grid-template-columns: 1fr 85px 80px;
-      background: #f8fafc;
-      border-bottom: 1.5px solid #e2e8f0;
-      padding: 6px 12px;
-      font-size: 10.5px;
-      font-weight: 800;
-      color: var(--text-muted);
-      align-items: center;
+      display: grid; grid-template-columns: 1fr 85px 80px; background: #f8fafc;
+      border-bottom: 1.5px solid #e2e8f0; padding: 6px 12px; font-size: 10.5px;
+      font-weight: 800; color: var(--text-muted); align-items: center;
     }
     .items-table-header .col-qty { text-align: center; }
     .items-table-header .col-price { text-align: left; }
 
     .items-table-row {
-      display: grid;
-      grid-template-columns: 1fr 85px 80px;
-      padding: 8px 12px;
-      font-size: 11.5px;
-      font-weight: 700;
-      border-bottom: 1px solid #f8fafc;
-      align-items: center;
+      display: grid; grid-template-columns: 1fr 85px 80px; padding: 8px 12px;
+      font-size: 11.5px; font-weight: 700; border-bottom: 1px solid #f8fafc; align-items: center;
     }
     .items-table-row:last-child { border-bottom: none; }
     .items-table-row .col-name { font-weight: 900; color: var(--text-espresso); }
-    
-    .col-qty-fixed {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    .col-qty-fixed { display: flex; justify-content: center; align-items: center; }
     .qty-fixed-pill {
-      font-family: var(--font-en), var(--font-ar);
-      background: #f1f5f9;
-      color: #334155;
-      border: 1px solid #cbd5e1;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-weight: 900;
-      font-size: 11px;
-      min-width: 60px;
-      text-align: center;
+      font-family: var(--font-en), var(--font-ar); background: #f1f5f9; color: #334155;
+      border: 1px solid #cbd5e1; padding: 2px 8px; border-radius: 6px; font-weight: 900;
+      font-size: 11px; min-width: 60px; text-align: center;
     }
-    .items-table-row .col-price {
-      text-align: left;
-      font-family: var(--font-en), var(--font-ar);
-      font-weight: 900;
-      color: var(--brand-red);
-    }
+    .items-table-row .col-price { text-align: left; font-family: var(--font-en), var(--font-ar); font-weight: 900; color: var(--brand-red); }
 
     /* Action Buttons */
     .btn-act {
@@ -305,6 +299,13 @@
     .btn-done-action { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
     .btn-cancel-action { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
     .btn-override-action { background: #1e1b4b; color: #fed7aa; border: 1px solid #6366f1; }
+
+    /* زر الأرشفة الفوري الفاخر */
+    .btn-archive-action {
+      background: linear-gradient(135deg, #475569 0%, #334155 100%);
+      color: #fed7aa;
+      border: 1px solid #64748b;
+    }
 
     /* POS Live Menu Drawer */
     .drawer-backdrop {
@@ -375,6 +376,16 @@
       max-height: 90vh; overflow-y: auto; text-align: right; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1.5px solid #fed7aa;
     }
 
+    /* أزرار أسباب الإلغاء السريعة */
+    .cancel-reason-chip {
+      background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px;
+      padding: 6px 10px; font-size: 11px; font-weight: 800; cursor: pointer;
+      color: var(--text-espresso); transition: all 0.15s ease;
+    }
+    .cancel-reason-chip:hover, .cancel-reason-chip.selected {
+      background: #fee2e2; border-color: #fca5a5; color: #991b1b;
+    }
+
     input, select, textarea {
       width: 100%; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px;
       padding: 9px 12px; font-family: var(--font-ar); font-size: 12px; outline: none;
@@ -416,21 +427,39 @@
         </div>
         <div>
           <div class="brand-title"><span class="name-en">LUFFY</span> • <span>رادار إدارة الطلبات وتتبع السائق</span></div>
-          <div style="font-size:10px; color:var(--text-muted); font-weight:800;">إدارة الحالات الميدانية • العدادات التوأمة • الطباعة الحرارية • العقبة 🇯🇴</div>
+          <div style="font-size:10px; color:var(--text-muted); font-weight:800;">إدارة الحالات الميدانية • الأرشفة الفورية • إلغاء الطلبات • العقبة 🇯🇴</div>
         </div>
       </div>
 
       <div class="header-actions-cluster">
+        <!-- زر أرشفة كافة المنتهي في خطوة واحدة -->
+        <button class="btn-luxury-header btn-header-archive-all" id="btn-batch-archive" style="display:none;" onclick="archiveAllFinishedOrders()">
+          <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+          <span>أرشفة المنتهي (<b id="cnt-finished-batch">0</b>)</span>
+        </button>
+
         <button class="btn-luxury-header btn-header-order" onclick="openDirectMenuModal()">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-          <span>+ إضافة طلب مباشر</span>
+          <span>إضافة طلب مباشر</span>
         </button>
 
         <button class="btn-luxury-header btn-header-refresh" id="btn-master-refresh" onclick="triggerSmartRefresh()">
           <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
-          <span>تحديث ⚡</span>
+          <span>تحديث</span>
         </button>
       </div>
+    </div>
+
+    <!-- 🔔 شريط إشعار وصول طلبات جديدة -->
+    <div class="new-orders-notification-banner" id="new-orders-notification-banner">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <svg class="svg-icon" style="stroke:#fde68a;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span id="new-orders-banner-txt" style="font-size:11.5px; font-weight:800;">يوجد طلبات واردة جديدة بانتظار التأكيد!</span>
+      </div>
+      <button class="btn-reorder-trigger" onclick="applyStagedOrdersAndReorder()">
+        <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+        <span>إعادة الترتيب الذكي الآن</span>
+      </button>
     </div>
 
     <!-- KPIs Row -->
@@ -456,15 +485,15 @@
     <!-- كابتن التوصيل -->
     <div class="driver-coordination-bar">
       <div style="display:flex; align-items:center; gap:6px;">
-        <span style="font-size:14px;">🛵</span>
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
         <span>كابتن السعادة بالوردية: <strong id="assigned-driver-name">كابتن السعادة (محمد)</strong></span>
       </div>
-      <span style="background:#ffffff; color:#065f46; padding:2px 8px; border-radius:9999px; font-size:10px;">جاهز للتوصيل ✓</span>
+      <span style="background:#ffffff; color:#065f46; padding:2px 8px; border-radius:9999px; font-size:10px;">جاهز للتوصيل</span>
     </div>
 
     <!-- شريط تسلسل المسار الجغرافي الذكي -->
     <div class="smart-route-banner" id="smart-route-box">
-      <strong>💡 مقترح خط السير الأسرع لتوصيل طلبات هذه الساعة:</strong>
+      <strong>مقترح خط السير الأسرع لتوصيل طلبات هذه الساعة:</strong>
       <div id="smart-route-sequence-txt" style="margin-top:2px;">جاري حساب أقصر تسلسل جغرافي...</div>
     </div>
 
@@ -481,6 +510,7 @@
         <button class="filter-pill" onclick="applyStageFilter('PREPARING', this)">تحت التحضير (<b id="cnt-prep">0</b>)</button>
         <button class="filter-pill" onclick="applyStageFilter('DISPATCHED', this)">مع السائق (<b id="cnt-disp">0</b>)</button>
         <button class="filter-pill" onclick="applyStageFilter('DELIVERED', this)">تم التسليم (<b id="cnt-deliv">0</b>)</button>
+        <button class="filter-pill" onclick="applyStageFilter('CANCELLED', this)">الملغاة (<b id="cnt-canc">0</b>)</button>
       </div>
     </div>
 
@@ -488,7 +518,37 @@
     <div class="orders-stream" id="orders-stream-container">جاري جلب الطلبات من السحابة...</div>
   </div>
 
-  <!-- 🍦 استوديو الكاشير والمنيو الرقمي للطلب المباشر -->
+  <!-- 🛑 نافذة إلغاء الطلب الملكية مع توثيق السبب بدقة -->
+  <div class="modal-backdrop" id="cancel-reason-modal" onclick="closeCancelModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div style="font-size:15px; font-weight:900; color:#991b1b; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+        <svg class="svg-icon" style="stroke:#991b1b;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        <span id="cancel-modal-title">إلغاء الطلب: #LFY-0000</span>
+      </div>
+      <p style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">حدد سبب الإلغاء للتوثيق الإداري والرقابة:</p>
+
+      <input type="hidden" id="target_cancel_order_id">
+
+      <div style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px;">
+        <span class="cancel-reason-chip selected" onclick="selectCancelChip(this, 'طلب مكرر أو إدخال خاطئ')">طلب مكرر / خطأ</span>
+        <span class="cancel-reason-chip" onclick="selectCancelChip(this, 'العميل اتصل واعتذر عن استلام الطلب')">اعتذار العميل هاتفياً</span>
+        <span class="cancel-reason-chip" onclick="selectCancelChip(this, 'عدم الرد على الهاتف لتأكيد العنوان')">عدم الرد لتأكيد العنوان</span>
+        <span class="cancel-reason-chip" onclick="selectCancelChip(this, 'نفاد أحد الأصناف المطلوبة')">نفاد الصنف من المتجر</span>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="font-size:10.5px; font-weight:800; display:block; margin-bottom:2px;">تفاصيل سبب الإلغاء:</label>
+        <input type="text" id="cancel_reason_input" value="طلب مكرر أو إدخال خاطئ" required>
+      </div>
+
+      <div style="display:flex; gap:6px;">
+        <button type="button" class="btn-act" style="flex:1;" onclick="closeCancelModal()">تراجع</button>
+        <button type="button" class="btn-act btn-cancel-action" style="flex:2; padding:10px;" onclick="confirmCancelOrderWithReason()">تأكيد إلغاء الطلب ✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- استوديو الكاشير والمنيو الرقمي للطلب المباشر -->
   <div class="drawer-backdrop" id="direct-menu-modal" onclick="closeDirectMenuModal()">
     <div class="drawer-surface" onclick="event.stopPropagation()">
       <div class="drawer-header-bar">
@@ -516,8 +576,8 @@
             <div>
               <label style="font-size:11px; font-weight:800; display:block; margin-bottom:2px;">طريقة الاستلام *</label>
               <select id="pos_type" onchange="togglePosDeliveryAddress(this.value)">
-                <option value="DELIVERY">🛵 توصيل لموقع العميل</option>
-                <option value="PICKUP">🛍️ استلام من المحل</option>
+                <option value="DELIVERY">توصيل لموقع العميل</option>
+                <option value="PICKUP">استلام من المتجر</option>
               </select>
             </div>
             <div>
@@ -549,13 +609,13 @@
         </div>
 
         <button class="btn-luxury-header btn-header-order" style="width:100%; padding:13px; font-size:13px;" onclick="commitPosDirectOrder()">
-          <span>تأكيد واعتماد الطلب في الرادار والشيت ⚡</span>
+          <span>تأكيد واعتماد الطلب في الرادار والشيت</span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- 🖨️ نافذة التذكرة الحرارية والطباعة الفورية -->
+  <!-- نافذة التذكرة الحرارية والطباعة الفورية -->
   <div class="modal-backdrop" id="thermal-slip-modal" onclick="closeSlipModal()">
     <div class="modal-card" style="max-width:380px;" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid #f1f0ee;">
@@ -570,7 +630,7 @@
         <div style="border-top:1px dashed #000; margin:6px 0;"></div>
         
         <div style="font-size:17px; font-weight:900;" id="slip-order-id">#LFY-0000</div>
-        <div style="font-size:11px; font-weight:800; margin:2px 0;" id="slip-order-type">[ طلب توصيل خارجي 🛵 ]</div>
+        <div style="font-size:11px; font-weight:800; margin:2px 0;" id="slip-order-type">[ طلب توصيل خارجي ]</div>
         <div style="font-size:12px; font-weight:900; margin:4px 0; color:#000;" id="slip-time-slot">موعد التسليم: فوري</div>
         
         <div style="font-size:9.5px; font-weight:800; margin-top:6px;">[ كود تسليم الطلب لكابتن الأسطول ]</div>
@@ -585,7 +645,7 @@
         <div style="text-align:right; font-size:11px; line-height:1.4;" id="slip-items-summary">...</div>
 
         <div class="gps-hero-box-thermal" id="slip-gps-hero-box" style="display:none;">
-          <span style="font-size:11.5px; font-weight:900; display:block;">★ موقع التوصيل Google Maps ★</span>
+          <span style="font-size:11.5px; font-weight:900; display:block;">موقع التوصيل Google Maps</span>
           <div id="slip-gps-qr-box" style="display:flex; justify-content:center; margin:4px auto; width:115px; height:115px;"></div>
         </div>
         
@@ -601,17 +661,21 @@
       <div style="display:flex; gap:6px; margin-top:8px;">
         <button style="flex:1; border:none; background:#f1f5f9; padding:9px; border-radius:10px; font-weight:800; cursor:pointer;" onclick="closeSlipModal()">إغلاق</button>
         <button class="btn-act btn-confirm-action" style="flex:2; padding:9px;" onclick="triggerThermalPrint()">
-          <span>طباعة التذكرة 🖨️</span>
+          <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          <span>طباعة التذكرة</span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- 👑 نافذة التعديل الإداري الشامل (Diff Engine) -->
+  <!-- نافذة التعديل والتدقيق الإداري الشامل -->
   <div class="modal-backdrop" id="mutation-override-modal" onclick="closeMutationModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
-      <div style="font-size:14.5px; font-weight:900; color:var(--brand-gold); margin-bottom:4px;">👑 التدخل والتعديل الإداري الشامل (Diff Engine)</div>
-      <p style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">تعديل أي بيان وتوثيق الفروقات في السجل التراكمي الدائم:</p>
+      <div style="font-size:14.5px; font-weight:900; color:var(--text-espresso); margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+        <svg class="svg-icon" style="stroke:var(--brand-gold);" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <span>تعديل وتدقيق إداري شامل للطلب</span>
+      </div>
+      <p style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">تعديل بيانات الطلب وتوثيق سبب التدخل في سجل الرقابة الدائم:</p>
 
       <input type="hidden" id="mut_order_id">
 
@@ -630,11 +694,12 @@
         <div>
           <label style="font-size:10.5px; font-weight:800;">حالة الطلب:</label>
           <select id="mut_status">
-            <option value="UNCONFIRMED">⏳ بانتظار التأكيد (UNCONFIRMED)</option>
-            <option value="CONFIRMED">🟢 مؤكد (CONFIRMED)</option>
-            <option value="PREPARING">⚡ تحت التحضير بالمطبخ (PREPARING)</option>
-            <option value="DISPATCHED">🛵 في الطريق مع الكابتن (DISPATCHED)</option>
-            <option value="DELIVERED">✅ تم التسليم بنجاح (DELIVERED)</option>
+            <option value="UNCONFIRMED">بانتظار التأكيد</option>
+            <option value="CONFIRMED">مؤكد</option>
+            <option value="PREPARING">تحت التحضير بالمطبخ</option>
+            <option value="DISPATCHED">في الطريق مع الكابتن</option>
+            <option value="DELIVERED">تم التسليم بنجاح</option>
+            <option value="CANCELLED">ملغي ومسترجع</option>
           </select>
         </div>
         <div>
@@ -660,13 +725,13 @@
       </div>
 
       <div style="margin-bottom:12px;">
-        <label style="font-size:10.5px; font-weight:800; color:var(--brand-red);">سبب التدخل الإداري (إلزامي للتوثيق) *</label>
+        <label style="font-size:10.5px; font-weight:800; color:var(--brand-red);">سبب التدخل والتعديل الإداري (إلزامي للرقابة) *</label>
         <input type="text" id="mut_reason" placeholder="مثال: اتصال العميل لتعديل النكهات أو العنوان..." required>
       </div>
 
       <div style="display:flex; gap:6px;">
         <button type="button" class="btn-act" style="flex:1;" onclick="closeMutationModal()">إلغاء</button>
-        <button type="button" class="btn-act btn-confirm-action" style="flex:2; padding:10px;" onclick="commitOrderMutationDiff()">اعتماد التعديل وتوثيق الـ Diff ⚡</button>
+        <button type="button" class="btn-act btn-confirm-action" style="flex:2; padding:10px;" onclick="commitOrderMutationDiff()">اعتماد التعديل والتوثيق</button>
       </div>
     </div>
   </div>
@@ -682,13 +747,10 @@
     let posSelectedBasket = {};
     let currentFilterStage = "ALL";
     let searchQuery = "";
-    let lastRenderedOrdersFingerprint = "";
 
-    // 🔒 نظام الحماية التفاؤلي ضد التأخر
+    let pendingIncomingOrders = null;
     let optimisticStateLocks = {};
-    // ⏱️ مخزن توقيتات بدء التحضير الدائم في الذاكرة المحلية
     let prepTimersStore = JSON.parse(localStorage.getItem('luffy_prep_timers_dict') || "{}");
-    // ⏳ مخزن التوقيت المستهدف للتسليم
     let targetSlotsStore = JSON.parse(localStorage.getItem('luffy_target_slots_dict') || "{}");
 
     function showToast(msg) {
@@ -719,9 +781,30 @@
       return clean.trim();
     }
 
-    /* 📋 دالة تحليل وتنسيق الأصناف إلى جدول منظم بصفوف مستقلة وأعمدة ثابتة */
+    /* فرز الطلبات حسب الأولوية الرياضية والزمنية */
+    function sortOrdersPriority(list) {
+      return list.slice().sort((a, b) => {
+        const sA = (a.status || a.Status || '').toUpperCase();
+        const sB = (b.status || b.Status || '').toUpperCase();
+
+        const isUnconfA = sA === 'UNCONFIRMED' || sA === 'PENDING';
+        const isUnconfB = sB === 'UNCONFIRMED' || sB === 'PENDING';
+        if (isUnconfA && !isUnconfB) return -1;
+        if (!isUnconfA && isUnconfB) return 1;
+
+        const isEndA = sA === 'DELIVERED' || sA === 'CANCELLED';
+        const isEndB = sB === 'DELIVERED' || sB === 'CANCELLED';
+        if (isEndA && !isEndB) return 1;
+        if (!isEndA && isEndB) return -1;
+
+        const targetA = resolveTargetDeliveryMs(a);
+        const targetB = resolveTargetDeliveryMs(b);
+        return targetA - targetB;
+      });
+    }
+
+    /* 📋 تحليل الأصناف إلى صفوف مستقلة وعامود كمية ثابت بدقة */
     function renderStructuredItemsTable(order) {
-      // 1. إذا توفرت السلة الأصلية مصفوفياً
       if (Array.isArray(order.raw_cart) && order.raw_cart.length > 0) {
         return buildItemsHtmlTable(order.raw_cart.map(i => ({
           name: i.name || i.product_name || i.nameAR || "صنف",
@@ -730,7 +813,6 @@
         })));
       }
 
-      // 2. تحليل النص إذا كان مخزناً كسلسلة نصية
       const rawText = order.items_summary || order.Items_Summary || "";
       if (!rawText) return `<div style="font-size:11px; color:var(--text-muted); padding:6px;">لا توجد تفاصيل أصناف</div>`;
 
@@ -791,11 +873,11 @@
       `;
     }
 
-    /* 1. جلب البيانات */
+    /* 1. جلب البيانات وفحص التغييرات */
     function fetchLiveOrdersData() {
       const cached = localStorage.getItem('luffy_unconfirmed_orders');
-      if (cached) {
-        rawOrdersList = JSON.parse(cached);
+      if (cached && rawOrdersList.length === 0) {
+        rawOrdersList = sortOrdersPriority(JSON.parse(cached));
         updateKpisAndBadges();
         calculateSmartRouteSequence();
         renderOrdersStream();
@@ -805,7 +887,7 @@
       window[cb] = function(res) {
         if (res && res.data) {
           const now = Date.now();
-          const mergedList = res.data.map(serverOrder => {
+          const serverList = res.data.map(serverOrder => {
             const id = serverOrder.order_id || serverOrder.id || serverOrder.Order_ID;
             const lock = optimisticStateLocks[id];
             if (lock && now < lock.expiresAt) {
@@ -815,21 +897,46 @@
             return serverOrder;
           });
 
-          // فحص التغيير: لا نعيد مسح الصفحة إلا إذا تغيرت محتويات البيانات فعلاً لمنع تذبذب العدادات
-          const newFingerprint = JSON.stringify(mergedList);
-          if (newFingerprint !== lastRenderedOrdersFingerprint) {
-            rawOrdersList = mergedList;
-            lastRenderedOrdersFingerprint = newFingerprint;
-            localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
-            updateKpisAndBadges();
-            calculateSmartRouteSequence();
-            renderOrdersStream();
+          const currentIds = rawOrdersList.map(o => o.order_id || o.id || o.Order_ID);
+          const newOrdersFound = serverList.filter(o => !currentIds.includes(o.order_id || o.id || o.Order_ID));
+
+          if (newOrdersFound.length > 0) {
+            pendingIncomingOrders = serverList;
+            const banner = document.getElementById('new-orders-notification-banner');
+            document.getElementById('new-orders-banner-txt').textContent = `يوجد (${newOrdersFound.length}) طلبات واردة جديدة بانتظار التأكيد!`;
+            banner.style.display = 'flex';
+          } else {
+            serverList.forEach(srv => {
+              const id = srv.order_id || srv.id || srv.Order_ID;
+              const local = rawOrdersList.find(o => (o.order_id || o.id || o.Order_ID) === id);
+              if (local) {
+                local.items_summary = srv.items_summary || srv.Items_Summary;
+                local.total_amount = srv.total_amount || srv.total_price;
+              }
+            });
           }
+
+          updateKpisAndBadges();
         }
       };
       const s = document.createElement("script");
       s.src = `${APPS_SCRIPT_EXEC_URL}?action=get_live_orders&callback=${cb}&_ts=${Date.now()}`;
       document.body.appendChild(s);
+    }
+
+    function applyStagedOrdersAndReorder() {
+      if (pendingIncomingOrders) {
+        rawOrdersList = sortOrdersPriority(pendingIncomingOrders);
+        pendingIncomingOrders = null;
+      } else {
+        rawOrdersList = sortOrdersPriority(rawOrdersList);
+      }
+      document.getElementById('new-orders-notification-banner').style.display = 'none';
+      localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+      updateKpisAndBadges();
+      calculateSmartRouteSequence();
+      renderOrdersStream();
+      showToast("تمت إعادة ترتيب الطلبات بانتظام وحسب الأولوية الزمنية ✓");
     }
 
     function fetchMenuCatalogForPos() {
@@ -855,12 +962,11 @@
     function triggerSmartRefresh() {
       const btn = document.getElementById('btn-master-refresh');
       btn.classList.add('refreshing');
-      lastRenderedOrdersFingerprint = ""; // إجبار التحديث اليدوي
       fetchLiveOrdersData();
       fetchMenuCatalogForPos();
       setTimeout(() => {
         btn.classList.remove('refreshing');
-        showToast("تم تحديث الرادار والمنيو بنجاح ⚡");
+        showToast("تم تحديث الرادار والمنيو بنجاح");
       }, 700);
     }
 
@@ -870,6 +976,7 @@
       const prep = rawOrdersList.filter(o => (o.status || o.Status) === 'PREPARING').length;
       const disp = rawOrdersList.filter(o => (o.status || o.Status) === 'DISPATCHED' || (o.status || o.Status) === 'IN_TRANSIT').length;
       const deliv = rawOrdersList.filter(o => (o.status || o.Status) === 'DELIVERED').length;
+      const canc = rawOrdersList.filter(o => (o.status || o.Status) === 'CANCELLED').length;
 
       document.getElementById('kpi-unconfirmed-count').textContent = unconf;
       document.getElementById('kpi-prep-count').textContent = prep;
@@ -882,6 +989,18 @@
       document.getElementById('cnt-prep').textContent = prep;
       document.getElementById('cnt-disp').textContent = disp;
       document.getElementById('cnt-deliv').textContent = deliv;
+      document.getElementById('cnt-canc').textContent = canc;
+
+      // زر الأرشفة الجماعية في الهيدر (يظهر إذا توفرت طلبات مسلّمة أو ملغاة)
+      const finishedCount = deliv + canc;
+      const batchBtn = document.getElementById('btn-batch-archive');
+      const batchCnt = document.getElementById('cnt-finished-batch');
+      if (finishedCount > 0) {
+        batchBtn.style.display = 'inline-flex';
+        batchCnt.textContent = finishedCount;
+      } else {
+        batchBtn.style.display = 'none';
+      }
     }
 
     function calculateSmartRouteSequence() {
@@ -915,7 +1034,7 @@
       banner.style.display = 'block';
       textEl.innerHTML = activeDeliveries.map((o, idx) => `
         <span style="display:inline-block; margin-left:6px;">
-          <b>${idx + 1}.</b> #${o.order_id || o.id || o.Order_ID} (${o.customer_name || o.Customer_Name}) ${idx < activeDeliveries.length - 1 ? '⬅️' : ''}
+          <b>${idx + 1}.</b> #${o.order_id || o.id || o.Order_ID} (${o.customer_name || o.Customer_Name}) ${idx < activeDeliveries.length - 1 ? '←' : ''}
         </span>
       `).join('');
     }
@@ -924,21 +1043,19 @@
       currentFilterStage = stage;
       document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
       btnEl.classList.add('active');
-      lastRenderedOrdersFingerprint = "";
       renderOrdersStream();
     }
 
     function handleSearch(q) {
       searchQuery = q.trim().toLowerCase();
-      lastRenderedOrdersFingerprint = "";
       renderOrdersStream();
     }
 
-    /* ⏱️ المحرك المركزي للعدادات التوأمة (يعمل بدقة ذرية بالثانية دون تصفير) */
+    /* ⏱️ المحرك الزمني بالثانية - أرقام ثابتة العرض تماماً تمنع التقلص والتمدد */
     function updateAllLiveTimers() {
       const now = Date.now();
 
-      // 1. عداد التحضير اللحظي (تصاعدي)
+      // 1. عداد التحضير التصاعدي بالمطبخ
       document.querySelectorAll('.prep-elapsed-digits').forEach(el => {
         const orderId = el.getAttribute('data-order-id');
         const startMs = prepTimersStore[orderId];
@@ -957,7 +1074,7 @@
         }
       });
 
-      // 2. العداد التنازلي لموعد التسليم المستهدف
+      // 2. العداد التنازلي لموعد التسليم
       document.querySelectorAll('.target-countdown-digits').forEach(el => {
         const orderId = el.getAttribute('data-order-id');
         const targetMs = targetSlotsStore[orderId];
@@ -970,20 +1087,20 @@
           const m = String(Math.floor(diffSec / 60)).padStart(2, '0');
           const s = String(diffSec % 60).padStart(2, '0');
           el.textContent = `${m}:${s}`;
+          el.classList.remove('is-overdue-digits');
           if (box) box.className = "timer-tile-box timer-tile-target";
         } else {
-          // متأخر عن الموعد!
           const overdueSec = Math.abs(diffSec);
           const m = String(Math.floor(overdueSec / 60)).padStart(2, '0');
           const s = String(overdueSec % 60).padStart(2, '0');
-          el.textContent = `متأخر بـ -${m}:${s}`;
+          el.textContent = `متأخر (-${m}:${s})`;
+          el.classList.add('is-overdue-digits');
           if (box) box.className = "timer-tile-box timer-tile-target is-overdue";
         }
       });
     }
     setInterval(updateAllLiveTimers, 1000);
 
-    /* حساب وتثبيت موعد التسليم المستهدف */
     function resolveTargetDeliveryMs(order) {
       const id = order.order_id || order.id || order.Order_ID;
       if (targetSlotsStore[id]) return targetSlotsStore[id];
@@ -992,7 +1109,6 @@
       const isPickup = (order.order_type || order.Order_Type) === 'PICKUP';
       let targetMs = Date.now() + (isPickup ? 5 : 20) * 60000;
 
-      // فحص الأوقات الصريحة مثل 16:30
       const timeMatch = slotStr.match(/(\d{1,2}):(\d{2})/);
       if (timeMatch) {
         let h = parseInt(timeMatch[1], 10);
@@ -1001,7 +1117,7 @@
         if (/صباح|am/i.test(slotStr) && h === 12) h = 0;
         const d = new Date();
         d.setHours(h, m, 0, 0);
-        if (d.getTime() < Date.now() - 3600000) d.setDate(d.getDate() + 1); // اليوم التالي
+        if (d.getTime() < Date.now() - 3600000) d.setDate(d.getDate() + 1);
         targetMs = d.getTime();
       } else if (slotStr.includes("5 دقيق") || slotStr.includes("5 دقائق")) {
         targetMs = Date.now() + 5 * 60000;
@@ -1014,7 +1130,7 @@
       return targetMs;
     }
 
-    /* 2. رسم بطاقات الطلبات */
+    /* 2. رسم بطاقات الطلبات مع التمييز الصارم وخيارات الإلغاء والأرشفة */
     function renderOrdersStream() {
       const container = document.getElementById('orders-stream-container');
       container.innerHTML = "";
@@ -1027,6 +1143,7 @@
         else if (currentFilterStage === 'PREPARING') matchStage = (status === 'PREPARING');
         else if (currentFilterStage === 'DISPATCHED') matchStage = (status === 'DISPATCHED' || status === 'IN_TRANSIT');
         else if (currentFilterStage === 'DELIVERED') matchStage = (status === 'DELIVERED');
+        else if (currentFilterStage === 'CANCELLED') matchStage = (status === 'CANCELLED');
 
         const id = (o.order_id || o.id || o.Order_ID || '').toLowerCase();
         const cust = (o.customer_name || o.Customer_Name || '').toLowerCase();
@@ -1051,44 +1168,57 @@
         const isPrep = (status === 'PREPARING');
         const isDisp = (status === 'DISPATCHED' || status === 'IN_TRANSIT');
         const isDeliv = (status === 'DELIVERED');
+        const isCanc = (status === 'CANCELLED');
 
-        let cardClass = isUnconf ? 'status-unconfirmed' : (isConf ? 'status-confirmed' : (isPrep ? 'status-preparing' : (isDisp ? 'status-dispatched' : 'status-delivered')));
+        let cardClass = isUnconf ? 'status-unconfirmed' : (isConf ? 'status-confirmed' : (isPrep ? 'status-preparing' : (isDisp ? 'status-dispatched' : (isDeliv ? 'status-delivered' : 'status-cancelled'))));
         let badgeHtml = '';
-        if (isUnconf) badgeHtml = `<span class="status-pill status-unconfirmed-pill">⏳ بانتظار التأكيد</span>`;
-        else if (isConf) badgeHtml = `<span class="status-pill status-confirmed-pill">🟢 مؤكد</span>`;
-        else if (isPrep) badgeHtml = `<span class="status-pill status-preparing-pill">⚡ تحت التحضير</span>`;
-        else if (isDisp) badgeHtml = `<span class="status-pill status-dispatched-pill">🛵 مع السائق</span>`;
-        else if (isDeliv) badgeHtml = `<span class="status-pill status-delivered-pill">✅ تم التسليم</span>`;
+        if (isUnconf) badgeHtml = `<span class="status-pill status-unconfirmed-pill">بانتظار التأكيد</span>`;
+        else if (isConf) badgeHtml = `<span class="status-pill status-confirmed-pill">مؤكد</span>`;
+        else if (isPrep) badgeHtml = `<span class="status-pill status-preparing-pill">تحت التحضير</span>`;
+        else if (isDisp) badgeHtml = `<span class="status-pill status-dispatched-pill">${isDelivery ? 'مع السائق' : 'جاهز بالمتجر'}</span>`;
+        else if (isDeliv) badgeHtml = `<span class="status-pill status-delivered-pill">تم التسليم بنجاح</span>`;
+        else if (isCanc) badgeHtml = `<span class="status-pill status-cancelled-pill">ملغي (${order.cancel_reason || 'طلب ملغي'})</span>`;
 
+        /* أزرار الإجراءات مع الفصل الصارم: لا إسناد لسائق في طلبات الاستلام، مع إمكانية الإلغاء والأرشفة */
         let actionButtons = '';
         if (isUnconf) {
           actionButtons = `
-            <button class="btn-act btn-confirm-action" style="flex:2;" onclick="setOrderStatus('${id}', 'CONFIRMED')">تأكيد الطلب 🟢</button>
-            <button class="btn-act btn-cancel-action" style="flex:1;" onclick="cancelOrderAction('${id}')">إلغاء 🚫</button>
+            <button class="btn-act btn-confirm-action" style="flex:2;" onclick="setOrderStatus('${id}', 'CONFIRMED')">تأكيد الطلب</button>
+            <button class="btn-act btn-cancel-action" style="flex:1;" onclick="openCancelOrderModal('${id}')">إلغاء الطلب ✕</button>
           `;
         } else if (isConf) {
           actionButtons = `
-            <button class="btn-act btn-prep-action" style="flex:2;" onclick="setOrderStatus('${id}', 'PREPARING')">بدء التحضير بالمطبخ ⚡</button>
-            <button class="btn-act btn-dispatch-action" style="flex:2;" onclick="setOrderStatus('${id}', 'DISPATCHED')">جاهز للتوصيل مع السائق 🛵</button>
+            <button class="btn-act btn-prep-action" style="flex:2;" onclick="setOrderStatus('${id}', 'PREPARING')">بدء التحضير بالمطبخ</button>
+            ${isDelivery 
+              ? `<button class="btn-act btn-dispatch-action" style="flex:2;" onclick="setOrderStatus('${id}', 'DISPATCHED')">جاهز للتوصيل مع السائق</button>` 
+              : `<button class="btn-act btn-dispatch-action" style="flex:2; background:#f59e0b;" onclick="setOrderStatus('${id}', 'DISPATCHED')">جاهز للاستلام بالمتجر</button>`
+            }
+            <button class="btn-act btn-cancel-action" style="flex:1;" onclick="openCancelOrderModal('${id}')">إلغاء ✕</button>
           `;
         } else if (isPrep) {
-          actionButtons = `
-            <button class="btn-act btn-dispatch-action" style="flex:2;" onclick="setOrderStatus('${id}', 'DISPATCHED')">جاهز - إسناد للسائق 🛵</button>
-          `;
+          actionButtons = isDelivery
+            ? `<button class="btn-act btn-dispatch-action" style="flex:2;" onclick="setOrderStatus('${id}', 'DISPATCHED')">جاهز - إسناد للسائق</button><button class="btn-act btn-cancel-action" style="flex:1;" onclick="openCancelOrderModal('${id}')">إلغاء ✕</button>`
+            : `<button class="btn-act btn-dispatch-action" style="flex:2; background:#f59e0b;" onclick="setOrderStatus('${id}', 'DISPATCHED')">جاهز للاستلام بالمتجر</button><button class="btn-act btn-cancel-action" style="flex:1;" onclick="openCancelOrderModal('${id}')">إلغاء ✕</button>`;
         } else if (isDisp) {
+          actionButtons = isDelivery
+            ? `<button class="btn-act btn-done-action" style="width:100%;" onclick="setOrderStatus('${id}', 'DELIVERED')">تم تسليم الزبون للعنوان واستلام المبلغ</button>`
+            : `<button class="btn-act btn-done-action" style="width:100%;" onclick="setOrderStatus('${id}', 'DELIVERED')">تم تسليم الزبون الحاضر بالمتجر واستلام المبلغ</button>`;
+        } else if (isDeliv || isCanc) {
+          // 🌟 زر الأرشفة الفوري للطلبات المنتهية دون انتظار نهاية اليوم
           actionButtons = `
-            <button class="btn-act btn-done-action" style="width:100%;" onclick="setOrderStatus('${id}', 'DELIVERED')">تم تسليم الزبون بنجاح واستلام المبلغ ✓</button>
+            <button class="btn-act btn-archive-action" style="width:100%; padding:9px; font-size:11.5px;" onclick="archiveSingleOrder('${id}')">
+              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+              <span>نقل هذا الطلب للأرشيف فوراً وإزالته من الشاشة 📁</span>
+            </button>
           `;
         }
 
-        // تسجيل توقيت التحضير إن وجد
         if (isPrep && !prepTimersStore[id]) {
           const rawStart = order.prep_started_at || order.Prep_Started_At;
           prepTimersStore[id] = rawStart ? new Date(rawStart).getTime() : Date.now();
           localStorage.setItem('luffy_prep_timers_dict', JSON.stringify(prepTimersStore));
         }
 
-        // احتساب التوقيت الأولي المباشر لمنع أي ظهور لـ 00:00
         const now = Date.now();
         let initialPrepVal = "--:--";
         if (isPrep && prepTimersStore[id]) {
@@ -1096,7 +1226,6 @@
           initialPrepVal = `${String(Math.floor(diffP / 60)).padStart(2,'0')}:${String(diffP % 60).padStart(2,'0')}`;
         }
 
-        // توقيت التسليم المستهدف
         const targetMs = resolveTargetDeliveryMs(order);
         const diffTarget = Math.floor((targetMs - now) / 1000);
         let initialTargetVal = "--:--";
@@ -1109,7 +1238,7 @@
           initialTargetVal = `متأخر (-${String(Math.floor(od / 60)).padStart(2,'0')}:${String(od % 60).padStart(2,'0')})`;
         }
 
-        const deliverySlotText = order.time_slot || order.Time_Slot || 'فوري (خلال 20 دقيقة)';
+        const deliverySlotText = order.time_slot || order.Time_Slot || (isDelivery ? 'فوري (خلال 20 دقيقة)' : 'فوري (خلال 5 دقائق)');
         const card = document.createElement('div');
         card.className = `order-card-box ${cardClass}`;
 
@@ -1118,8 +1247,14 @@
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="font-family:var(--font-en); font-weight:900; color:var(--brand-red); font-size:14px;">#${id}</span>
-              <span style="font-size:10px; font-weight:800; background:${isDelivery ? '#eff6ff' : '#fef3c7'}; color:${isDelivery ? '#1e40af' : '#92400e'}; padding:2px 7px; border-radius:6px;">
-                ${isDelivery ? 'توصيل خارجي 🛵' : 'استلام من المحل 🛍️'}
+              <span style="font-size:10px; font-weight:800; background:${isDelivery ? '#eff6ff' : '#fef3c7'}; color:${isDelivery ? '#1e40af' : '#92400e'}; padding:2px 8px; border-radius:6px; display:inline-flex; align-items:center; gap:3px;">
+                <svg class="svg-icon" style="width:12px; height:12px;" viewBox="0 0 24 24">
+                  ${isDelivery 
+                    ? '<circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon>' 
+                    : '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line>'
+                  }
+                </svg>
+                <span>${isDelivery ? 'توصيل إلى الموقع' : 'استلام مباشر من المتجر'}</span>
               </span>
               ${badgeHtml}
             </div>
@@ -1128,55 +1263,85 @@
             </span>
           </div>
 
-          <!-- لافتة موعد التسليم المطلوب البارزة -->
+          <!-- لافتة موعد التسليم البارزة جداً -->
           <div class="delivery-prominent-strip ${isDelivery ? 'type-deliv' : 'type-pick'}">
             <div class="delivery-main-row">
-              <span>${isDelivery ? '🛵 موعد وصول السائق للعميل:' : '🛍️ موعد الاستلام بالمحل:'}</span>
+              <span>${isDelivery ? 'موعد وصول السائق للعميل:' : 'موعد الجاهزية للاستلام بالمتجر:'}</span>
               <span style="font-size:13.5px; text-decoration: underline;">${deliverySlotText}</span>
             </div>
             <div class="delivery-sub-row">
               <span>تم استلام الطلب: <b>${order.created_at || 'اليوم'}</b></span>
               ${order.confirmed_at ? `<span>توقيت التأكيد: <b>${order.confirmed_at}</b></span>` : ''}
+              ${order.cancelled_at ? `<span style="color:#991b1b;">توقيت الإلغاء: <b>${order.cancelled_at}</b></span>` : ''}
             </div>
           </div>
 
-          <!-- ⏱️ العدادان التوأمان (التنازلي للتسليم + وقت التحضير الفعلي) -->
-          <div class="dual-timers-grid">
-            <div class="timer-tile-box timer-tile-target ${isOverdueInit ? 'is-overdue' : ''}">
-              <div class="timer-tile-header">
-                <span>⏳ موعد التسليم:</span>
-                <span style="font-size:8.5px; opacity:0.8;">تنازلي</span>
+          <!-- ⏱️ العدادان التوأمان (يظهران في الحالات النشطة فقط) -->
+          ${(!isDeliv && !isCanc) ? `
+            <div class="dual-timers-grid">
+              <div class="timer-tile-box timer-tile-target ${isOverdueInit ? 'is-overdue' : ''}">
+                <div class="timer-tile-header">
+                  <span style="display:flex; align-items:center; gap:3px;">
+                    <svg class="svg-icon" style="width:12px; height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>موعد التسليم:</span>
+                  </span>
+                  <span style="font-size:8.5px; opacity:0.8;">تنازلي</span>
+                </div>
+                <div class="timer-digits-fixed target-countdown-digits ${isOverdueInit ? 'is-overdue-digits' : ''}" data-order-id="${id}">${initialTargetVal}</div>
               </div>
-              <div class="timer-tile-digits target-countdown-digits" data-order-id="${id}">${initialTargetVal}</div>
-            </div>
 
-            <div class="timer-tile-box timer-tile-prep">
-              <div class="timer-tile-header">
-                <span>⏱️ التحضير بالمطبخ:</span>
-                <span style="font-size:8.5px; opacity:0.8;">تصاعدي</span>
+              <div class="timer-tile-box timer-tile-prep">
+                <div class="timer-tile-header">
+                  <span style="display:flex; align-items:center; gap:3px;">
+                    <svg class="svg-icon" style="width:12px; height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="6" x2="12" y2="12"></line><line x1="12" y1="12" x2="15" y2="15"></line></svg>
+                    <span>التحضير بالمطبخ:</span>
+                  </span>
+                  <span style="font-size:8.5px; opacity:0.8;">تصاعدي</span>
+                </div>
+                <div class="timer-digits-fixed prep-elapsed-digits" data-order-id="${id}">${initialPrepVal}</div>
               </div>
-              <div class="timer-tile-digits prep-elapsed-digits" data-order-id="${id}">${initialPrepVal}</div>
             </div>
-          </div>
+          ` : ''}
 
           <!-- بيانات العميل -->
           <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; font-weight:800;">
-            <span>👤 العميل: ${order.customer_name || order.Customer_Name}</span>
-            <span>📞 ${order.phone_number || order.phone || order.Phone_Number}</span>
+            <span>العميل: ${order.customer_name || order.Customer_Name}</span>
+            <span dir="ltr">${order.phone_number || order.phone || order.Phone_Number}</span>
           </div>
 
-          <!-- 📋 جدول الأصناف المنظم في صفوف وأعمدة ثابتة وغير معجوق إطلاقاً -->
+          <!-- 📋 جدول الأصناف والكميات المنظم في صفوف ثابتة -->
           ${renderStructuredItemsTable(order)}
 
           ${(order.address_details || order.address) ? `<div style="font-size:11px; color:var(--text-muted);">العنوان: ${order.address_details || order.address}</div>` : ''}
 
           <!-- أزرار الإجراءات السريعة -->
           <div style="display:flex; gap:5px; margin-top:2px; flex-wrap:wrap;">
-            <a href="tel:${order.phone_number || order.phone}" class="btn-act" style="background:#f1f5f9;">📞 اتصال</a>
-            <a href="https://api.whatsapp.com/send?phone=${order.phone_number || order.phone}" target="_blank" class="btn-act" style="background:#f0fdf4; color:#166534; border:1px solid #bbf7d0;">💬 واتساب</a>
-            ${order.gps_url ? `<a href="${order.gps_url}" target="_blank" class="btn-act" style="background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe;">📍 ملاحة GPS</a>` : ''}
-            <button class="btn-act" onclick='openSlipModal(${JSON.stringify(order)})'>🖨️ تذكرة حرارية</button>
-            <button class="btn-act btn-override-action" onclick='openMutationModal(${JSON.stringify(order)})'>👑 تعديل شامل (Diff)</button>
+            <a href="tel:${order.phone_number || order.phone}" class="btn-act" style="background:#f1f5f9;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>اتصال</span>
+            </a>
+
+            <a href="https://api.whatsapp.com/send?phone=${order.phone_number || order.phone}" target="_blank" class="btn-act" style="background:#f0fdf4; color:#166534; border:1px solid #bbf7d0;">
+              <svg class="svg-icon" style="stroke:#166534;" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              <span>واتساب</span>
+            </a>
+
+            ${isDelivery && order.gps_url ? `
+              <a href="${order.gps_url}" target="_blank" class="btn-act" style="background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe;">
+                <svg class="svg-icon" style="stroke:#1e40af;" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>ملاحة GPS</span>
+              </a>
+            ` : ''}
+
+            <button class="btn-act" onclick='openSlipModal(${JSON.stringify(order)})'>
+              <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>تذكرة حرارية</span>
+            </button>
+
+            <button class="btn-act btn-override-action" onclick='openMutationModal(${JSON.stringify(order)})'>
+              <svg class="svg-icon" style="stroke:#fed7aa;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>تعديل وتدقيق إداري</span>
+            </button>
           </div>
 
           ${actionButtons ? `<div style="display:flex; gap:6px; margin-top:4px;">${actionButtons}</div>` : ''}
@@ -1212,9 +1377,8 @@
       localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
       updateKpisAndBadges();
       calculateSmartRouteSequence();
-      lastRenderedOrdersFingerprint = ""; // إجبار تحديث العرض فوراً
       renderOrdersStream();
-      showToast(`✓ تم تحديث الطلب #${id} فوراً إلى: ${newStatus}`);
+      showToast(`تم تحديث الطلب #${id} إلى: ${newStatus}`);
 
       if (newStatus === 'PREPARING' || newStatus === 'DISPATCHED') {
         generateThermalSlip(order, false);
@@ -1227,20 +1391,131 @@
       document.body.appendChild(s);
     }
 
-    function cancelOrderAction(id) {
-      if (!confirm(`هل ترغب فعلاً بإلغاء الطلب #${id}؟`)) return;
-      rawOrdersList = rawOrdersList.filter(o => (o.order_id || o.id || o.Order_ID) !== id);
-      delete prepTimersStore[id];
-      delete targetSlotsStore[id];
-      delete optimisticStateLocks[id];
+    /* 🛑 استوديو إلغاء الطلب الملكي مع توثيق السبب */
+    function openCancelOrderModal(orderId) {
+      document.getElementById('target_cancel_order_id').value = orderId;
+      document.getElementById('cancel-modal-title').textContent = `إلغاء الطلب: #${orderId}`;
+      document.getElementById('cancel_reason_input').value = 'طلب مكرر أو إدخال خاطئ';
+      
+      document.querySelectorAll('.cancel-reason-chip').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('.cancel-reason-chip')[0].classList.add('selected');
+      
+      document.getElementById('cancel-reason-modal').classList.add('open');
+    }
+
+    function closeCancelModal() {
+      document.getElementById('cancel-reason-modal').classList.remove('open');
+    }
+
+    function selectCancelChip(chipEl, reasonText) {
+      document.querySelectorAll('.cancel-reason-chip').forEach(c => c.classList.remove('selected'));
+      chipEl.classList.add('selected');
+      document.getElementById('cancel_reason_input').value = reasonText;
+    }
+
+    function confirmCancelOrderWithReason() {
+      const id = document.getElementById('target_cancel_order_id').value;
+      const reason = document.getElementById('cancel_reason_input').value.trim() || 'طلب ملغي';
+      const order = rawOrdersList.find(o => (o.order_id || o.id || o.Order_ID) === id);
+
+      if (order) {
+        const nowFormatted = new Date().toLocaleTimeString('ar-JO', { hour: '2-digit', minute: '2-digit' });
+        order.status = 'CANCELLED';
+        order.Status = 'CANCELLED';
+        order.cancelled_at = nowFormatted;
+        order.cancel_reason = reason;
+
+        delete prepTimersStore[id];
+        delete targetSlotsStore[id];
+        optimisticStateLocks[id] = { status: 'CANCELLED', expiresAt: Date.now() + 12000 };
+
+        localStorage.setItem('luffy_prep_timers_dict', JSON.stringify(prepTimersStore));
+        localStorage.setItem('luffy_target_slots_dict', JSON.stringify(targetSlotsStore));
+        localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+
+        updateKpisAndBadges();
+        calculateSmartRouteSequence();
+        renderOrdersStream();
+        closeCancelModal();
+        showToast(`تم إلغاء الطلب #${id} بنجاح ✓`);
+
+        // إرسال التحديث للخادم السحابي مع سبب الإلغاء
+        const s = document.createElement("script");
+        s.src = `${APPS_SCRIPT_EXEC_URL}?action=update_order_status&data=${encodeURIComponent(JSON.stringify({ order_id: id, new_status: 'CANCELLED', cancel_reason: reason }))}&_ts=${Date.now()}`;
+        s.onload = () => s.remove();
+        s.onerror = () => s.remove();
+        document.body.appendChild(s);
+      }
+    }
+
+    /* 📁 محرك الأرشفة الفوري الفردي والجماعي دون انتظار نهاية اليوم */
+    function archiveSingleOrder(orderId) {
+      const order = rawOrdersList.find(o => (o.order_id || o.id || o.Order_ID) === orderId);
+      if (!order) return;
+
+      if (!confirm(`هل أنت متأكد من ترحيل الطلب #${orderId} إلى الأرشيف الدائم وإزالته من الشاشة الحية؟`)) return;
+
+      showToast(`جاري ترحيل الطلب #${orderId} للأرشيف...`);
+
+      // 1. الحذف المحلي وتحديث الواجهة بلحظتها
+      rawOrdersList = rawOrdersList.filter(o => (o.order_id || o.id || o.Order_ID) !== orderId);
+      delete prepTimersStore[orderId];
+      delete targetSlotsStore[orderId];
+      delete optimisticStateLocks[orderId];
+
       localStorage.setItem('luffy_prep_timers_dict', JSON.stringify(prepTimersStore));
       localStorage.setItem('luffy_target_slots_dict', JSON.stringify(targetSlotsStore));
       localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+
       updateKpisAndBadges();
       calculateSmartRouteSequence();
-      lastRenderedOrdersFingerprint = "";
       renderOrdersStream();
-      showToast(`تم إلغاء الطلب #${id}`);
+      showToast(`✓ تم ترحيل الطلب #${orderId} للأرشيف الدائم وإخلاؤه من الشاشة بنجاح`);
+
+      // 2. إرسال أمر الأرشفة الفوري إلى Google Apps Script
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?auth_pass=${encodeURIComponent(MASTER_PASSPHRASE)}&action=archive_order_instant&order_id=${encodeURIComponent(orderId)}&data=${encodeURIComponent(JSON.stringify(order))}&_ts=${Date.now()}`;
+      s.onload = () => s.remove();
+      s.onerror = () => s.remove();
+      document.body.appendChild(s);
+    }
+
+    function archiveAllFinishedOrders() {
+      const finishedOrders = rawOrdersList.filter(o => {
+        const s = (o.status || o.Status || '').toUpperCase();
+        return s === 'DELIVERED' || s === 'CANCELLED';
+      });
+
+      if (finishedOrders.length === 0) return;
+
+      if (!confirm(`هل ترغب بترحيل كافة الطلبات المنتهية والملغاة (${finishedOrders.length} طلب) إلى الأرشيف الدائم دفعة واحدة؟`)) return;
+
+      showToast(`جاري ترحيل (${finishedOrders.length}) طلب للأرشيف...`);
+
+      const finishedIds = finishedOrders.map(o => o.order_id || o.id || o.Order_ID);
+      rawOrdersList = rawOrdersList.filter(o => !finishedIds.includes(o.order_id || o.id || o.Order_ID));
+
+      finishedIds.forEach(id => {
+        delete prepTimersStore[id];
+        delete targetSlotsStore[id];
+        delete optimisticStateLocks[id];
+      });
+
+      localStorage.setItem('luffy_prep_timers_dict', JSON.stringify(prepTimersStore));
+      localStorage.setItem('luffy_target_slots_dict', JSON.stringify(targetSlotsStore));
+      localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
+
+      updateKpisAndBadges();
+      calculateSmartRouteSequence();
+      renderOrdersStream();
+      showToast(`✓ تم تفريغ وأرشفة (${finishedOrders.length}) طلب من الشاشة الحية بنجاح`);
+
+      // إرسال أمر الأرشفة الجماعية للسيرفر
+      const s = document.createElement("script");
+      s.src = `${APPS_SCRIPT_EXEC_URL}?auth_pass=${encodeURIComponent(MASTER_PASSPHRASE)}&action=archive_batch_finished&data=${encodeURIComponent(JSON.stringify(finishedOrders))}&_ts=${Date.now()}`;
+      s.onload = () => s.remove();
+      s.onerror = () => s.remove();
+      document.body.appendChild(s);
     }
 
     /* 3. استوديو المنيو الرقمي المباشر */
@@ -1341,9 +1616,9 @@
 
       const items = Object.values(posSelectedBasket);
 
-      if (!name) { alert("⚠️ يرجى إدخال اسم العميل"); return; }
-      if (!phone || phone.length < 9) { alert("⚠️ يرجى إدخال رقم هاتف أردني صحيح"); return; }
-      if (items.length === 0) { alert("⚠️ يرجى اختيار صنف واحد على الأقل من القائمة"); return; }
+      if (!name) { alert("يرجى إدخال اسم العميل"); return; }
+      if (!phone || phone.length < 9) { alert("يرجى إدخال رقم هاتف أردني صحيح"); return; }
+      if (items.length === 0) { alert("يرجى اختيار صنف واحد على الأقل من القائمة"); return; }
 
       const totalQty = items.reduce((s, i) => s + i.qty, 0);
       const grandTotal = items.reduce((s, i) => s + (i.qty * i.price), 0);
@@ -1359,7 +1634,7 @@
         phone_number: phone,
         order_type: type,
         status: "CONFIRMED",
-        time_slot: timeSlot || "فوري (خلال 20 دقيقة)",
+        time_slot: timeSlot || (type === 'DELIVERY' ? "فوري (خلال 20 دقيقة)" : "فوري (خلال 5 دقائق)"),
         items_summary: itemsSummary,
         raw_cart: items.map(i => ({ name: i.name, qty: i.qty, price: i.price, subtotal: i.qty * i.price })),
         total_amount: `${grandTotal.toFixed(2)} د.أ`,
@@ -1368,17 +1643,15 @@
         confirmed_at: nowFormatted
       };
 
-      // حفظ وحساب الموعد المستهدف
       resolveTargetDeliveryMs(newOrder);
 
       rawOrdersList.unshift(newOrder);
       localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
       updateKpisAndBadges();
       calculateSmartRouteSequence();
-      lastRenderedOrdersFingerprint = "";
       renderOrdersStream();
       closeDirectMenuModal();
-      showToast(`🎉 تم إدراج الطلب #${newOrder.order_id} عبر المنيو بنجاح!`);
+      showToast(`تم إدراج الطلب #${newOrder.order_id} بنجاح`);
 
       const s = document.createElement("script");
       s.src = `${APPS_SCRIPT_EXEC_URL}?action=create_order&data=${encodeURIComponent(JSON.stringify(newOrder))}&_ts=${Date.now()}`;
@@ -1398,7 +1671,7 @@
       const isDelivery = (order.order_type || order.Order_Type) === 'DELIVERY';
 
       document.getElementById('slip-order-id').textContent = `#${id}`;
-      document.getElementById('slip-order-type').textContent = isDelivery ? "[ طلب توصيل خارجي 🛵 ]" : "[ طلب استلام مباشر بالمحل 🛍️ ]";
+      document.getElementById('slip-order-type').textContent = isDelivery ? "[ طلب توصيل خارجي ]" : "[ طلب استلام مباشر بالمحل ]";
       document.getElementById('slip-time-slot').textContent = `موعد التسليم: ${order.time_slot || order.Time_Slot || 'فوري'}`;
       document.getElementById('slip-customer-name').textContent = `العميل: ${safeCust} (${order.phone_number || order.phone || order.Phone_Number})`;
       document.getElementById('slip-address-info').textContent = `العنوان: ${order.address_details || order.address || 'العقبة'}`;
@@ -1448,7 +1721,7 @@
       }, 300);
     }
 
-    /* 5. محرك التدخل والتعديل الشامل */
+    /* 5. محرك التدخل والتدقيق الإداري الشامل */
     function openMutationModal(order) {
       document.getElementById('mut_order_id').value = order.order_id || order.id || order.Order_ID;
       document.getElementById('mut_cust_name').value = order.customer_name || order.Customer_Name || '';
@@ -1467,7 +1740,7 @@
     function commitOrderMutationDiff() {
       const reason = document.getElementById('mut_reason').value.trim();
       if (!reason) {
-        showToast("⚠️ يرجى تدوين سبب التعديل للرقابة الإدارية");
+        showToast("يرجى تدوين سبب التعديل للرقابة الإدارية");
         return;
       }
 
@@ -1490,17 +1763,15 @@
         order.total_amount = document.getElementById('mut_total_price').value.trim();
         order.total_price = order.total_amount;
 
-        // إعادة حساب الموعد بعد التعديل
         delete targetSlotsStore[id];
         resolveTargetDeliveryMs(order);
 
         localStorage.setItem('luffy_unconfirmed_orders', JSON.stringify(rawOrdersList));
         updateKpisAndBadges();
         calculateSmartRouteSequence();
-        lastRenderedOrdersFingerprint = "";
         renderOrdersStream();
         closeMutationModal();
-        showToast(`تم توثيق التعديل الإداري للطلب #${id} بنجاح ✓`);
+        showToast(`تم توثيق التعديل الإداري للطلب #${id} بنجاح`);
 
         const mutPayload = {
           order_id: id,
@@ -1511,7 +1782,7 @@
           items_summary: order.items_summary,
           total_amount: order.total_amount,
           address_details: order.address_details,
-          diff_summary: `تعديل إداري للطلب #${id}`,
+          diff_summary: `تدقيق وتعديل إداري للطلب #${id}`,
           reason: reason
         };
 
