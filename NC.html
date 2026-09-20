@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مختبر إلغاء الترددات المتكررة</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #121212; color: #fff; text-align: center; padding: 20px; }
+        .card { background: #1e1e1e; border-radius: 12px; padding: 20px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        button { background: #007bff; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; margin: 10px; }
+        button.active { background: #dc3545; }
+        .slider-group { margin: 20px 0; text-align: right; }
+        label { display: block; margin-bottom: 5px; font-size: 14px; color: #bbb; }
+        input[type=range] { width: 100%; }
+        .info { font-size: 18px; color: #28a745; margin: 15px 0; font-weight: bold; }
+        canvas { width: 100%; height: 100px; background: #000; border-radius: 6px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>مختبر كسر التردد شبه المتكرر</h2>
+    <p style="font-size: 13px; color: #aaa;">يهدف هذا الاختبار لرصد النغمة الأكثر تكراراً في ضجيج المكيف وتوليد تردد معاكس لها.</p>
+    
+    <button id="toggleBtn">بدء التحليل والاستماع</button>
+    <div class="info" id="detectedFreq">التردد المرصود: -- هرتز</div>
+    
+    <canvas id="visualizer"></canvas>
+
+    <div class="slider-group">
+        <label>التردد المضاد (هرتز): <span id="freqVal">120</span></label>
+        <input type="range" id="freqSlider" min="40" max="500" value="120">
+    </div>
+
+    <div class="slider-group">
+        <label>شدة الصوت المعاكس:</label>
+        <input type="range" id="gainSlider" min="0" max="1" step="0.01" value="0">
+    </div>
+
+    <div class="slider-group">
+        <label>إزاحة الطور (Phase Inversion Balance):</label>
+        <input type="range" id="phaseSlider" min="-1" max="1" step="0.05" value="-1">
+    </div>
+</div>
+
+<script>
+    let audioCtx, analyser, micStream, osc, gainNode, phaseGain;
+    let isRunning = false;
+
+    const toggleBtn = document.getElementById('toggleBtn');
+    const detectedFreqText = document.getElementById('detectedFreq');
+    const freqSlider = document.getElementById('freqSlider');
+    const gainSlider = document.getElementById('gainSlider');
+    const phaseSlider = document.getElementById('phaseSlider');
+    const canvas = document.getElementById('visualizer');
+    const canvasCtx = canvas.getContext('2d');
+
+    toggleBtn.addEventListener('click', async () => {
+        if (!isRunning) {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // طلب لاقط الصوت
+                micStream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } 
+                });
+
+                const micSource = audioCtx.createMediaStreamSource(micStream);
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 2048;
+                micSource.connect(analyser);
+
+                // مولد الموجة المضادة
+                osc = audioCtx.createOscillator();
+                osc.type = 'sine'; // موجة جيبية نقية للنغمة المتكررة
+                osc.frequency.value = freqSlider.value;
+
+                phaseGain = audioCtx.createGain();
+                phaseGain.gain.value = phaseSlider.value; // عكس الطور الافتراضي (-1)
+
+                gainNode = audioCtx.createGain();
+                gainNode.gain.value = gainSlider.value;
+
+                osc.connect(phaseGain);
+                phaseGain.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                osc.start();
+
+                isRunning = true;
+                toggleBtn.textContent = "إيقاف التجربة";
+                toggleBtn.classList.add('active');
+
+                analyzeAudio();
+            } catch (err) {
+                alert("يرجى فتح الصفحة عبر HTTPS للسماح بالمايك: " + err.message);
+            }
+        } else {
+            if (audioCtx) audioCtx.close();
+            isRunning = false;
+            toggleBtn.textContent = "بدء التحليل والاستماع";
+            toggleBtn.classList.remove('active');
+        }
+    });
+
+    // رصد أقوى تردد متكرر
+    function analyzeAudio() {
+        if (!isRunning) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteFrequencyData(dataArray);
+
+        let maxVal = -Infinity;
+        let maxIndex = -1;
+
+        // البحث في نطاق الترددات المنخفضة (40Hz - 400Hz) حيث تتركز أصوات المحركات والمراوح
+        const lowLimit = Math.floor(40 / (audioCtx.sampleRate / analyser.fftSize));
+        const highLimit = Math.floor(400 / (audioCtx.sampleRate / analyser.fftSize));
+
+        for (let i = lowLimit; i < highLimit; i++) {
+            if (dataArray[i] > maxVal) {
+                maxVal = dataArray[i];
+                maxIndex = i;
+            }
+        }
+
+        if (maxVal > 100) { // تم رصد نغمة قوية
+            const dominantFrequency = Math.round(maxIndex * audioCtx.sampleRate / analyser.fftSize);
+            detectedFreqText.textContent = `التردد المرصود: ${dominantFrequency} هرتز`;
+        }
+
+        // رسم الطيف
+        canvasCtx.fillStyle = '#000';
+        canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+        canvasCtx.fillStyle = '#00ffcc';
+        for (let i = 0; i < bufferLength; i += 8) {
+            const barHeight = dataArray[i] / 4;
+            canvasCtx.fillRect(i / 2, canvas.height - barHeight, 2, barHeight);
+        }
+
+        requestAnimationFrame(analyzeAudio);
+    }
+
+    // التحكم اليدوي
+    freqSlider.addEventListener('input', (e) => {
+        document.getElementById('freqVal').textContent = e.target.value;
+        if (osc) osc.frequency.value = e.target.value;
+    });
+
+    gainSlider.addEventListener('input', (e) => {
+        if (gainNode) gainNode.gain.value = e.target.value;
+    });
+
+    phaseSlider.addEventListener('input', (e) => {
+        if (phaseGain) phaseGain.gain.value = e.target.value;
+    });
+</script>
+
+</body>
+</html>
