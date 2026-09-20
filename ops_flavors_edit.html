@@ -44,18 +44,18 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: clamp(8px, 1.5vh, 16px) clamp(6px, 1.5vw, 12px) 90px;
+      padding: clamp(6px, 1.5vh, 16px) clamp(6px, 1.5vw, 14px) 90px;
       overflow-x: hidden;
     }
 
     .master-wrapper {
       width: 100%;
-      max-width: 900px;
+      max-width: 980px;
       background: var(--surface-glass);
       backdrop-filter: blur(25px);
       border: 1.5px solid #ffffff;
-      border-radius: 28px;
-      padding: clamp(12px, 2vh, 18px) clamp(10px, 2vw, 16px);
+      border-radius: clamp(18px, 3vw, 28px);
+      padding: clamp(12px, 2vh, 20px) clamp(10px, 2vw, 18px);
       box-shadow: var(--shadow-luxury);
       display: flex;
       flex-direction: column;
@@ -67,7 +67,7 @@
       stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; flex-shrink: 0;
     }
 
-    /* Header */
+    /* Top Bar المتجاوب */
     .top-header-cluster {
       display: flex;
       justify-content: space-between;
@@ -80,10 +80,10 @@
     }
 
     .brand-cluster { display: flex; align-items: center; gap: 8px; min-width: max-content; }
-    .straw-hat-badge { width: 38px; height: 38px; position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .straw-hat-badge { width: 36px; height: 36px; position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .hat-glow { position: absolute; width: 140%; height: 140%; border-radius: 50%; background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%); filter: blur(8px); }
     .straw-hat-svg { width: 100%; height: 100%; position: relative; z-index: 2; }
-    .brand-title { font-size: clamp(14px, 1.8vw, 16.5px); font-weight: 900; }
+    .brand-title { font-size: clamp(13.5px, 1.8vw, 16.5px); font-weight: 900; }
     .name-en { font-family: var(--font-en); background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
     .btn-header-refresh {
@@ -91,9 +91,9 @@
       color: var(--text-espresso);
       border: 1.5px solid #fed7aa;
       border-radius: 9999px;
-      padding: 7px 14px;
+      padding: clamp(5px, 0.9vh, 7px) clamp(10px, 1.5vw, 14px);
       font-family: var(--font-ar);
-      font-size: 11.5px;
+      font-size: clamp(10.5px, 1.1vw, 11.5px);
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
@@ -101,16 +101,17 @@
       gap: 5px;
       transition: all 0.2s ease;
       box-shadow: var(--shadow-card);
+      white-space: nowrap;
     }
     .btn-header-refresh:active { transform: scale(0.94); }
     .btn-header-refresh.refreshing .svg-icon { animation: spin 0.8s infinite linear; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    /* KPIs Row */
+    /* KPIs Grid */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 7px;
+      gap: 6px;
       margin-bottom: 12px;
     }
     @media (min-width: 650px) { .kpi-grid { grid-template-columns: repeat(4, 1fr); } }
@@ -119,14 +120,14 @@
       background: #ffffff;
       border: 1.5px solid #f1f0ee;
       border-radius: 16px;
-      padding: 9px 12px;
+      padding: 8px 10px;
       display: flex;
       flex-direction: column;
       gap: 2px;
       box-shadow: var(--shadow-card);
     }
-    .kpi-title { font-size: 10.5px; font-weight: 800; color: var(--text-muted); }
-    .kpi-digits { font-family: var(--font-en); font-size: 19px; font-weight: 900; color: var(--text-espresso); }
+    .kpi-title { font-size: 10px; font-weight: 800; color: var(--text-muted); }
+    .kpi-digits { font-family: var(--font-en); font-size: clamp(16px, 2.2vw, 19px); font-weight: 900; color: var(--text-espresso); }
 
     /* Controls Panel */
     .controls-panel {
@@ -140,9 +141,9 @@
       background: #ffffff;
       border: 1.5px solid var(--border-glass);
       border-radius: 14px;
-      padding: 10px 14px;
+      padding: 9px 12px;
       font-family: var(--font-ar);
-      font-size: 12px;
+      font-size: 11.5px;
       outline: none;
     }
     .category-chips-track {
@@ -158,13 +159,14 @@
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
       color: var(--text-muted);
-      padding: 6px 13px;
+      padding: 5px 12px;
       border-radius: 9999px;
       font-family: var(--font-ar);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       cursor: pointer;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
     .cat-chip.active {
       background: var(--brand-red);
@@ -173,32 +175,53 @@
       box-shadow: 0 4px 12px rgba(255, 42, 95, 0.25);
     }
 
-    /* Flavor Card المتداخل الانسيابي بدون صندوق مربع */
+    /* 🍨 بطاقة النكهة المتجاوبة كلياً مع جميع الشاشات */
     .flavor-manager-card {
       background: #ffffff;
       border: 1.5px solid #f1f0ee;
-      border-radius: 20px;
-      padding: 12px 14px;
+      border-radius: 18px;
+      padding: 12px;
       display: flex;
-      flex-direction: row;
-      gap: 14px;
+      flex-direction: column;
+      gap: 10px;
       box-shadow: var(--shadow-card);
       position: relative;
       margin-bottom: 10px;
-      align-items: center;
-      transition: transform 0.2s ease;
       overflow: hidden;
+      transition: all 0.2s ease;
     }
+    @media (min-width: 580px) {
+      .flavor-manager-card {
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+        padding: 12px 14px;
+      }
+    }
+
     .flavor-manager-card.is-soldout {
       background: #fafafa;
       border-color: #fee2e2;
     }
 
-    /* 🍨 مسرح الصورة الطافي بدون إطار أو خلفية مربعة */
+    .card-top-mobile-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+    @media (min-width: 580px) {
+      .card-top-mobile-row {
+        width: auto;
+        flex: 1;
+      }
+    }
+
+    /* المسرح البصري الطافي بدون أي صندوق مربع */
     .flavor-avatar-stage {
-      width: 82px;
-      min-width: 82px;
-      height: 90px;
+      width: clamp(70px, 9vw, 84px);
+      min-width: clamp(70px, 9vw, 84px);
+      height: clamp(76px, 10vw, 92px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -211,14 +234,14 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 10px 14px rgba(35, 15, 20, 0.16));
+      filter: drop-shadow(0 8px 14px rgba(35, 15, 20, 0.16));
     }
     .flavor-avatar-fruit {
       position: absolute;
       bottom: -3px;
       left: -3px;
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       object-fit: contain;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.18));
       transform: rotate(-10deg);
@@ -229,24 +252,24 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
 
-    .flavor-title-ar { font-size: 15px; font-weight: 900; color: var(--text-espresso); }
-    .flavor-title-en { font-family: var(--font-en); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .flavor-title-ar { font-size: clamp(13.5px, 1.4vw, 15px); font-weight: 900; color: var(--text-espresso); }
+    .flavor-title-en { font-family: var(--font-en); font-size: 10px; font-weight: 800; text-transform: uppercase; }
 
     .flavor-meta-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       flex-wrap: wrap;
-      margin: 2px 0;
+      margin: 3px 0;
     }
 
     .status-badge-mini {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
-      padding: 2.5px 8px;
+      padding: 2px 6px;
       border-radius: 6px;
       display: inline-flex;
       align-items: center;
@@ -255,62 +278,78 @@
     .badge-avail { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
     .badge-sold { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
     .badge-fresh { background: #fff0f3; color: var(--brand-red); border: 1px solid #fecdd3; }
-    .badge-price { font-family: var(--font-en), var(--font-ar); font-size: 11.5px; font-weight: 900; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+    .badge-price { font-family: var(--font-en), var(--font-ar); font-size: 11px; font-weight: 900; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
 
+    /* Actions Column متجاوب */
     .flavor-actions-col {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: 5px;
-      align-items: flex-end;
-      flex-shrink: 0;
+      width: 100%;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      border-top: 1px solid #f8fafc;
+      padding-top: 8px;
+    }
+    @media (min-width: 580px) {
+      .flavor-actions-col {
+        width: auto;
+        flex-direction: column;
+        border-top: none;
+        padding-top: 0;
+      }
     }
 
     .btn-action-edit {
       background: linear-gradient(135deg, var(--brand-red) 0%, #ff5e7e 100%);
       color: #ffffff;
       border: none;
-      border-radius: 12px;
-      padding: 8px 14px;
+      border-radius: 10px;
+      padding: 7px 12px;
       font-family: var(--font-ar);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      justify-content: center;
+      gap: 4px;
       box-shadow: var(--shadow-btn-glow);
       transition: transform 0.15s ease;
+      flex: 1;
       white-space: nowrap;
     }
+    @media (min-width: 580px) { .btn-action-edit { flex: initial; } }
     .btn-action-edit:active { transform: scale(0.94); }
 
     .btn-quick-toggle {
       border: 1px solid #e2e8f0;
       background: #f8fafc;
-      padding: 4px 8px;
+      padding: 6px 9px;
       border-radius: 8px;
       font-size: 10px;
       font-weight: 800;
       cursor: pointer;
       color: var(--text-muted);
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     /* Modal: Deep Granular Edit */
     .modal-backdrop {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100%; height: 100dvh;
       background: rgba(10, 8, 9, 0.68); backdrop-filter: blur(8px); z-index: 10000;
-      display: flex; align-items: center; justify-content: center; padding: 12px;
+      display: flex; align-items: center; justify-content: center; padding: clamp(8px, 1.5vh, 14px);
       opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .modal-backdrop.open { opacity: 1; pointer-events: auto; }
 
     .modal-sheet {
       background: #ffffff;
-      border-radius: 26px;
-      padding: clamp(14px, 2vh, 20px);
+      border-radius: clamp(18px, 3vw, 26px);
+      padding: clamp(12px, 2vh, 18px);
       width: 100%;
-      max-width: 840px;
+      max-width: 860px;
       max-height: 92vh;
       overflow-y: auto;
       text-align: right;
@@ -318,26 +357,26 @@
       border: 1.5px solid #fed7aa;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .editor-layout-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 12px;
     }
-    @media (min-width: 720px) {
-      .editor-layout-grid { grid-template-columns: 1.4fr 1fr; }
+    @media (min-width: 740px) {
+      .editor-layout-grid { grid-template-columns: 1.35fr 1fr; gap: 16px; }
     }
 
     .form-unit {
       display: flex;
       flex-direction: column;
       gap: 3px;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
     .form-unit label {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       color: var(--text-espresso);
       display: flex;
@@ -349,10 +388,10 @@
       width: 100%;
       background: #f8fafc;
       border: 1.5px solid #e2e8f0;
-      border-radius: 11px;
-      padding: 9px 12px;
+      border-radius: 10px;
+      padding: 8px 10px;
       font-family: var(--font-ar);
-      font-size: 12px;
+      font-size: 11.5px;
       outline: none;
       transition: border-color 0.2s ease;
     }
@@ -361,15 +400,14 @@
       background: #ffffff;
     }
 
-    /* منطقة رفع/استبدال الصورة داخل التعديل */
     .dropzone-inline {
       border: 1.5px dashed #cbd5e1;
-      border-radius: 10px;
-      padding: 6px 10px;
+      border-radius: 9px;
+      padding: 6px 8px;
       text-align: center;
       cursor: pointer;
       background: #f8fafc;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
       color: var(--text-muted);
       margin-top: 3px;
@@ -380,12 +418,12 @@
       background: #fff0f3;
     }
 
-    /* Live Card Simulator المتداخل 100% بدون أي صندوق مربع */
+    /* Live Card Simulator المتداخل */
     .simulator-container-box {
       background: #fffdfa;
       border: 1.5px dashed var(--brand-gold);
-      border-radius: 20px;
-      padding: 14px 12px;
+      border-radius: 18px;
+      padding: 12px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -393,23 +431,23 @@
       height: 100%;
     }
     .sim-header-label {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
       color: #92400e;
       background: #fef3c7;
-      padding: 3px 10px;
+      padding: 2px 10px;
       border-radius: 9999px;
     }
 
     .sim-flavor-card {
       width: 100%;
-      max-width: 320px;
+      max-width: 300px;
       background: #ffffff;
-      border-radius: 20px;
+      border-radius: 18px;
       border: 1.5px solid rgba(255, 255, 255, 0.95);
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       box-shadow: var(--shadow-card);
       position: relative;
       overflow: hidden;
@@ -420,23 +458,21 @@
       border-radius: 50%; filter: blur(38px); opacity: 0.17; pointer-events: none;
     }
 
-    /* 🍨 مسرح الصورة المتداخل في المحاكي */
     .sim-visual-box {
-      width: 88px; min-width: 88px; height: 98px;
+      width: 80px; min-width: 80px; height: 90px;
       background: transparent !important;
       border: none !important;
       position: relative; display: flex; align-items: center; justify-content: center; z-index: 2; flex-shrink: 0;
     }
     .sim-ice-img {
       max-width: 100%; max-height: 100%; object-fit: contain;
-      filter: drop-shadow(0 12px 16px rgba(35, 15, 20, 0.16));
+      filter: drop-shadow(0 10px 14px rgba(35, 15, 20, 0.16));
     }
     .sim-fruit-img {
-      position: absolute; bottom: -3px; left: -3px; width: 32px; height: 32px;
+      position: absolute; bottom: -2px; left: -2px; width: 28px; height: 28px;
       object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.18)); transform: rotate(-10deg);
     }
 
-    /* Tags Cluster */
     .tags-editor-cluster {
       display: flex;
       flex-wrap: wrap;
@@ -447,21 +483,21 @@
       background: #fff0f3;
       border: 1px solid #fecdd3;
       color: var(--brand-red);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 6px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
-    .tag-remove-x { cursor: pointer; opacity: 0.6; font-size: 11px; }
+    .tag-remove-x { cursor: pointer; opacity: 0.6; font-size: 10px; }
     .tag-remove-x:hover { opacity: 1; }
 
     #toast-box { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 99999; pointer-events: none; }
     .admin-toast {
       background: rgba(26, 17, 13, 0.96); color: #ffffff; border: 1.5px solid #fed7aa;
-      border-radius: 16px; padding: 8px 16px; font-size: 11.5px; font-weight: 800; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      border-radius: 16px; padding: 8px 16px; font-size: 11px; font-weight: 800; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
     }
   </style>
 </head>
@@ -508,7 +544,7 @@
         <span class="kpi-digits" style="color:var(--brand-red);" id="kpi-fresh-flavors">0</span>
       </div>
       <div class="kpi-card">
-        <span class="kpi-title">انتهت الكمية (نفد)</span>
+        <span class="kpi-title">انتهت الكمية</span>
         <span class="kpi-digits" style="color:#b91c1c;" id="kpi-soldout-flavors">0</span>
       </div>
     </div>
@@ -523,7 +559,7 @@
       </div>
     </div>
 
-    <!-- Feed Container (بطاقات متداخلة بدون مربعات) -->
+    <!-- Feed Container المتجاوب كلياً مع جميع الشاشات -->
     <div id="catalog-manager-feed">جاري تحميل كتالوج النكهات...</div>
   </div>
 
@@ -532,10 +568,10 @@
     <div class="modal-sheet" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1.5px solid #f1f0ee;">
         <div>
-          <strong style="font-size:15px; color:var(--text-espresso);">تعديل تفاصيل النكهة والصنف بالكامل</strong>
-          <span style="font-size:11px; color:var(--text-muted); display:block;">المعرّف: <b id="lbl-edit-id" style="font-family:var(--font-en); color:var(--brand-red);">FLV-000</b></span>
+          <strong style="font-size:14px; color:var(--text-espresso);">تعديل تفاصيل النكهة والصنف بالكامل</strong>
+          <span style="font-size:10.5px; color:var(--text-muted); display:block;">المعرّف: <b id="lbl-edit-id" style="font-family:var(--font-en); color:var(--brand-red);">FLV-000</b></span>
         </div>
-        <button style="border:none; background:#f1f5f9; width:30px; height:30px; border-radius:50%; font-weight:800; cursor:pointer;" onclick="closeEditModal()">✕</button>
+        <button style="border:none; background:#f1f5f9; width:28px; height:28px; border-radius:50%; font-weight:800; cursor:pointer;" onclick="closeEditModal()">✕</button>
       </div>
 
       <div class="editor-layout-grid">
@@ -543,7 +579,7 @@
         <div>
           <input type="hidden" id="edit_flavor_id">
 
-          <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:8px;">
+          <div style="display:grid; grid-template-columns:1fr; gap:6px;">
             <div class="form-unit">
               <label>الاسم بالعربي *</label>
               <input type="text" id="edit_name_ar" oninput="updateLiveSimulator()" required>
@@ -554,7 +590,7 @@
             </div>
           </div>
 
-          <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:8px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
             <div class="form-unit">
               <label>التصنيف *</label>
               <select id="edit_category" onchange="updateLiveSimulator()">
@@ -576,7 +612,7 @@
           </div>
 
           <!-- رفع واستبدال الصور مع دعم الشفافية ورابط Drive -->
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <div style="display:grid; grid-template-columns:1fr; gap:6px;">
             <div class="form-unit">
               <label>
                 <span>صورة العرض الرئيسية</span>
@@ -590,7 +626,7 @@
             </div>
 
             <div class="form-unit">
-              <label>صورة الفاكهة المصاحبة</label>
+              <label>صورة الفاكهة المصاحبة (شفافة PNG)</label>
               <input type="text" id="edit_img_fruit" dir="ltr" placeholder="https://..." oninput="resolveDriveInput(this); updateLiveSimulator();">
               <div class="dropzone-inline" onclick="document.getElementById('file_replace_fruit').click()">
                 🍓 استبدال برفع فاكهة شفافة PNG
@@ -599,20 +635,20 @@
             </div>
           </div>
 
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
             <div class="form-unit">
-              <label>لون الهالة الضوئية (Primary Color)</label>
-              <div style="display:flex; gap:6px; align-items:center;">
-                <input type="color" id="edit_color" style="width:48px; height:38px; padding:0; cursor:pointer;" onchange="document.getElementById('edit_color_hex').value=this.value; updateLiveSimulator();">
-                <input type="text" id="edit_color_hex" dir="ltr" style="font-family:var(--font-en); font-weight:800;" oninput="document.getElementById('edit_color').value=this.value; updateLiveSimulator();">
+              <label>لون الهالة الضوئية</label>
+              <div style="display:flex; gap:4px; align-items:center;">
+                <input type="color" id="edit_color" style="width:42px; height:34px; padding:0; cursor:pointer;" onchange="document.getElementById('edit_color_hex').value=this.value; updateLiveSimulator();">
+                <input type="text" id="edit_color_hex" dir="ltr" style="font-family:var(--font-en); font-weight:800; font-size:11px;" oninput="document.getElementById('edit_color').value=this.value; updateLiveSimulator();">
               </div>
             </div>
             <div class="form-unit">
               <label>حالة المخزون</label>
               <select id="edit_stock_state" onchange="updateLiveSimulator()">
-                <option value="available">متوفر للطلب (Available)</option>
-                <option value="restocking">قيد التجهيز بالمطبخ (Restocking)</option>
-                <option value="soldout">انتهت الكمية مؤقتاً (Sold Out)</option>
+                <option value="available">متوفر للطلب</option>
+                <option value="restocking">قيد التجهيز</option>
+                <option value="soldout">انتهت الكمية</option>
               </select>
             </div>
           </div>
@@ -623,27 +659,26 @@
             <div class="tags-editor-cluster" id="edit_tags_container"></div>
           </div>
 
-          <div style="display:flex; gap:16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:10px 14px; margin-top:6px;">
-            <label style="font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px;">
+          <div style="display:flex; gap:12px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:8px 12px; margin-top:4px; flex-wrap:wrap;">
+            <label style="font-size:11px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:5px;">
               <input type="checkbox" id="edit_is_active" onchange="updateLiveSimulator()">
               <span>متوفر في المنيو (Active)</span>
             </label>
-            <label style="font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:6px;">
+            <label style="font-size:11px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:5px;">
               <input type="checkbox" id="edit_is_fresh" onchange="updateLiveSimulator()">
               <span>طازج اليوم (Fresh Batch ✨)</span>
             </label>
           </div>
         </div>
 
-        <!-- محاكي المنيو الحي المتداخل 100% بدون أي صندوق مربع -->
+        <!-- محاكي المنيو الحي المتداخل 100% -->
         <div class="simulator-container-box">
           <span class="sim-header-label">محاكي كرت المنيو المتداخل (Seamless Preview)</span>
-          <div style="font-size:10px; color:var(--text-muted); text-align:center;">يطابق تماماً ما يظهر في المنيو الرقمي بدون أي إطار:</div>
+          <div style="font-size:9.5px; color:var(--text-muted); text-align:center;">يطابق تماماً ما يظهر في المنيو الرقمي بدون أي إطار:</div>
 
           <div class="sim-flavor-card" id="sim-card-root">
             <div class="sim-halo-glow" id="sim-card-halo"></div>
             
-            <!-- مسرح متداخل بدون إطار -->
             <div class="sim-visual-box">
               <img class="sim-ice-img" id="sim-ice-img" src="" alt="">
               <img class="sim-fruit-img" id="sim-fruit-img" src="" alt="" style="display:none;">
@@ -653,32 +688,28 @@
               <div>
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <div>
-                    <div style="font-size:14px; font-weight:900; color:var(--text-espresso);" id="sim-txt-name-ar">...</div>
-                    <div style="font-family:var(--font-en); font-size:10px; font-weight:800; text-transform:uppercase;" id="sim-txt-name-en">...</div>
+                    <div style="font-size:13px; font-weight:900; color:var(--text-espresso);" id="sim-txt-name-ar">...</div>
+                    <div style="font-family:var(--font-en); font-size:9.5px; font-weight:800; text-transform:uppercase;" id="sim-txt-name-en">...</div>
                   </div>
-                  <span id="sim-fresh-badge" style="background:var(--brand-red); color:#fff; font-size:8px; font-weight:800; padding:2px 6px; border-radius:9999px; display:none;">طازج ✨</span>
+                  <span id="sim-fresh-badge" style="background:var(--brand-red); color:#fff; font-size:7.5px; font-weight:800; padding:2px 5px; border-radius:9999px; display:none;">طازج ✨</span>
                 </div>
-                <div style="font-size:10px; color:var(--text-muted); line-height:1.35; margin:3px 0;" id="sim-txt-desc">...</div>
+                <div style="font-size:9.5px; color:var(--text-muted); line-height:1.3; margin:3px 0;" id="sim-txt-desc">...</div>
               </div>
 
-              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f6ece5; padding-top:4px;">
-                <span style="font-size:9.5px; color:var(--text-muted); font-weight:700;" id="sim-txt-category">...</span>
-                <span style="font-family:var(--font-en), var(--font-ar); font-size:11.5px; font-weight:900; color:var(--brand-red); background:#fff0f3; padding:1.5px 7px; border-radius:6px;" id="sim-txt-price">0.00 د.أ</span>
+              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f6ece5; padding-top:3px;">
+                <span style="font-size:9px; color:var(--text-muted); font-weight:700;" id="sim-txt-category">...</span>
+                <span style="font-family:var(--font-en), var(--font-ar); font-size:11px; font-weight:900; color:var(--brand-red); background:#fff0f3; padding:1.5px 6px; border-radius:6px;" id="sim-txt-price">0.00 د.أ</span>
               </div>
             </div>
-          </div>
-
-          <div style="font-size:9.5px; color:#b45309; text-align:center; line-height:1.4;">
-            تطفو البوظة مباشرة على سطح البطاقة وتتألق خلفها الهالة الضوئية دون أي حواف مربعة.
           </div>
         </div>
       </div>
 
       <!-- Footer Buttons -->
-      <div style="display:flex; gap:8px; border-top:1.5px solid #f1f0ee; padding-top:10px; margin-top:6px;">
-        <button style="flex:1; border:none; background:#f1f5f9; padding:11px; border-radius:12px; font-weight:800; cursor:pointer;" onclick="closeEditModal()">إلغاء</button>
-        <button class="btn-action-edit" id="btn-save-edit" style="flex:2; padding:11px; justify-content:center; font-size:12.5px;" onclick="saveGranularFlavorChanges()">
-          <span>حفظ التعديلات واعتمادها في السحابة ⚡</span>
+      <div style="display:flex; gap:6px; border-top:1.5px solid #f1f0ee; padding-top:10px; margin-top:4px; flex-wrap:wrap;">
+        <button style="flex:1; border:none; background:#f1f5f9; padding:9px; border-radius:10px; font-weight:800; font-size:11px; cursor:pointer;" onclick="closeEditModal()">إلغاء</button>
+        <button class="btn-action-edit" id="btn-save-edit" style="flex:2; padding:9px; justify-content:center; font-size:11.5px;" onclick="saveGranularFlavorChanges()">
+          <span>حفظ التعديلات واعتمادها ⚡</span>
         </button>
       </div>
     </div>
@@ -693,7 +724,6 @@
     let activeTagsSet = new Set();
     let currentSearchQuery = "";
 
-    // متغيرات لحفظ الصور الجديدة المرفوعة من الجهاز إن تم اختيارها
     let pendingUploadShow = null;
     let pendingUploadFruit = null;
 
@@ -721,11 +751,24 @@
       if (val.includes("drive.google.com") && val.includes("/d/")) {
         const directUrl = getDriveImageUrl(val);
         inputEl.value = directUrl;
-        showToast("✓ تم تحويل رابط Google Drive إلى رابط صورة فائق الدقة");
+        showToast("✓ تم تحويل رابط Google Drive إلى رابط فائق الدقة");
       }
     }
 
-    /* معالجة استبدال الصورة برفع ملف مباشر مع حفظ الشفافية التامة لـ PNG بدون سواد */
+    /* 🛡️ خوارزمية مكافحة التكرار الملكية (Deduplication Engine) */
+    function deduplicateCatalog(items) {
+      if (!Array.isArray(items)) return [];
+      const dedupedMap = new Map();
+      items.forEach((item, idx) => {
+        const nameKey = (item.Flavor_Name_AR || item['اسم النكهة (عربي)'] || item.name_ar || '').trim().toLowerCase();
+        const idKey = (item.ID || item.id || '').trim();
+        const primaryKey = nameKey || idKey || `temp_${idx}`;
+        dedupedMap.set(primaryKey, item);
+      });
+      return Array.from(dedupedMap.values());
+    }
+
+    /* معالجة استبدال الصورة برفع ملف مباشر مع حفظ الشفافية لـ PNG دون سواد */
     function handleReplaceImage(input, target) {
       const file = input.files[0];
       if (!file) return;
@@ -762,18 +805,18 @@
           }
 
           updateLiveSimulator();
-          showToast(`✓ تم تجهيز صورة (${file.name}) مع الحفاظ على شفافية PNG النقية`);
+          showToast(`✓ تم تجهيز صورة (${file.name}) مع حفظ الشفافية الكاملة`);
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    /* 1. جلب بيانات الكتالوج الحي */
+    /* 1. جلب بيانات الكتالوج مع الفلترة التلقائية لمنع التكرار */
     function fetchLiveCatalog(forceRefresh = false) {
       const cached = localStorage.getItem('luffy_live_catalog');
       if (cached && !forceRefresh) {
-        liveCatalog = JSON.parse(cached);
+        liveCatalog = deduplicateCatalog(JSON.parse(cached));
         updateCatalogKpis();
         buildCategoryChips();
         renderCatalogFeed();
@@ -785,14 +828,15 @@
       const cb = "onAdminCatalogLoaded_" + Date.now();
       window[cb] = function(res) {
         if (res && res.catalog) {
-          liveCatalog = res.catalog;
+          // تطبيق فلتر منع التكرار فوراً
+          liveCatalog = deduplicateCatalog(res.catalog);
           localStorage.setItem('luffy_live_catalog', JSON.stringify(liveCatalog));
           updateCatalogKpis();
           buildCategoryChips();
           renderCatalogFeed();
           if (forceRefresh) {
             btn.classList.remove('refreshing');
-            showToast("تم تحديث الكتالوج بنجاح من الشيت ⚡");
+            showToast("تم تحديث الكتالوج وفلترة أي تكرار بنجاح ⚡");
           }
         }
       };
@@ -839,7 +883,7 @@
       renderCatalogFeed();
     }
 
-    /* 2. رسم بطاقات النكهات المتداخلة بدون مربعات */
+    /* 2. رسم بطاقات النكهات المتجاوبة مع كل الشاشات */
     function renderCatalogFeed() {
       const feed = document.getElementById('catalog-manager-feed');
       feed.innerHTML = "";
@@ -856,7 +900,7 @@
       });
 
       if (filtered.length === 0) {
-        feed.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-muted); font-size:12px;">لا توجد أصناف مطابقة للبحث حالياً.</div>`;
+        feed.innerHTML = `<div style="text-align:center; padding:35px; color:var(--text-muted); font-size:11.5px;">لا توجد أصناف مطابقة للبحث.</div>`;
         return;
       }
 
@@ -876,26 +920,27 @@
         card.className = `flavor-manager-card ${stock === 'soldout' ? 'is-soldout' : ''}`;
 
         card.innerHTML = `
-          <!-- مسرح متداخل نقي بدون إطار صندوقي -->
-          <div class="flavor-avatar-stage">
-            <img class="flavor-avatar-img" src="${showUrl || 'https://images.unsplash.com/photo-1560008511-11c63416e52d?w=160'}" alt="">
-            ${fruitUrl ? `<img class="flavor-avatar-fruit" src="${fruitUrl}">` : ''}
-          </div>
-
-          <div class="flavor-details-col">
-            <div class="flavor-title-ar">${nameAR}</div>
-            <div class="flavor-title-en" style="color:${color};">${nameEN}</div>
-
-            <div class="flavor-meta-row">
-              <span class="status-badge-mini badge-price">${price} د.أ</span>
-              <span class="status-badge-mini" style="background:#f1f5f9; color:#475569;">${flv.Category || 'عام'}</span>
-              ${isActive ? `<span class="status-badge-mini badge-avail">متوفر بالمنيو ✓</span>` : `<span class="status-badge-mini badge-sold">معطل مؤقتاً</span>`}
-              ${isFresh ? `<span class="status-badge-mini badge-fresh">طازج ✨</span>` : ''}
-              ${stock === 'soldout' ? `<span class="status-badge-mini badge-sold">انتهت الكمية</span>` : ''}
+          <div class="card-top-mobile-row">
+            <div class="flavor-avatar-stage">
+              <img class="flavor-avatar-img" src="${showUrl || 'https://images.unsplash.com/photo-1560008511-11c63416e52d?w=160'}" alt="">
+              ${fruitUrl ? `<img class="flavor-avatar-fruit" src="${fruitUrl}">` : ''}
             </div>
 
-            <div style="font-size:10.5px; color:var(--text-muted); line-height:1.35; margin-top:2px;">
-              ${flv.Description_AR || 'بدون وصف مضاف'}
+            <div class="flavor-details-col">
+              <div class="flavor-title-ar">${nameAR}</div>
+              <div class="flavor-title-en" style="color:${color};">${nameEN}</div>
+
+              <div class="flavor-meta-row">
+                <span class="status-badge-mini badge-price">${price} د.أ</span>
+                <span class="status-badge-mini" style="background:#f1f5f9; color:#475569;">${flv.Category || 'عام'}</span>
+                ${isActive ? `<span class="status-badge-mini badge-avail">متوفر بالمنيو ✓</span>` : `<span class="status-badge-mini badge-sold">معطل مؤقتاً</span>`}
+                ${isFresh ? `<span class="status-badge-mini badge-fresh">طازج ✨</span>` : ''}
+                ${stock === 'soldout' ? `<span class="status-badge-mini badge-sold">انتهت الكمية</span>` : ''}
+              </div>
+
+              <div style="font-size:10px; color:var(--text-muted); line-height:1.35;">
+                ${flv.Description_AR || 'بدون وصف مضاف'}
+              </div>
             </div>
           </div>
 
@@ -904,7 +949,7 @@
               <span>تعديل تفصيلي كامل ✏️</span>
             </button>
             
-            <div style="display:flex; gap:4px; margin-top:4px;">
+            <div style="display:flex; gap:4px; width:100%; justify-content:flex-end;">
               <button class="btn-quick-toggle" onclick="quickToggleStatus('${id}', 'ACTIVE')">${isActive ? 'تجميد ✕' : 'تفعيل ✓'}</button>
               <button class="btn-quick-toggle" onclick="quickToggleStatus('${id}', 'FRESH')">${isFresh ? 'إلغاء طازج' : 'طازج ✨'}</button>
             </div>
@@ -915,7 +960,7 @@
       });
     }
 
-    /* 3. نافذة التعديل التفصيلي الشامل والمحاكي الحي */
+    /* 3. نافذة التعديل التفصيلي والمحاكي */
     function openEditModal(flv) {
       pendingUploadShow = null;
       pendingUploadFruit = null;
@@ -939,7 +984,6 @@
       document.getElementById('edit_is_active').checked = String(flv.Is_Active).toUpperCase() === "TRUE";
       document.getElementById('edit_is_fresh').checked = String(flv.Is_Fresh_Batch).toUpperCase() === "TRUE";
 
-      // الوسوم
       activeTagsSet = new Set();
       const rawTags = (flv.Tags || '').toString().split(/[,،#]/).map(t => t.trim()).filter(Boolean);
       rawTags.forEach(t => activeTagsSet.add(t));
@@ -953,7 +997,6 @@
       document.getElementById('flavor-edit-modal').classList.remove('open');
     }
 
-    /* تحديث المحاكي الحي المتداخل */
     function updateLiveSimulator() {
       const nameAR = document.getElementById('edit_name_ar').value || 'اسم النكهة';
       const nameEN = document.getElementById('edit_name_en').value || 'FLAVOR NAME';
@@ -983,7 +1026,6 @@
       document.getElementById('sim-fresh-badge').style.display = isFresh ? 'inline-block' : 'none';
     }
 
-    /* إدارة الوسوم في الاستوديو */
     function handleTagInputKey(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -1012,17 +1054,16 @@
       `).join('');
     }
 
-    /* 4. حفظ التعديل الشامل بما في ذلك رفع الصور الشفافة لـ Drive إن استُبدلت */
+    /* 4. حفظ التعديل الشامل مع حماية منع التكرار السحابي */
     async function saveGranularFlavorChanges() {
       const id = document.getElementById('edit_flavor_id').value;
       const nameAR = document.getElementById('edit_name_ar').value.trim();
-      if (!nameAR) { alert("⚠️ يرجى إدخال اسم النكهة بالعربي"); return; }
+      if (!nameAR) { alert("يرجى إدخال اسم النكهة بالعربي"); return; }
 
       const btn = document.getElementById('btn-save-edit');
       btn.disabled = true;
-      btn.innerHTML = `<span>جاري معالجة وحفظ التعديلات في السحابة... ⏳</span>`;
+      btn.innerHTML = `<span>جاري حفظ التعديلات... ⏳</span>`;
 
-      // إذا تم رفع صور جديدة محلياً، نرسلها عبر POST لمحرّك الرفع لحفظها كـ PNG شفافة في Drive أولاً
       let finalShowUrl = document.getElementById('edit_img_show').value.trim();
       let finalFruitUrl = document.getElementById('edit_img_fruit').value.trim();
 
@@ -1030,6 +1071,7 @@
         try {
           const uploadPayload = {
             auth_pass: MASTER_PASSPHRASE,
+            id: id,
             name_ar: nameAR,
             name_en: document.getElementById('edit_name_en').value.trim(),
             img_show_base64: pendingUploadShow || "",
@@ -1044,7 +1086,7 @@
           if (uploadJson && uploadJson.image_show_url) finalShowUrl = uploadJson.image_show_url;
           if (uploadJson && uploadJson.image_fruit_url) finalFruitUrl = uploadJson.image_fruit_url;
         } catch(e) {
-          console.error("Upload error, keeping existing URLs", e);
+          console.error("Upload error", e);
         }
       }
 
@@ -1073,31 +1115,33 @@
         Stock_State: document.getElementById('edit_stock_state').value
       };
 
-      // تحديث محلي فوري
-      const targetIdx = liveCatalog.findIndex(f => f.ID === id);
+      // تحديث محلي نظيف مع دمج أي تكرار
+      const targetIdx = liveCatalog.findIndex(f => f.ID === id || (f.Flavor_Name_AR && f.Flavor_Name_AR.trim().toLowerCase() === nameAR.toLowerCase()));
       if (targetIdx > -1) {
         liveCatalog[targetIdx] = updatedPayload;
-        localStorage.setItem('luffy_live_catalog', JSON.stringify(liveCatalog));
-        updateCatalogKpis();
-        renderCatalogFeed();
+      } else {
+        liveCatalog.push(updatedPayload);
       }
+
+      liveCatalog = deduplicateCatalog(liveCatalog);
+      localStorage.setItem('luffy_live_catalog', JSON.stringify(liveCatalog));
+      updateCatalogKpis();
+      renderCatalogFeed();
 
       closeEditModal();
       btn.disabled = false;
-      btn.innerHTML = `<span>حفظ التعديلات واعتمادها في السحابة ⚡</span>`;
-      showToast(`✓ تم حفظ واعتماد التعديلات الشاملة لصنف [${nameAR}] بنجاح!`);
+      btn.innerHTML = `<span>حفظ التعديلات واعتمادها ⚡</span>`;
+      showToast(`✓ تم تحديث صنف [${nameAR}] بدون أي تكرار`);
 
-      // إرسال للخادم السحابي
       const cb = "onFlavorUpdated_" + Date.now();
       window[cb] = function() {
-        showToast(`✓ تم تحديث وحفظ [${nameAR}] في شيت Live_Flavors بنجاح!`);
+        showToast(`✓ تم حفظ التعديل في شيت Live_Flavors بنجاح`);
       };
       const s = document.createElement("script");
       s.src = `${APPS_SCRIPT_EXEC_URL}?auth_pass=${encodeURIComponent(MASTER_PASSPHRASE)}&action=update_flavor_granular&data=${encodeURIComponent(JSON.stringify(updatedPayload))}&callback=${cb}&_ts=${Date.now()}`;
       document.body.appendChild(s);
     }
 
-    /* أزرار التبديل السريع من البطاقة */
     function quickToggleStatus(id, type) {
       const flv = liveCatalog.find(f => f.ID === id);
       if (!flv) return;
@@ -1113,10 +1157,11 @@
         flv['طازج الآن؟ (Batch)'] = flv.Is_Fresh_Batch;
       }
 
+      liveCatalog = deduplicateCatalog(liveCatalog);
       localStorage.setItem('luffy_live_catalog', JSON.stringify(liveCatalog));
       updateCatalogKpis();
       renderCatalogFeed();
-      showToast(`تم تغيير حالة الصنف [${flv.Flavor_Name_AR}] بنجاح ✓`);
+      showToast(`تم تعديل حالة [${flv.Flavor_Name_AR}] ✓`);
 
       const s = document.createElement("script");
       s.src = `${APPS_SCRIPT_EXEC_URL}?auth_pass=${encodeURIComponent(MASTER_PASSPHRASE)}&action=update_flavor_granular&data=${encodeURIComponent(JSON.stringify(flv))}&_ts=${Date.now()}`;
